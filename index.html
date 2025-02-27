@@ -170,7 +170,13 @@
             .then(value => {
                 const decodedValue = new TextDecoder().decode(value);
                 console.log("Sensor Value: ", decodedValue);
+                myArray = decodedValue.split(",");
+                angle = myArray[0];
+                speed = myArray[1]; 
                 retrievedValue.innerHTML = decodedValue;
+                windAngle.innerHTML = angle;
+                windSpeed.innerHTML = speed;
+
                 timestampContainer.innerHTML = getDateTime(); // Update the timestamp
             })
             .catch(error => {
