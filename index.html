@@ -31,11 +31,20 @@
         </div>
         <div class="card-grid">
             <div class="card">
-                <h2>Wind Angle</h2>
+                <h2>Wind data</h2>
                 <p class="reading"><span id="valueContainer"></span></p>
                 <p class="gray-label">Last reading: <span id="timestamp"></span></p>
             </div>
-
+            <div class="card">
+                <h2>Wind Angle</h2>
+                <p class="reading"><span id="windAngle"></span></p>
+                <p class="gray-label">Last reading: <span id="timestamp"></span></p>
+            </div>    
+            <div class="card">
+                <h2>Wind Speed</h2>
+                <p class="reading"><span id="windSpeed"></span></p>
+                <p class="gray-label">Last reading: <span id="timestamp"></span></p>
+            </div>
             <div class="card">
                 <h2>Pilot Control</h2>
                 <button id="minus10Button" class="minus10Button">-10</button>
@@ -63,6 +72,8 @@
     const minus10Button = document.getElementById('minus10Button');
     const plus10Button = document.getElementById('plus10Button');
     const retrievedValue = document.getElementById('valueContainer');
+    const windSpeed = document.getElementById('windSpeed');
+    const windAngle = document.getElementById('windAngle');
     const latestValueSentPilot = document.getElementById('valueSentPilot');
     const latestValueSent = document.getElementById('valueSent');
 
