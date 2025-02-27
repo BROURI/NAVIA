@@ -40,7 +40,7 @@
                 <h2>Pilot Control</h2>
                 <button id="minus10Button" class="minus10Button">-10</button>
                 <button id="plus10Button" class="plus10Button">+10</button>
-                <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+                <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
             </div>
             <div class="card">
                 <h2>Control GPIO 2</h2>
@@ -63,7 +63,9 @@
     const minus10Button = document.getElementById('minus10Button');
     const plus10Button = document.getElementById('plus10Button');
     const retrievedValue = document.getElementById('valueContainer');
+    const latestValueSentPilot = document.getElementById('valueSentPilot');
     const latestValueSent = document.getElementById('valueSent');
+
     const bleStateContainer = document.getElementById('bleState');
     const timestampContainer = document.getElementById('timestamp');
 
@@ -173,6 +175,7 @@
             })
             .then(() => {
                 latestValueSent.innerHTML = value;
+                latestValueSentPilot.innerHTML = value;
                 console.log("Value written to LEDcharacteristic:", value);
             })
             .catch(error => {
