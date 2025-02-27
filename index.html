@@ -31,11 +31,6 @@
         </div>
         <div class="card-grid">
             <div class="card">
-                <h2>Wind data</h2>
-                <p class="reading"><span id="valueContainer"></span></p>
-                <p class="gray-label">Last reading: <span id="timestamp"></span></p>
-            </div>
-            <div class="card">
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle"></span></p>
                 <p class="gray-label">Last reading: <span id="timestamp"></span></p>
@@ -173,7 +168,6 @@
                 myArray = decodedValue.split(",");
                 angle = myArray[0];
                 speed = myArray[1]; 
-                retrievedValue.innerHTML = decodedValue;
                 windAngle.innerHTML = angle;
                 windSpeed.innerHTML = speed;
 
