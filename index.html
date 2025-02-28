@@ -256,6 +256,14 @@
     function isConnected() {
         return bleServer && bleServer.connected;
     }
+
+    // empecher l'actualisation 
+    document.addEventListener('touchmove', function(event) {
+    // Vérifiez si l'utilisateur fait défiler vers le haut
+    if (window.scrollY === 0) {
+        event.preventDefault(); // Empêche l'actualisation
+    }
+}, { passive: false });
 </script>
 
 </html>
