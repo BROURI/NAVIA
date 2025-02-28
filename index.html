@@ -151,6 +151,7 @@
         console.log('Device Disconnected:', event.target.device.name);
         bleStateContainer.innerHTML = "Device disconnected";
         bleStateContainer.style.color = "#d13a30";
+        autoReconnect = true;
         connectToDevice();
     }
 
@@ -219,6 +220,7 @@
             console.error("Bluetooth is not connected.");
             window.alert("Bluetooth is not connected.");
         }
+        autoReconnect = false;
     }
 
     function getDateTime() {
