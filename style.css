@@ -48,10 +48,14 @@ button {
 
 .minus10Button{
     background-color: #d13a30;
+    font-size: 4.0rem;
+
 }
 
 .plus10Button{
     background-color: #24af37;
+    font-size: 4.0rem;
+
 }
 .connectButton{
     background-color: #24af37;
