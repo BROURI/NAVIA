@@ -163,9 +163,10 @@
                 myArray = decodedValue.split(",");
                 angle = myArray[0];
                 speed = myArray[1]; 
+                speed = parseFloat(speed);
+                speed = parseFloat(speed.toFixed(1))
                 windAngle.innerHTML = angle;
                 windSpeed.innerHTML = speed;
-
                 angleTimestampContainer.innerHTML = getDateTime();
                 speedTimestampContainer.innerHTML = getDateTime();
             })
