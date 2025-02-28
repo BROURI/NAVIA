@@ -61,11 +61,11 @@ button {
 
 }
 .connectButton{
-    background-color: #24af37;
+    background-color: #4CAF50;
 }
 
 .disconnectButton{
-    background-color: #d13a30;
+    background-color: #F44336;
 }
 
 .gray-label {
