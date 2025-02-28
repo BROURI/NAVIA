@@ -257,7 +257,7 @@
         return bleServer && bleServer.connected;
     }
 
-    ///*******miiiw2
+    ///*******miiiw3
 let isAtTop = true;
 
 // Vérifier si on est en haut de la page
@@ -267,21 +267,19 @@ window.addEventListener('scroll', function() {
 
 // Empêcher le rafraîchissement lors d'un glissement vers le bas depuis le haut de la page
 document.addEventListener('touchmove', function(event) {
-    // Vérifiez si l'utilisateur est en haut de la page et essaie de glisser vers le bas
     if (isAtTop && event.touches[0].clientY > 0) {
         // Empêche le rafraîchissement de la page
         event.preventDefault(); 
     }
 }, { passive: false });
 
-// Assurez-vous que le défilement est possible en ajoutant un gestionnaire pour les gestes vers le haut
+// Optionnel : ajouter un gestionnaire pour le défilement vers le bas
 document.addEventListener('touchstart', function(event) {
-    // Vérifiez si nous sommes en haut et que l'utilisateur essaie de faire un geste vers le bas
+    // Si l'utilisateur touche l'écran en haut de la page, permettez le défilement
     if (isAtTop && event.touches[0].clientY > 0) {
-        // On permet le défilement
-        event.preventDefault(); 
+        // Laissez faire le défilement normal
     }
-}, { passive: false });
+}, { passive: true });
 //**********
 </script>
 
