@@ -51,7 +51,7 @@
     </div>
 </body>
 <script>
-    // DOM Elements
+    var autoReconnect = false;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
@@ -84,6 +84,7 @@
     connectButton.addEventListener('click', (event) => {
         if (isWebBluetoothEnabled()) {
             connectToDevice();
+            autoReconnect = true;
         }
     });
 
