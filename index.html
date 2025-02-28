@@ -117,7 +117,7 @@
         .then(device => {
             console.log('Device Selected:', device.name);
             bleStateContainer.innerHTML = 'Connected to device ' + device.name;
-            //bleStateContainer.style.color = "#24af37";
+            bleStateContainer.style.color = "#24af37";
             device.addEventListener('gattservicedisconnected', onDisconnected);
             return device.gatt.connect();
         })
@@ -149,7 +149,7 @@
     function onDisconnected(event) {
         console.log('Device Disconnected:', event.target.device.name);
         bleStateContainer.innerHTML = "Device disconnected";
-        //bleStateContainer.style.color = "#d13a30";
+        bleStateContainer.style.color = "#d13a30";
         autoReconnect = true;
         connectToDevice();
     }
