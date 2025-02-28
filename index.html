@@ -235,6 +235,18 @@
         var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
         return datetime;
     }
+
+    setInterval(() => {
+    if (autoReconnect && !isConnected()) {
+        console.log("Attempting to reconnect to BLE device...");
+        connectToDevice();
+    }
+    }, 5000); // Check every 5 seconds
+    
+    // Function to check if the BLE server is connected
+    function isConnected() {
+        return bleServer && bleServer.connected;
+    }
 </script>
 
 </html>
