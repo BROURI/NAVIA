@@ -1,11 +1,3 @@
-<!--
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-web-bluetooth/
-
-  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files.
-  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
---> 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,12 +25,12 @@
             <div class="card">
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle"></span></p>
-                <p class="gray-label">Last reading: <span id="timestamp"></span></p>
+                <p class="gray-label">Last reading: <span id="angleTimestamp"></span></p>
             </div>    
             <div class="card">
                 <h2>Wind Speed</h2>
                 <p class="reading"><span id="windSpeed"></span></p>
-                <p class="gray-label">Last reading: <span id="timestamp"></span></p>
+                <p class="gray-label">Last reading: <span id="speedTimestamp"></span></p>
             </div>
             <div class="card">
                 <h2>Pilot Control</h2>
@@ -73,7 +65,9 @@
     const latestValueSent = document.getElementById('valueSent');
 
     const bleStateContainer = document.getElementById('bleState');
-    const timestampContainer = document.getElementById('timestamp');
+    const angleTimestampContainer = document.getElementById('angleTimestamp');
+    const speedTimestampContainer = document.getElementById('speedTimestamp');
+
 
     // Define BLE Device Specs
     var deviceName = 'ESP32';
@@ -171,7 +165,8 @@
                 windAngle.innerHTML = angle;
                 windSpeed.innerHTML = speed;
 
-                timestampContainer.innerHTML = getDateTime(); // Update the timestamp
+                angleTimestampContainer.innerHTML = getDateTime();
+                speedTimestampContainer.innerHTML = getDateTime();
             })
             .catch(error => {
                 console.error("Error reading sensor value: ", error);
