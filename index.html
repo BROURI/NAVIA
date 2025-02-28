@@ -257,7 +257,7 @@
         return bleServer && bleServer.connected;
     }
 
-    ///*******miiiw
+    ///*******miiiw2
 let isAtTop = true;
 
 // Vérifier si on est en haut de la page
@@ -269,7 +269,17 @@ window.addEventListener('scroll', function() {
 document.addEventListener('touchmove', function(event) {
     // Vérifiez si l'utilisateur est en haut de la page et essaie de glisser vers le bas
     if (isAtTop && event.touches[0].clientY > 0) {
-        event.preventDefault(); // Empêche le rafraîchissement
+        // Empêche le rafraîchissement de la page
+        event.preventDefault(); 
+    }
+}, { passive: false });
+
+// Assurez-vous que le défilement est possible en ajoutant un gestionnaire pour les gestes vers le haut
+document.addEventListener('touchstart', function(event) {
+    // Vérifiez si nous sommes en haut et que l'utilisateur essaie de faire un geste vers le bas
+    if (isAtTop && event.touches[0].clientY > 0) {
+        // On permet le défilement
+        event.preventDefault(); 
     }
 }, { passive: false });
 //**********
