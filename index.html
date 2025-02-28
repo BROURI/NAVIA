@@ -171,9 +171,13 @@
             })
             .catch(error => {
                 console.error("Error reading sensor value: ", error);
+                windAngle.innerHTML = "-";
+                windSpeed.innerHTML = "-";
             });
         } else {
             console.error("Sensor characteristic not found.");
+                windAngle.innerHTML = "-";
+                windSpeed.innerHTML = "-";
         }
     }
 
