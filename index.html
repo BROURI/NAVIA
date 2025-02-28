@@ -194,8 +194,8 @@
                 console.error("Error writing to the LED characteristic: ", error);
             });
         } else {
-            console.error("Bluetooth is not connected. Cannot write to characteristic.");
-            window.alert("Bluetooth is not connected. Cannot write to characteristic. \n Connect to BLE first!");
+            console.error("Bluetooth is not connected. Please connect to BLE first!");
+            window.alert("Bluetooth is not connected. Please connect to BLE first!");
         }
     }
 
