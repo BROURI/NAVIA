@@ -258,12 +258,17 @@
     }
 
     // empecher l'actualisation 
+    let isAtTop = true;
+    // Vérifier si on est en haut de la page
+    window.addEventListener('scroll', function() {
+        isAtTop = window.scrollY === 0;
+    });
+    // Empêcher le rafraîchissement lors d'un glissement vers le bas
     document.addEventListener('touchmove', function(event) {
-    // Vérifiez si l'utilisateur fait défiler vers le haut
-    if (window.scrollY === 0) {
-        event.preventDefault(); // Empêche l'actualisation
-    }
-}, { passive: false });
+        if (isAtTop && event.touches[0].clientY > 0) {
+            event.preventDefault(); // Empêche le rafraîchissement
+        }
+    }, { passive: false });
 </script>
 
 </html>
