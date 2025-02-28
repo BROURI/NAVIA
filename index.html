@@ -241,8 +241,11 @@
         console.log("Attempting to reconnect to BLE device...");
         connectToDevice();
     }
+    if (!isConnected()){
+        bleStateContainer.innerHTML = "Device disconnected";
+    }
     }, 5000); // Check every 5 seconds
-    
+
     // Function to check if the BLE server is connected
     function isConnected() {
         return bleServer && bleServer.connected;
