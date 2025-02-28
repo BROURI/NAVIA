@@ -42,7 +42,7 @@
                 <h2>Control GPIO 2</h2>
                 <button id="onButton" class="onButton">ON</button>
                 <button id="offButton" class="offButton">OFF</button>
-                <p class="gray-label">Last value sent: <span id="valueSent"></span></p>
+                <p class="gray-label">Last value sent: <span id="valueSentGPIO"></span></p>
             </div>
         </div>
     </div>
@@ -61,8 +61,8 @@
     const retrievedValue = document.getElementById('valueContainer');
     const windSpeed = document.getElementById('windSpeed');
     const windAngle = document.getElementById('windAngle');
-    const latestValueSentPilot = document.getElementById('valueSentPilot');
-    const latestValueSent = document.getElementById('valueSent');
+    const valueSentPilot = document.getElementById('valueSentPilot');
+    const valueSentGPIO = document.getElementById('valueSentGPIO');
 
     const bleStateContainer = document.getElementById('bleState');
     const angleTimestampContainer = document.getElementById('angleTimestamp');
@@ -185,8 +185,8 @@
                 return characteristic.writeValue(data);
             })
             .then(() => {
-                latestValueSent.innerHTML = value;
-                latestValueSentPilot.innerHTML = value;
+                valueSentPilot.innerHTML = = value;
+                valueSentGPIO.innerHTML = = value;
                 console.log("Value written to LED characteristic:", value);
             })
             .catch(error => {
