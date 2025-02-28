@@ -237,6 +237,7 @@
 
     setInterval(() => {
     if (autoReconnect && !isConnected()) {
+        bleStateContainer.innerHTML = "Device Disconnected";
         console.log("Attempting to reconnect to BLE device...");
         connectToDevice();
     }
