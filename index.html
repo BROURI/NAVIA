@@ -316,6 +316,10 @@ button {
         bleStateContainer.innerHTML = "Disconnected";
         bleStateContainer.style.color = "#F44336";
     }
+    else if (isConnected()){
+        bleStateContainer.innerHTML = "Connected";
+        bleStateContainer.style.color = "#4CAF50";
+    }
    /*
     if (autoReconnect && !isConnected()) {
        console.log("Attempting to reconnect to BLE device...");
