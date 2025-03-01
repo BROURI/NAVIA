@@ -187,7 +187,7 @@ button {
         })
         .then(device => {
             console.log('Device Selected:', device.name);
-            bleStateContainer.innerHTML = 'Connected' + device.name;
+            bleStateContainer.innerHTML = 'Connected;
             bleStateContainer.style.color = "#4CAF50";
             device.addEventListener('gattservicedisconnected', onDisconnected);
             return device.gatt.connect();
@@ -316,11 +316,12 @@ button {
         bleStateContainer.innerHTML = "Disconnected";
         bleStateContainer.style.color = "#F44336";
     }
+   /*
     if (autoReconnect && !isConnected()) {
-        console.log("Attempting to reconnect to BLE device...");
-        connectToDevice();
+       console.log("Attempting to reconnect to BLE device...");
+       connectToDevice();
     }
-    
+    */
     }, 5000); // Check every 5 seconds
 
     // Function to check if the BLE server is connected
