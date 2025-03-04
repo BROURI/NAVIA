@@ -134,7 +134,7 @@ button {
     const plus10Button = document.getElementById('plus10Button');
     const windSpeedContainer = document.getElementById('windSpeed');
     const windAngle = document.getElementById('windAngle');
-    const maxWindSpeed = document.getElementById('maxWindSpeed');
+    const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
     const valueSentPilot = document.getElementById('valueSentPilot');
     const valueSentGPIO = document.getElementById('valueSentGPIO');
 
@@ -245,7 +245,7 @@ button {
                 maxWindSpeed = max(maxWindSpeed,speed);
                 windAngle.innerHTML = angle;
                 windSpeed.innerHTML = speed;
-                windSpeedContainer.innerHTML = maxWindSpeed;
+                maxWindSpeedContainer.innerHTML = maxWindSpeed;
               
                 angleTimestampContainer.innerHTML = getDateTime();
                 speedTimestampContainer.innerHTML = getDateTime();
