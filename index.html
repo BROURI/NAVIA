@@ -239,11 +239,16 @@ button {
                 console.log("Sensor Value: ", decodedValue);
                 myArray = decodedValue.split(",");
                 angle = myArray[0];
+                angle = parseInt(angle);
+                if(angle >180){
+                    angle = angle - 360;
+                }
                 speed = myArray[1]; 
                 speed = parseFloat(speed);
                 speed = parseFloat(speed.toFixed(1));
                 maxWindSpeed = Math.max(maxWindSpeed,speed);
                 windAngle.innerHTML = angle;
+                
                 windSpeed.innerHTML = speed;
                 maxWindSpeedContainer.innerHTML = maxWindSpeed;
               
