@@ -103,6 +103,11 @@ button {
                 <p class="reading"><span id="windSpeed">-</span></p>
                 <p class="gray-label">Last reading: <span id="speedTimestamp"></span></p>
             </div>
+            </div>    
+            <div class="card">
+                <h2>Max Wind Speed</h2>
+                <p class="reading"><span id="maxWindSpeed">-</span></p>
+            </div>
             <div class="card">
                 <h2>Pilot Control</h2>
                 <button id="minus10Button" class="minus10Button">-10</button>
@@ -131,12 +136,14 @@ button {
     const plus10Button = document.getElementById('plus10Button');
     const windSpeed = document.getElementById('windSpeed');
     const windAngle = document.getElementById('windAngle');
+    const maxWindSpeed = document.getElementById('maxWindSpeed');
     const valueSentPilot = document.getElementById('valueSentPilot');
     const valueSentGPIO = document.getElementById('valueSentGPIO');
 
     const bleStateContainer = document.getElementById('bleState');
     const angleTimestampContainer = document.getElementById('angleTimestamp');
     const speedTimestampContainer = document.getElementById('speedTimestamp');
+
 
 
     // Define BLE Device Specs
@@ -224,7 +231,7 @@ button {
         autoReconnect = true;
         connectToDevice();
     }
-
+    
     function readSensorData() {
         if (sensorCharacteristicFound) {
             sensorCharacteristicFound.readValue()
