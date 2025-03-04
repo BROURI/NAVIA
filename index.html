@@ -242,10 +242,10 @@ button {
                 speed = myArray[1]; 
                 speed = parseFloat(speed);
                 speed = parseFloat(speed.toFixed(1));
-               // maxWindSpeed = max(maxWindSpeed,speed);
+                maxWindSpeed = Math.max(maxWindSpeed,speed);
                 windAngle.innerHTML = angle;
                 windSpeed.innerHTML = speed;
-                //maxWindSpeedContainer.innerHTML = maxWindSpeed;
+                maxWindSpeedContainer.innerHTML = maxWindSpeed;
               
                 angleTimestampContainer.innerHTML = getDateTime();
                 speedTimestampContainer.innerHTML = getDateTime();
