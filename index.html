@@ -141,17 +141,23 @@ button {
 </body>
 <script>
 ///////////////////geolocation
+
+var latitude;
+var longitude;
 if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        alert("Latitude : " + latitude + "\nLongitude : " + longitude);
-    }, error => {
-        alert("Erreur : " + error.message);
-    });
+    setInterval(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            console.log("Latitude : " + latitude + ", Longitude : " + longitude);
+        }, error => {
+            console.error("Erreur : " + error.message);
+        });
+    }, 5000); // Vérifie toutes les 5 secondes
 } else {
-    alert("La géolocalisation n'est pas supportée par ce navigateur.");
+    console.error("La géolocalisation n'est pas supportée par ce navigateur.");
 }
+
 ///////////////////geolocation
     
     var windAngleAlertEnabled=false;
