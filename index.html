@@ -143,7 +143,8 @@ button {
     var windAngleAlertEnabled=false;
     var minAngle = document.getElementById('minAngle');
     var maxAngle = document.getElementById('maxAngle');
-
+    var windAngle;
+    const wingAngleAudio = new Audio('wingAngleAudio.mp3');
     var autoReconnect = false;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
@@ -152,7 +153,7 @@ button {
     const minus10Button = document.getElementById('minus10Button');
     const plus10Button = document.getElementById('plus10Button');
     const windSpeedContainer = document.getElementById('windSpeed');
-    const windAngle = document.getElementById('windAngle');
+    const windAngleContainer = document.getElementById('windAngle');
     const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
     const valueSentPilot = document.getElementById('valueSentPilot');
     const valueSentGPIO = document.getElementById('valueSentGPIO');
@@ -261,6 +262,7 @@ button {
                 myArray = decodedValue.split(",");
                 angle = myArray[0];
                 angle = parseInt(angle);
+                windAngle = angle;
                 if(angle >180){
                     angle = angle - 360;
                 }
@@ -268,7 +270,7 @@ button {
                 speed = parseFloat(speed);
                 speed = parseFloat(speed.toFixed(1));
                 maxWindSpeed = Math.max(maxWindSpeed,speed);
-                windAngle.innerHTML = angle;
+                windAngleContainer.innerHTML = angle;
                 
                 windSpeed.innerHTML = speed;
                 maxWindSpeedContainer.innerHTML = maxWindSpeed;
@@ -278,13 +280,9 @@ button {
             })
             .catch(error => {
                 console.error("Error reading sensor value: ", error);
-                //windAngle.innerHTML = "-";
-                //windSpeed.innerHTML = "-";
             });
         } else {
             console.error("Sensor characteristic not found.");
-                //windAngle.innerHTML = "-";
-                //windSpeed.innerHTML = "-";
         }
     }
 
@@ -364,7 +362,9 @@ button {
     //// angle alerts
     setInterval(() => {
     if (windAngleAlertEnabled){
-        
+        if(maxWindAngle
+        alertSound.play(); // Joue le son d'alerte
+
     }
    
     }, 1000); // Check every 1 seconds
