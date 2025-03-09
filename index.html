@@ -117,8 +117,8 @@ button {
             <label for="maxAngle">Max angle</label>
             <input type="number" id="maxAngle" name="maxAngle" min="0" max="360" required>
             <br><br>
-            <button type="submit" class="angleAlertButton">Enable</button>
-            <button type="submit" class="angleAlertButton">Disable</button>
+            <button type="submit" class="angleAlertButton" id="windAngleAlertEnableButton">Enable</button>
+            <button type="submit" class="angleAlertButton" id="windAngleAlertDisableButton">Disable</button>
             </div>
 
             <div class="card">
@@ -140,6 +140,7 @@ button {
     </div>
 </body>
 <script>
+    var windAngleAlertEnabled=false;
     var autoReconnect = false;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
@@ -152,11 +153,11 @@ button {
     const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
     const valueSentPilot = document.getElementById('valueSentPilot');
     const valueSentGPIO = document.getElementById('valueSentGPIO');
-
     const bleStateContainer = document.getElementById('bleState');
     const angleTimestampContainer = document.getElementById('angleTimestamp');
     const speedTimestampContainer = document.getElementById('speedTimestamp');
-
+    const windAngleAlertEnableButton = document.getElementById('windAngleAlertEnableButton');
+    const windAngleAlertDisableButton = document.getElementById('windAngleAlertDisableButton');
 
 
     // Define BLE Device Specs
@@ -187,6 +188,8 @@ button {
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
     minus10Button.addEventListener('click', () => writeOnCharacteristic(2));
     plus10Button.addEventListener('click', () => writeOnCharacteristic(3));
+    windAngleAlertEnableButton.('click', () => {windAngleAlertEnabled=true});
+    windAngleAlertEnableButton.('click', () => {windAngleAlertEnabled=false});
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
