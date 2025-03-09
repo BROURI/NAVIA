@@ -347,6 +347,7 @@ button {
     // Function to check if the BLE server is connected
     function isConnected() {
         return bleServer && bleServer.connected;
+    }
         
     setInterval(() => {
         if (!isConnected()){
