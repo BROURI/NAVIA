@@ -141,8 +141,8 @@ button {
 </body>
 <script>
     var windAngleAlertEnabled=false;
-    var minWindAngle = document.getElementById('minWindAngle');
-    var maxWindAngle = document.getElementById('maxWindAngle');
+    var minWindAngleContainer = document.getElementById('minWindAngle');
+    var maxWindAngleContainer = document.getElementById('maxWindAngle');
     var windAngle;
     const wingAngleAudio = new Audio('wingAngleAudio.mp3');
     var autoReconnect = false;   
@@ -363,6 +363,9 @@ button {
     //// angle alerts
     setInterval(() => {
         if (windAngleAlertEnabled){
+            minWindAngle = minWindAngleContainer.InnerHTML;
+            maxWindAngle = maxWindAngleContainer.InnerHTML;
+
             if(windAngle > maxWindAngle || windAngle < minWindAngle){
             wingAngleAudio.play();
             }
