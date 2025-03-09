@@ -140,6 +140,18 @@ button {
     </div>
 </body>
 <script>
+///////////////////geolocation
+    if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+        console.log("Latitude : " + position.coords.latitude);
+    }, error => {
+        console.log("Erreur : " + error.message);
+    });
+} else {
+    console.log("La géolocalisation n'est pas supportée par ce navigateur.");
+}
+///////////////////geolocation
+    
     var windAngleAlertEnabled=false;
     var minWindAngleContainer = document.getElementById('minWindAngle');
     var maxWindAngleContainer = document.getElementById('maxWindAngle');
