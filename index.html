@@ -364,14 +364,12 @@ button {
     
     //// angle alerts
     setInterval(() => {
+        if (windAngleAlertEnabled){
         minWindAngle = minWindAngleContainer.innerHTML;
         maxWindAngle = maxWindAngleContainer.innerHTML;
-
         console.log("windAngleAlertEnabled "+windAngleAlertEnabled);
         console.log("minWindAngle "+minWindAngle);
         console.log("maxWindAngle "+maxWindAngle);
-
-        if (windAngleAlertEnabled){
             if(windAngle > maxWindAngle || windAngle < minWindAngle){
             wingAngleAudio.play();
             }
