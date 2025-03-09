@@ -364,18 +364,17 @@ button {
     
     //// angle alerts
     setInterval(() => {
-        console.log("windAngleAlertEnabled "+windAngleAlertEnabled);
-        console.log("minWindAngle "+minWindAngle);
-        console.log("maxWindAngle "+maxWindAngle);
+        //console.log("windAngleAlertEnabled "+windAngleAlertEnabled);
+        //console.log("minWindAngle "+minWindAngle);
+        //console.log("maxWindAngle "+maxWindAngle);
         if (windAngleAlertEnabled){
         minWindAngle = minWindAngleContainer.value;
         maxWindAngle = maxWindAngleContainer.value;
-       
             if(windAngle > maxWindAngle || windAngle < minWindAngle){
             wingAngleAudio.play();
             }
         }
-    }, 1000); // Check every 1 seconds
+    }, 2000); // Check every 1 seconds
 
         
     ///*******avoir reload page
