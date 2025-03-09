@@ -144,6 +144,8 @@ button {
     var minWindAngleContainer = document.getElementById('minWindAngle');
     var maxWindAngleContainer = document.getElementById('maxWindAngle');
     var windAngle;
+    var minWindAngle;
+    var maxWindAngle;
     const wingAngleAudio = new Audio('wingAngleAudio.mp3');
     var autoReconnect = false;   
     const connectButton = document.getElementById('connectBleButton');
@@ -364,7 +366,7 @@ button {
     setInterval(() => {
         minWindAngle = minWindAngleContainer.innerHTML;
         maxWindAngle = maxWindAngleContainer.innerHTML;
-    
+
         console.log("windAngleAlertEnabled "+windAngleAlertEnabled);
         console.log("minWindAngle "+minWindAngle);
         console.log("maxWindAngle "+maxWindAngle);
