@@ -344,6 +344,10 @@ button {
         return datetime;
     }
 
+    // Function to check if the BLE server is connected
+    function isConnected() {
+        return bleServer && bleServer.connected;
+        
     setInterval(() => {
         if (!isConnected()){
             bleStateContainer.innerHTML = "Disconnected";
@@ -353,12 +357,8 @@ button {
             bleStateContainer.innerHTML = "Connected";
             bleStateContainer.style.color = "#4CAF50";
         }
+    },1000);
     
-        // Function to check if the BLE server is connected
-        function isConnected() {
-            return bleServer && bleServer.connected;
-        }
-    };
     //// angle alerts
     setInterval(() => {
         if (windAngleAlertEnabled){
