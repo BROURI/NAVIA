@@ -355,20 +355,22 @@ button {
         bleStateContainer.innerHTML = "Connected";
         bleStateContainer.style.color = "#4CAF50";
     }
-   /*
-    if (autoReconnect && !isConnected()) {
-       console.log("Attempting to reconnect to BLE device...");
-       connectToDevice();
-    }
-    */
-    }, 5000); // Check every 5 seconds
 
     // Function to check if the BLE server is connected
     function isConnected() {
         return bleServer && bleServer.connected;
     }
 
-    ///*******miiiw4
+    //// angle alerts
+    setInterval(() => {
+    if (windAngleAlertEnabled){
+        
+    }
+   
+    }, 1000); // Check every 1 seconds
+
+        
+    ///*******avoir reload page
 let isAtTop = true;
 
 // Vérifier si on est en haut de la page
