@@ -345,52 +345,52 @@ button {
     }
 
     setInterval(() => {
-    if (!isConnected()){
-        bleStateContainer.innerHTML = "Disconnected";
-        bleStateContainer.style.color = "#F44336";
-    }
-    else if (isConnected()){
-        bleStateContainer.innerHTML = "Connected";
-        bleStateContainer.style.color = "#4CAF50";
-    }
-
-    // Function to check if the BLE server is connected
-    function isConnected() {
-        return bleServer && bleServer.connected;
-    }
+        if (!isConnected()){
+            bleStateContainer.innerHTML = "Disconnected";
+            bleStateContainer.style.color = "#F44336";
+        }
+        else if (isConnected()){
+            bleStateContainer.innerHTML = "Connected";
+            bleStateContainer.style.color = "#4CAF50";
+        }
+    
+        // Function to check if the BLE server is connected
+        function isConnected() {
+            return bleServer && bleServer.connected;
+        }
     }
     //// angle alerts
     setInterval(() => {
-    if (windAngleAlertEnabled){
-        if(windAngle > maxWindAngle || windAngle < minWindAngle)
-        alertSound.play();
-    }
+        if (windAngleAlertEnabled){
+            if(windAngle > maxWindAngle || windAngle < minWindAngle)
+            alertSound.play();
+        }
     }, 1000); // Check every 1 seconds
 
         
     ///*******avoir reload page
-let isAtTop = true;
-
-// Vérifier si on est en haut de la page
-window.addEventListener('scroll', function() {
-    isAtTop = window.scrollY === 0;
-});
-
-// Empêcher le rafraîchissement lors d'un tirage vers le bas depuis le haut de la page
-document.addEventListener('touchstart', function(event) {
-    // Vérifiez si l'utilisateur est en haut de la page et essaie de tirer vers le bas
-    if (isAtTop && event.touches[0].clientY > 0) {
-        // Enregistrer la position initiale
-        this.startY = event.touches[0].clientY;
-    }
-}, { passive: true });
-
-document.addEventListener('touchmove', function(event) {
-    // Vérifiez si l'utilisateur est en haut de la page et tire vers le bas
-    if (isAtTop && event.touches[0].clientY > this.startY) {
-        event.preventDefault(); // Empêche le rafraîchissement
-    }
-}, { passive: false });
+    let isAtTop = true;
+    
+    // Vérifier si on est en haut de la page
+    window.addEventListener('scroll', function() {
+        isAtTop = window.scrollY === 0;
+    });
+    
+    // Empêcher le rafraîchissement lors d'un tirage vers le bas depuis le haut de la page
+    document.addEventListener('touchstart', function(event) {
+        // Vérifiez si l'utilisateur est en haut de la page et essaie de tirer vers le bas
+        if (isAtTop && event.touches[0].clientY > 0) {
+            // Enregistrer la position initiale
+            this.startY = event.touches[0].clientY;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', function(event) {
+        // Vérifiez si l'utilisateur est en haut de la page et tire vers le bas
+        if (isAtTop && event.touches[0].clientY > this.startY) {
+            event.preventDefault(); // Empêche le rafraîchissement
+        }
+    }, { passive: false });
 //**********
 </script>
 
