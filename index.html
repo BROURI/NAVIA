@@ -362,11 +362,9 @@ button {
     //// angle alerts
     setInterval(() => {
     if (windAngleAlertEnabled){
-        if(maxWindAngle
-        alertSound.play(); // Joue le son d'alerte
-
+        if(windAngle > maxWindAngle || windAngle < minWindAngle)
+        alertSound.play();
     }
-   
     }, 1000); // Check every 1 seconds
 
         
