@@ -368,8 +368,8 @@ button {
         console.log("minWindAngle "+minWindAngle);
         console.log("maxWindAngle "+maxWindAngle);
         if (windAngleAlertEnabled){
-        minWindAngle = minWindAngleContainer.innerHTML;
-        maxWindAngle = maxWindAngleContainer.innerHTML;
+        minWindAngle = minWindAngleContainer.value;
+        maxWindAngle = maxWindAngleContainer.value;
        
             if(windAngle > maxWindAngle || windAngle < minWindAngle){
             wingAngleAudio.play();
