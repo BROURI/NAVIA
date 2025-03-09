@@ -141,14 +141,16 @@ button {
 </body>
 <script>
 ///////////////////geolocation
-    if (navigator.geolocation) {
+if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
-        console.log("Latitude : " + position.coords.latitude);
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        alert("Latitude : " + latitude + "\nLongitude : " + longitude);
     }, error => {
-        console.log("Erreur : " + error.message);
+        alert("Erreur : " + error.message);
     });
 } else {
-    console.log("La géolocalisation n'est pas supportée par ce navigateur.");
+    alert("La géolocalisation n'est pas supportée par ce navigateur.");
 }
 ///////////////////geolocation
     
