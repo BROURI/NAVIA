@@ -153,11 +153,9 @@ if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
         // Le compas magnétique (alpha) est en degrés
          alpha = Math.round(event.alpha); // Angle de rotation autour de l'axe Z
-         beta = Math.round(event.beta);   // Angle de rotation autour de l'axe X
-         gamma = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
-        console.log('Cap magnétique (alpha): ' + alpha);
-        console.log('Beta: ' + beta);
-        console.log('Gamma: ' + gamma);
+         //beta = Math.round(event.beta);   // Angle de rotation autour de l'axe X
+         //gamma = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
+
     }, false);
 } else {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
