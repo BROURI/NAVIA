@@ -140,6 +140,25 @@ button {
     </div>
 </body>
 <script>
+
+///////// deb Cap magnetique et accelerometre
+if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', function(event) {
+        // Le compas magnétique (alpha) est en degrés
+        let alpha = event.alpha; // Angle de rotation autour de l'axe Z
+        let beta = event.beta;   // Angle de rotation autour de l'axe X
+        let gamma = event.gamma; // Angle de rotation autour de l'axe Y
+
+        console.log('Cap magnétique (alpha): ' + alpha);
+        console.log('Beta: ' + beta);
+        console.log('Gamma: ' + gamma);
+    }, false);
+} else {
+    console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
+}
+
+///////// fin Cap magnetique et accelerometre
+
 ///////////////////geolocation
 
 var latitude;
