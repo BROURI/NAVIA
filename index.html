@@ -109,6 +109,10 @@ button {
                 <h2>Max Wind Speed</h2>
                 <p class="reading"><span id="maxWindSpeed">-</span></p>
             </div>
+                <div class="card">
+                <h2>Heading</h2>
+                <p class="reading"><span id="heading">-</span></p>
+            </div>
             <div class="card">
             <h2>Wind angle alerts</h2>
             <label for="minAngle">Min angle</label>
@@ -151,7 +155,7 @@ if (window.DeviceOrientationEvent) {
          alpha = event.alpha; // Angle de rotation autour de l'axe Z
          beta = event.beta;   // Angle de rotation autour de l'axe X
          gamma = event.gamma; // Angle de rotation autour de l'axe Y
-
+        headingContainer.innerHTML = alpha;
         console.log('Cap magnétique (alpha): ' + alpha);
         console.log('Beta: ' + beta);
         console.log('Gamma: ' + gamma);
@@ -204,6 +208,7 @@ if (navigator.geolocation) {
     const bleStateContainer = document.getElementById('bleState');
     const angleTimestampContainer = document.getElementById('angleTimestamp');
     const speedTimestampContainer = document.getElementById('speedTimestamp');
+    const headingContainer = document.getElementById('heading');
     const windAngleAlertEnableButton = document.getElementById('windAngleAlertEnableButton');
     const windAngleAlertDisableButton = document.getElementById('windAngleAlertDisableButton');
 
