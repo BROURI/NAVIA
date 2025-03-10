@@ -155,7 +155,6 @@ if (window.DeviceOrientationEvent) {
          alpha = Math.round(event.alpha); // Angle de rotation autour de l'axe Z
          beta = Math.round(event.beta);   // Angle de rotation autour de l'axe X
          gamma = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
-        headingContainer.innerHTML = alpha;
         console.log('Cap magnétique (alpha): ' + alpha);
         console.log('Beta: ' + beta);
         console.log('Gamma: ' + gamma);
@@ -408,6 +407,11 @@ if (navigator.geolocation) {
             bleStateContainer.style.color = "#4CAF50";
         }
     },1000);
+
+    setInterval(() => {
+        headingContainer.innerHTML = alpha;
+    },1000);
+
     
     //// angle alerts
     setInterval(() => {
