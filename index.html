@@ -152,7 +152,7 @@ var gamma;
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
         // Le compas magnétique (alpha) est en degrés
-         alpha = Math.round(event.alpha); // Angle de rotation autour de l'axe Z
+         alpha = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
          //beta = Math.round(event.beta);   // Angle de rotation autour de l'axe X
          //gamma = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
 
