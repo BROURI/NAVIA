@@ -221,7 +221,7 @@ if (navigator.geolocation) {
     var maxWindAngle;
     const wingAngleAudio = new Audio('wingAngleAudio.mp3');
     const connectionLostAudio = new Audio('connectionLostAudio.mp3');
-    var autoReconnect = false;   
+    var connectionLost = false;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
@@ -259,7 +259,7 @@ if (navigator.geolocation) {
     connectButton.addEventListener('click', (event) => {
         if (isWebBluetoothEnabled()) {
             connectToDevice();
-            autoReconnect = true;
+            connectionLost = false;
         }
     });
 
@@ -328,10 +328,8 @@ if (navigator.geolocation) {
         console.log('Device Disconnected:', event.target.device.name);
         bleStateContainer.innerHTML = "Device disconnected";
         bleStateContainer.style.color = "#F44336";
-        autoReconnect = true;
+        connectionLost = true;
         connectionLostAudio.play();
-
-        connectToDevice();
     }
     
     function readSensorData() {
@@ -409,7 +407,7 @@ if (navigator.geolocation) {
             console.error("Bluetooth is not connected.");
             window.alert("Bluetooth is not connected.");
         }
-        autoReconnect = false;
+        connectionLost = false;
     }
 
     function getDateTime() {
