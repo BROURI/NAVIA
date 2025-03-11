@@ -433,7 +433,7 @@ if (navigator.geolocation) {
             bleStateContainer.innerHTML = "Disconnected";
             bleStateContainer.style.color = "#F44336";
             if(!cleanDisconnect){
-                cleanDisconnectAudio.play();
+                connectionLostAudio.play();
                 alert("Connection Lost");
             }
         }
