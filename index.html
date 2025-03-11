@@ -153,6 +153,7 @@ button {
 var alpha;
 var beta;
 var gamma;
+var cog;
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
         // Le compas magnétique (alpha) est en degrés
@@ -180,9 +181,9 @@ function calculateCOG(lat1, lon1, lat2, lon2) {
     const x = Math.sin(deltaLon) * Math.cos(lat2Rad);
     const y = Math.cos(lat1Rad) * Math.sin(lat2Rad) - 
     Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLon);
-    const cog = Math.atan2(x, y);
+    var cogInRadians = Math.atan2(x, y);
     // Convertir le résultat en degrés
-    const cog = (cog * (180 / Math.PI) + 360) % 360; // Normaliser à [0, 360)
+    cog = (cogInRadians * (180 / Math.PI) + 360) % 360; // Normaliser à [0, 360)
     return cog;
 }
     
