@@ -301,7 +301,7 @@ if (navigator.geolocation) {
         .then(gattServer => {
             bleServer = gattServer;
             console.log("Connected to GATT Server");
-            bleServer.addEventListener('disconnected', onDisconnected);
+            //bleServer.addEventListener('disconnected', onDisconnected);
             return bleServer.getPrimaryService(bleService);
         })
         .then(service => {
