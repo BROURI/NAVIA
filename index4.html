@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NAVIA SYSTEM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+}
+h1 {
+    font-size: 1.8rem;
+    color: white;
+}
+.topnav {
+    overflow: hidden;
+    background-color: #0A1128;
+}
+body {
+    margin: 0;
+}
+.content {
+    padding: 50px;
+}
+.card-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.card {
+    background-color: white;
+    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+}
+button {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.onButton{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.offButton{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.minus10Button{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.plus10Button{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.connectButton{
+    background-color: #4CAF50;
+}
+
+.disconnectButton{
+    background-color: #F44336;
+}
+.angleAlertButton{
+    background-color: #1b8a94;
+    font-size: 1.8rem;
+}
+.gray-label {
+    color: #bebebe;
+    font-size: 1rem;
+}
+.reading {
+    font-size: 3.6rem;
+}
+</style>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="topnav">
+        <h1>NAVIA SYSTEM</h1>
+    </div>
+    <div class="content">
+        <div class="card-grid">
+            <div class="card">
+                <p>
+                    <button id="connectBleButton" class="connectButton"> Connect   </button>
+                    <button id="disconnectBleButton" class="disconnectButton"> Disconnect</button>
+                </p>
+                <p class="gray-label">BLE state: <strong><span style="color: #F44336;" id="bleState">Disconnected</span></strong></p>
+            </div>
+        </div>
+        <div class="card-grid">
+            <div class="card">
+                <h2>Wind Angle</h2>
+                <p class="reading"><span id="windAngle">-</span></p>
+                <p class="gray-label">Last reading: <span id="angleTimestamp"></span></p>
+            </div>    
+            <div class="card">
+                <h2>Wind Speed</h2>
+                <p class="reading"><span id="windSpeed">-</span></p>
+                <p class="gray-label">Last reading: <span id="speedTimestamp"></span></p>
+            </div>    
+            <div class="card">
+                <h2>Max Wind Speed</h2>
+                <p class="reading"><span id="maxWindSpeed">-</span></p>
+            </div>
+                <div class="card">
+                <h2>Heading</h2>
+                <p class="reading"><span id="heading">-</span></p>
+            </div>
+            <div class="card">
+            <h2>Wind angle alerts</h2>
+            <label for="minAngle">Min angle</label>
+            <input type="number" id="minWindAngle" name="minAngle" min="0" max="360" required>
+            <br><br>
+            <label for="maxAngle">Max angle</label>
+            <input type="number" id="maxWindAngle" name="maxAngle" min="0" max="360" required>
+            <br><br>
+            <button type="submit" class="angleAlertButton" id="windAngleAlertEnableButton">Enable</button>
+            <button type="submit" class="angleAlertButton" id="windAngleAlertDisableButton">Disable</button>
+            </div>
+
+            <div class="card">
+                <h2>Pilot Control</h2>
+                <button id="minus10Button" class="minus10Button">-10</button>
+                <button id="plus10Button" class="plus10Button">+10</button>
+                <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
+            </div>
+            <div class="card">
+                <h2>GPIO Control</h2>
+                <button id="onButton" class="onButton">ON </button>
+                <button id="offButton" class="offButton">OFF</button>
+                <p class="gray-label">Last value sent: <span id="valueSentGPIO"></span></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p><a>Created by Tahar BROURI</a></p>
+    </div>
+</body>
+<script>
+
+///////// deb Cap magnetique et accelerometre
+var alpha;
+var beta;
+var gamma;
+if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', function(event) {
+        // Le compas magnétique (alpha) est en degrés
+         alpha = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
+         //beta = Math.round(event.beta);   // Angle de rotation autour de l'axe X
+         //gamma = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
+
+    }, false);
+} else {
+    console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
+}
+
+///////// fin Cap magnetique et accelerometre
+
+///////////////////geolocation
+
+var latitude;
+var longitude;
+if (navigator.geolocation) {
+    setInterval(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            console.log("Latitude : " + latitude + ", Longitude : " + longitude);
+        }, error => {
+            console.error("Erreur : " + error.message);
+        });
+    }, 5000); // Vérifie toutes les 5 secondes
+} else {
+    console.error("La géolocalisation n'est pas supportée par ce navigateur.");
+}
+
+///////////////////geolocation
+    
+    var windAngleAlertEnabled=false;
+    var minWindAngleContainer = document.getElementById('minWindAngle');
+    var maxWindAngleContainer = document.getElementById('maxWindAngle');
+    var windAngle;
+    var minWindAngle;
+    var maxWindAngle;
+    const wingAngleAudio = new Audio('wingAngleAudio.mp3');
+    var autoReconnect = false;   
+    const connectButton = document.getElementById('connectBleButton');
+    const disconnectButton = document.getElementById('disconnectBleButton');
+    const onButton = document.getElementById('onButton');
+    const offButton = document.getElementById('offButton');
+    const minus10Button = document.getElementById('minus10Button');
+    const plus10Button = document.getElementById('plus10Button');
+    const windSpeedContainer = document.getElementById('windSpeed');
+    const windAngleContainer = document.getElementById('windAngle');
+    const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
+    const valueSentPilot = document.getElementById('valueSentPilot');
+    const valueSentGPIO = document.getElementById('valueSentGPIO');
+    const bleStateContainer = document.getElementById('bleState');
+    const angleTimestampContainer = document.getElementById('angleTimestamp');
+    const speedTimestampContainer = document.getElementById('speedTimestamp');
+    const headingContainer = document.getElementById('heading');
+    const windAngleAlertEnableButton = document.getElementById('windAngleAlertEnableButton');
+    const windAngleAlertDisableButton = document.getElementById('windAngleAlertDisableButton');
+
+
+    // Define BLE Device Specs
+    var maxWindSpeed = 0;
+    var deviceName = 'NAVIA';
+    var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
+    var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
+    var sensorCharacteristic = '19b10001-e8f2-537e-4f6c-d104768a1214';
+
+    // Global Variables to Handle Bluetooth
+    var bleServer;
+    var bleServiceFound;
+    var sensorCharacteristicFound;
+
+    // Connect Button (search for BLE Devices only if BLE is available)
+    connectButton.addEventListener('click', (event) => {
+        if (isWebBluetoothEnabled()) {
+            connectToDevice();
+            autoReconnect = true;
+        }
+    });
+
+    // Disconnect Button
+    disconnectButton.addEventListener('click', disconnectDevice);
+
+    // Write to the ESP32 LED Characteristic
+    onButton.addEventListener('click', () => writeOnCharacteristic(1));
+    offButton.addEventListener('click', () => writeOnCharacteristic(0));
+    minus10Button.addEventListener('click', () => writeOnCharacteristic(2));
+    plus10Button.addEventListener('click', () => writeOnCharacteristic(3));
+    windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
+    windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
+
+    // Check if BLE is available in your Browser
+    function isWebBluetoothEnabled() {
+        if (!navigator.bluetooth) {
+            console.log('Web Bluetooth API is not available in this browser!');
+            bleStateContainer.innerHTML = "Web Bluetooth API is not available in this browser/device!";
+            return false;
+        }
+        console.log('Web Bluetooth API supported in this browser.');
+        return true;
+    }
+
+    // Connect to BLE Device
+    function connectToDevice() {
+        console.log('Initializing Bluetooth...');
+        navigator.bluetooth.requestDevice({
+            filters: [{ name: deviceName }],
+            optionalServices: [bleService]
+        })
+        .then(device => {
+            console.log('Device Selected:', device.name);
+            bleStateContainer.innerHTML = "Connected";
+            bleStateContainer.style.color = "#4CAF50";
+            device.addEventListener('gattservicedisconnected', onDisconnected);
+            return device.gatt.connect();
+        })
+        .then(gattServer => {
+            bleServer = gattServer;
+            console.log("Connected to GATT Server");
+            return bleServer.getPrimaryService(bleService);
+        })
+        .then(service => {
+            bleServiceFound = service;
+            console.log("Service discovered:", service.uuid);
+            return service.getCharacteristic(sensorCharacteristic);
+        })
+        .then(characteristic => {
+            console.log("Characteristic discovered:", characteristic.uuid);
+            sensorCharacteristicFound = characteristic;
+
+            // Start reading the sensor data every second
+            setInterval(readSensorData, 1000); // Read every second
+
+            // Initial read
+            return readSensorData();
+        })
+        .catch(error => {
+            console.log('Error: ', error);
+        });
+    }
+
+    function onDisconnected(event) {
+        console.log('Device Disconnected:', event.target.device.name);
+        bleStateContainer.innerHTML = "Device disconnected";
+        bleStateContainer.style.color = "#F44336";
+        autoReconnect = true;
+        connectToDevice();
+    }
+    
+    function readSensorData() {
+        if (sensorCharacteristicFound) {
+            sensorCharacteristicFound.readValue()
+            .then(value => {
+                const decodedValue = new TextDecoder().decode(value);
+                console.log("Sensor Value: ", decodedValue);
+                myArray = decodedValue.split(",");
+                angle = myArray[0];
+                angle = parseInt(angle);
+                windAngle = angle;
+                if(angle >180){
+                    angle = angle - 360;
+                }
+                speed = myArray[1]; 
+                speed = parseFloat(speed);
+                speed = parseFloat(speed.toFixed(1));
+                maxWindSpeed = Math.max(maxWindSpeed,speed);
+                windAngleContainer.innerHTML = angle;
+                
+                windSpeed.innerHTML = speed;
+                maxWindSpeedContainer.innerHTML = maxWindSpeed;
+              
+                angleTimestampContainer.innerHTML = getDateTime();
+                speedTimestampContainer.innerHTML = getDateTime();
+            })
+            .catch(error => {
+                console.error("Error reading sensor value: ", error);
+            });
+        } else {
+            console.error("Sensor characteristic not found.");
+        }
+    }
+
+    function writeOnCharacteristic(value) {
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(ledCharacteristic)
+            .then(characteristic => {
+                console.log("Found the LED characteristic: ", characteristic.uuid);
+                const data = new Uint8Array([value]);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                valueSentPilot.innerHTML = value;
+                valueSentGPIO.innerHTML = value;
+                console.log("Value written to LED characteristic:", value);
+            })
+            .catch(error => {
+                console.error("Error writing to the LED characteristic: ", error);
+            });
+        } else {
+            console.error("Bluetooth is not connected. Please connect to BLE first!");
+            window.alert("Bluetooth is not connected. Please connect to BLE first!");
+        }
+    }
+
+    function disconnectDevice() {
+        console.log("Disconnect Device.");
+        if (bleServer && bleServer.connected) {
+            if (sensorCharacteristicFound) {
+                return bleServer.disconnect()
+                .then(() => {
+                    console.log("Device Disconnected");
+                    bleStateContainer.innerHTML = "Device Disconnected";
+                    bleStateContainer.style.color = "#d13a30";
+                })
+                .catch(error => {
+                    console.log("An error occurred:", error);
+                });
+            } else {
+                console.log("No characteristic found to disconnect.");
+            }
+        } else {
+            console.error("Bluetooth is not connected.");
+            window.alert("Bluetooth is not connected.");
+        }
+        autoReconnect = false;
+    }
+
+    function getDateTime() {
+        var currentdate = new Date();
+        var day = ("00" + currentdate.getDate()).slice(-2); // Convert day to string and slice
+        var month = ("00" + (currentdate.getMonth() + 1)).slice(-2);
+        var year = currentdate.getFullYear();
+        var hours = ("00" + currentdate.getHours()).slice(-2);
+        var minutes = ("00" + currentdate.getMinutes()).slice(-2);
+        var seconds = ("00" + currentdate.getSeconds()).slice(-2);
+
+        var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
+        return datetime;
+    }
+
+    // Function to check if the BLE server is connected
+    function isConnected() {
+        return bleServer && bleServer.connected;
+    }
+        
+    setInterval(() => {
+        if (!isConnected()){
+            bleStateContainer.innerHTML = "Disconnected";
+            bleStateContainer.style.color = "#F44336";
+        }
+        else if (isConnected()){
+            bleStateContainer.innerHTML = "Connected";
+            bleStateContainer.style.color = "#4CAF50";
+        }
+    },1000);
+
+    setInterval(() => {
+        headingContainer.innerHTML = alpha;
+    },1000);
+
+    
+    //// angle alerts
+    setInterval(() => {
+        //console.log("windAngleAlertEnabled "+windAngleAlertEnabled);
+        //console.log("minWindAngle "+minWindAngle);
+        //console.log("maxWindAngle "+maxWindAngle);
+        if (windAngleAlertEnabled){
+        minWindAngle = minWindAngleContainer.value;
+        maxWindAngle = maxWindAngleContainer.value;
+            if(windAngle > maxWindAngle || windAngle < minWindAngle){
+            wingAngleAudio.play();
+            }
+        }
+    }, 2000); // Check every 1 seconds
+
+        
+    ///*******avoir reload page
+    let isAtTop = true;
+    
+    // Vérifier si on est en haut de la page
+    window.addEventListener('scroll', function() {
+        isAtTop = window.scrollY === 0;
+    });
+    
+    // Empêcher le rafraîchissement lors d'un tirage vers le bas depuis le haut de la page
+    document.addEventListener('touchstart', function(event) {
+        // Vérifiez si l'utilisateur est en haut de la page et essaie de tirer vers le bas
+        if (isAtTop && event.touches[0].clientY > 0) {
+            // Enregistrer la position initiale
+            this.startY = event.touches[0].clientY;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', function(event) {
+        // Vérifiez si l'utilisateur est en haut de la page et tire vers le bas
+        if (isAtTop && event.touches[0].clientY > this.startY) {
+            event.preventDefault(); // Empêche le rafraîchissement
+        }
+    }, { passive: false });
+//**********
+</script>
+
+</html>
