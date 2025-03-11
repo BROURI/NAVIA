@@ -167,11 +167,16 @@ if (window.DeviceOrientationEvent) {
 
 var latitude;
 var longitude;
+var previousLatitude;
+var previousLongitude;
 if (navigator.geolocation) {
     setInterval(() => {
         navigator.geolocation.getCurrentPosition(position => {
+            previousLatitude = latitude;
+            previousLongitude = longitude;
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
+            console.log("previousLatitude : " + previousLatitude + ", previousLongitude : " + previousLongitude);
             console.log("Latitude : " + latitude + ", Longitude : " + longitude);
         }, error => {
             console.error("Erreur : " + error.message);
