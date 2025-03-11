@@ -201,7 +201,7 @@ if (navigator.geolocation) {
             console.log("previousLatitude : " + previousLatitude + ", previousLongitude : " + previousLongitude);
             console.log("Latitude : " + latitude + ", Longitude : " + longitude);
             cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
-            console.log("mvtAngle : " +mvtAngle);
+            console.log("cog : " +cog);
             cogContainer.innerHTML =cog;
 
         }, error => {
