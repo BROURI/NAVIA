@@ -198,7 +198,6 @@ if (navigator.geolocation) {
             previousLongitude = longitude;
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            console.log("previousLatitude : " + previousLatitude + ", previousLongitude : " + previousLongitude);
             console.log("Latitude : " + latitude + ", Longitude : " + longitude);
             cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
             console.log("cog : " +cog);
