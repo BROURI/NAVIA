@@ -259,7 +259,6 @@ if (navigator.geolocation) {
     connectButton.addEventListener('click', (event) => {
         if (isWebBluetoothEnabled()) {
             connectToDevice();
-            connectionLost = false;
         }
     });
 
@@ -315,7 +314,7 @@ if (navigator.geolocation) {
 
             // Start reading the sensor data every second
             setInterval(readSensorData, 1000); // Read every second
-
+            connectionLost = false;
             // Initial read
             return readSensorData();
         })
@@ -432,17 +431,16 @@ if (navigator.geolocation) {
         if (!isConnected()){
             bleStateContainer.innerHTML = "Disconnected";
             bleStateContainer.style.color = "#F44336";
-                    connectionLostAudio.play();
-
+            if(connectionLost){
+                connectionLostAudio.play();
+                alert("Connection Lost");
+            }
         }
         else if (isConnected()){
             bleStateContainer.innerHTML = "Connected";
             bleStateContainer.style.color = "#4CAF50";
         }
-        if(connectionLost){
-            connectionLostAudio.play();
-            alert("Connection Lost");
-        }
+
     },1000);
 
     setInterval(() => {
