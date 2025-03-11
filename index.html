@@ -35,6 +35,26 @@ body {
     background-color: white;
     box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
 }
+label {
+    font-weight: bold; /* Make labels bold for better visibility */
+    display: block; /* Ensure labels occupy full width */
+    margin-bottom: 5px; /* Space between label and input */
+}
+input[type="number"] {
+    width: 100%; /* Full width input */
+    padding: 10px; /* Inner padding for comfort */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1rem; /* Font size for readability */
+    margin-bottom: 20px; /* Space below input */
+    transition: border-color 0.3s; /* Smooth transition for focus state */
+}
+
+input[type="number"]:focus {
+    border-color: #1b8a94; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
 button {
     color: white;
     padding: 14px 20px;
