@@ -114,6 +114,10 @@ button {
                 <p class="reading"><span id="heading">-</span></p>
             </div>
             <div class="card">
+                <h2>COG</h2>
+            <p class="reading"><span id="cog">-</span></p>
+            </div>
+            <div class="card">
             <h2>Wind angle alerts</h2>
             <label for="minAngle">Min angle</label>
             <input type="number" id="minWindAngle" name="minAngle" min="0" max="360" required>
@@ -165,7 +169,7 @@ if (window.DeviceOrientationEvent) {
 
 ///////////////////geolocation et calcul angle de deplacement
 
-function calculateBearing(lat1, lon1, lat2, lon2) {
+function calculateCOG(lat1, lon1, lat2, lon2) {
     // Convertir les degrés en radians
     const toRadians = (degrees) => degrees * (Math.PI / 180);
     
@@ -174,17 +178,16 @@ function calculateBearing(lat1, lon1, lat2, lon2) {
     const lat2Rad = toRadians(lat2);
     const deltaLon = toRadians(lon2 - lon1);
     
-    // Calculer le bearing
+    // Calculer le cog
     const x = Math.sin(deltaLon) * Math.cos(lat2Rad);
     const y = Math.cos(lat1Rad) * Math.sin(lat2Rad) - 
-              Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLon);
+    Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLon);
     
-    const bearing = Math.atan2(x, y);
+    const cog = Math.atan2(x, y);
     
     // Convertir le résultat en degrés
-    const bearingDegrees = (bearing * (180 / Math.PI) + 360) % 360; // Normaliser à [0, 360)
-    
-    return bearingDegrees;
+    const cog = (cog * (180 / Math.PI) + 360) % 360; // Normaliser à [0, 360)
+    return cog;
 }
     
 var latitude;
@@ -200,7 +203,7 @@ if (navigator.geolocation) {
             longitude = position.coords.longitude;
             console.log("previousLatitude : " + previousLatitude + ", previousLongitude : " + previousLongitude);
             console.log("Latitude : " + latitude + ", Longitude : " + longitude);
-            mvtAngle = calculateBearing(previousLatitude, previousLongitude, latitude, longitude)
+            cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
             console.log("mvtAngle : " +mvtAngle);
 
         }, error => {
@@ -236,6 +239,8 @@ if (navigator.geolocation) {
     const angleTimestampContainer = document.getElementById('angleTimestamp');
     const speedTimestampContainer = document.getElementById('speedTimestamp');
     const headingContainer = document.getElementById('heading');
+    const cogContainer = document.getElementById('cog');
+
     const windAngleAlertEnableButton = document.getElementById('windAngleAlertEnableButton');
     const windAngleAlertDisableButton = document.getElementById('windAngleAlertDisableButton');
 
