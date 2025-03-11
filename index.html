@@ -206,7 +206,7 @@ if (navigator.geolocation) {
         }, error => {
             console.error("Erreur geolocation");
         });
-    }, 2000); // Vérifie toutes les 5 secondes
+    }, 1000); // Vérifie toutes les secondes
 } else {
     console.error("La géolocalisation n'est pas supportée par ce navigateur.");
 }
