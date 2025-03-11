@@ -220,8 +220,8 @@ if (navigator.geolocation) {
     var minWindAngle;
     var maxWindAngle;
     const wingAngleAudio = new Audio('wingAngleAudio.mp3');
-    const connectionLostAudio = new Audio('connectionLostAudio.mp3');
-    var connectionLost = false;   
+    const cleanDisconnectAudio = new Audio('cleanDisconnectAudio.mp3');
+    var cleanDisconnect = true;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
@@ -314,7 +314,7 @@ if (navigator.geolocation) {
 
             // Start reading the sensor data every second
             setInterval(readSensorData, 1000); // Read every second
-            connectionLost = false;
+            cleanDisconnect = true;
             // Initial read
             return readSensorData();
         })
@@ -327,8 +327,8 @@ if (navigator.geolocation) {
         console.log('Device Disconnected:', event.target.device.name);
         bleStateContainer.innerHTML = "Device disconnected";
         bleStateContainer.style.color = "#F44336";
-        connectionLost = true;
-        connectionLostAudio.play();
+        cleanDisconnect = false;
+        cleanDisconnectAudio.play();
     }
     
     function readSensorData() {
@@ -406,7 +406,7 @@ if (navigator.geolocation) {
             console.error("Bluetooth is not connected.");
             window.alert("Bluetooth is not connected.");
         }
-        connectionLost = false;
+        cleanDisconnect = true;
     }
 
     function getDateTime() {
@@ -431,8 +431,8 @@ if (navigator.geolocation) {
         if (!isConnected()){
             bleStateContainer.innerHTML = "Disconnected";
             bleStateContainer.style.color = "#F44336";
-            if(connectionLost){
-                connectionLostAudio.play();
+            if(!cleanDisconnect){
+                cleanDisconnectAudio.play();
                 alert("Connection Lost");
             }
         }
