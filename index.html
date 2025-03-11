@@ -220,7 +220,7 @@ if (navigator.geolocation) {
     var minWindAngle;
     var maxWindAngle;
     const wingAngleAudio = new Audio('wingAngleAudio.mp3');
-    const cleanDisconnectAudio = new Audio('cleanDisconnectAudio.mp3');
+    const connectionLostAudio = new Audio('connectionLostAudio.mp3');
     var cleanDisconnect = true;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
@@ -329,7 +329,7 @@ if (navigator.geolocation) {
         bleStateContainer.innerHTML = "Device disconnected";
         bleStateContainer.style.color = "#F44336";
         cleanDisconnect = false;
-        cleanDisconnectAudio.play();
+        connectionLostAudio.play();
     }
     
     function readSensorData() {
