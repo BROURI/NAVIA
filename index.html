@@ -186,6 +186,10 @@ if (window.DeviceOrientationEvent) {
 ///////////////////geolocation et calcul angle de deplacement
 
 function calculateCOG(lat1, lon1, lat2, lon2) {
+
+    if (lat1 === lat2 && lon1 === lon2) {
+    return "-";
+    }
     // Convertir les degrés en radians
     const toRadians = (degrees) => degrees * (Math.PI / 180);
     // Convertir les coordonnées en radians
