@@ -437,6 +437,10 @@ if (navigator.geolocation) {
             bleStateContainer.innerHTML = "Connected";
             bleStateContainer.style.color = "#4CAF50";
         }
+        if(connectionLost){
+            connectionLostAudio.play();
+            alert("Connection Lost");
+        }
     },1000);
 
     setInterval(() => {
