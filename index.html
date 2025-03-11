@@ -205,7 +205,7 @@ if (navigator.geolocation) {
             cogContainer.innerHTML =cog;
 
         }, error => {
-            console.error("Erreur : " + error.message);
+            console.error("Erreur geolocation");
         });
     }, 2000); // Vérifie toutes les 5 secondes
 } else {
