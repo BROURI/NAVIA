@@ -432,12 +432,13 @@ if (navigator.geolocation) {
         if (!isConnected()){
             bleStateContainer.innerHTML = "Disconnected";
             bleStateContainer.style.color = "#F44336";
+                    connectionLostAudio.play();
+
         }
         else if (isConnected()){
             bleStateContainer.innerHTML = "Connected";
             bleStateContainer.style.color = "#4CAF50";
         }
-        connectionLostAudio.play();
         if(connectionLost){
             connectionLostAudio.play();
             alert("Connection Lost");
