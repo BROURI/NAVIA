@@ -220,6 +220,7 @@ if (navigator.geolocation) {
     var minWindAngle;
     var maxWindAngle;
     const wingAngleAudio = new Audio('wingAngleAudio.mp3');
+    const connectionLostAudio = new Audio('connectionLostAudio');
     var autoReconnect = false;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
@@ -328,6 +329,8 @@ if (navigator.geolocation) {
         bleStateContainer.innerHTML = "Device disconnected";
         bleStateContainer.style.color = "#F44336";
         autoReconnect = true;
+        connectionLostAudio.play();
+
         connectToDevice();
     }
     
