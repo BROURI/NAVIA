@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barre d'accélération</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #bar {
+            width: 50px;
+            background-color: #4CAF50;
+            transition: height 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="bar"></div>
+
+    <script>
+        // Fonction pour mettre à jour la hauteur de la barre
+        function updateBarHeight(acceleration) {
+            const bar = document.getElementById('bar');
+            // On utilise la valeur absolue de l'accélération en Y pour la hauteur
+            const height = Math.abs(acceleration.y) * 100; // Multiplier par 100 pour un effet visible
+            bar.style.height = height + 'px';
+        }
+
+        // Écouter l'événement de mouvement de l'appareil
+        window.addEventListener('devicemotion', function(event) {
+            const acceleration = event.accelerationIncludingGravity;
+            updateBarHeight(acceleration);
+        });
+
+        // Demander l'autorisation pour accéder aux données de l'accéléromètre (si nécessaire)
+        if (typeof DeviceMotionEvent.requestPermission === 'function') {
+            DeviceMotionEvent.requestPermission()
+                .then(permissionState => {
+                    if (permissionState === 'granted') {
+                        window.addEventListener('devicemotion', function(event) {
+                            const acceleration = event.accelerationIncludingGravity;
+                            updateBarHeight(acceleration);
+                        });
+                    }
+                })
+                .catch(console.error);
+        }
+    </script>
+</body>
+</html>
