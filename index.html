@@ -164,7 +164,7 @@ button {
 </body>
 <script>
 
-///////// deb Cap magnetique et accelerometre
+/////////  Cap magnetique et accelerometre
 var alpha;
 var beta;
 var gamma;
@@ -181,8 +181,6 @@ if (window.DeviceOrientationEvent) {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
 
-///////// fin Cap magnetique et accelerometre
-
 ///////////////////geolocation et calcul angle de deplacement
 
 function calculateCOG(lat1, lon1, lat2, lon2) {
@@ -191,13 +189,13 @@ function calculateCOG(lat1, lon1, lat2, lon2) {
     return "-";
     }
     // Convertir les degrés en radians
-    const toRadians = (degrees) => degrees * (Math.PI / 180);
+    var toRadians = (degrees) => degrees * (Math.PI / 180);
     // Convertir les coordonnées en radians
-    const lat1Rad = toRadians(lat1);
-    const lat2Rad = toRadians(lat2);
-    const deltaLon = toRadians(lon2 - lon1);
+    var lat1Rad = toRadians(lat1);
+    var lat2Rad = toRadians(lat2);
+    var deltaLon = toRadians(lon2 - lon1);
     // Calculer le cog
-    const x = Math.sin(deltaLon) * Math.cos(lat2Rad);
+    var x = Math.sin(deltaLon) * Math.cos(lat2Rad);
     const y = Math.cos(lat1Rad) * Math.sin(lat2Rad) - 
     Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLon);
     var cogInRadians = Math.atan2(x, y);
@@ -221,17 +219,14 @@ if (navigator.geolocation) {
             cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
             console.log("cog : " +cog);
             cogContainer.innerHTML =cog;
-
         }, error => {
             console.log("Erreur geolocation");
         });
-    }, 1000); // Vérifie toutes les secondes
+    }, 5000); // Vérifie toutes les secondes
 } else {
     console.error("La géolocalisation n'est pas supportée par ce navigateur.");
 }
 
-///////////////////geolocation
-    
     var windAngleAlertEnabled=false;
     var minWindAngleContainer = document.getElementById('minWindAngle');
     var maxWindAngleContainer = document.getElementById('maxWindAngle');
