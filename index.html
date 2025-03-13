@@ -511,11 +511,10 @@ if (navigator.geolocation) {
                     myHeading = heading-360;
                 }
             }
-            if(myHeading > maxHeading || myHeading < minHeading){
+            if(myHeading > myMaxHeading || myHeading < myMinHeading){
                 headingAlertAudio.play();
             }
         }
-        
     }, 2000); // Check every 1 seconds
 
         
