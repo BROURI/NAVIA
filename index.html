@@ -488,7 +488,10 @@ if (navigator.geolocation) {
     
     ////  alerts
     setInterval(() => {
-        var myHeading=heading;
+        var myHeading;
+        var myMinHeading;
+        var myMaxHeading;
+
         if (windAngleAlertEnabled){
         minWindAngle = minWindAngleContainer.value;
         maxWindAngle = maxWindAngleContainer.value;
@@ -499,10 +502,13 @@ if (navigator.geolocation) {
         if (headingAlertEnabled){
             minHeading = minHeadingContainer.value;
             maxHeading = maxHeadingContainer.value;
+            myMinHeading=minHeading;
+            myMaxHeading=maxHeading;
+            myHeading = heading;
             if(minHeading >maxHeading){
-                minHeading = minHeading-360;
-                 if(heading>180){
-                myHeading = heading-360;
+                myMinHeading = minHeading-360;
+                 if(myHeading>180){
+                    myHeading = heading-360;
                 }
             }
             if(myHeading > maxHeading || myHeading < minHeading){
