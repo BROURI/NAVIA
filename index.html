@@ -251,7 +251,7 @@ if (navigator.geolocation) {
     var minHeading;
     var maxHeading;
     
-    const wingAngleAudio = new Audio('wingAngleAudio.mp3');
+    const windAngleAudio = new Audio('windAngleAudio.mp3');
     const connectionLostAudio = new Audio('connectionLostAudio.mp3');
     const headingAlertAudio = new Audio('headingAlertAudio.mp3');
     var cleanDisconnect = true;   
@@ -496,7 +496,7 @@ if (navigator.geolocation) {
         minWindAngle = minWindAngleContainer.value;
         maxWindAngle = maxWindAngleContainer.value;
             if(windAngle > maxWindAngle || windAngle < minWindAngle){
-            wingAngleAudio.play();
+            windAngleAudio.play();
             }
         }
         if (headingAlertEnabled){
