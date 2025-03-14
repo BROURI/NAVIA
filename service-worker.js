@@ -1,10 +1,9 @@
 const CACHE_NAME = 'navia-system-cache-v1';
 const urlsToCache = [
-    '/',
-    '/index.html', // Ensure this matches your main HTML file name
-    '/windAngleAudio.mp3', // Your audio files
-    '/connectionLostAudio.mp3',
-    '/headingAlertAudio.mp3',
+    '/NAVIA/index.html', // Ensure this matches your main HTML file name
+    '/NAVIA/windAngleAudio.mp3', // Your audio files
+    '/NAVIA/connectionLostAudio.mp3',
+    '/NAVIA/headingAlertAudio.mp3',
     // Add other assets you want to cache
 ];
 
