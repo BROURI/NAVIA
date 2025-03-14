@@ -1,9 +1,7 @@
 const CACHE_NAME = 'navia-system-cache-v1';
 const urlsToCache = [
     '/',
-    '/index.html', // Update with your main HTML file name if different
-    '/style.css', // Your CSS file
-    '/script.js', // Your JavaScript file
+    '/index.html', // Ensure this matches your main HTML file name
     '/windAngleAudio.mp3', // Your audio files
     '/connectionLostAudio.mp3',
     '/headingAlertAudio.mp3',
