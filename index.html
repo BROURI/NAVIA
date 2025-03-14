@@ -398,7 +398,7 @@ if (navigator.geolocation) {
                 }
                 speed = myArray[1]; 
                 speed = parseFloat(speed);
-                speed = parseFloat(speed.toFixed(1));
+                speed=Math.round(speed);
                 maxWindSpeed = Math.max(maxWindSpeed,speed);
                 windAngleContainer.innerHTML = angle;
                 
