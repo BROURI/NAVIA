@@ -268,7 +268,7 @@ if (navigator.geolocation) {
     const windAngleAudio = new Audio('windAngleAudio.mp3');
     const connectionLostAudio = new Audio('connectionLostAudio.mp3');
     const headingAlertAudio = new Audio('headingAlertAudio.mp3');
-    var cleanDisconnect = true;   
+    var cleanDisconnect = false;   
     const connectButton = document.getElementById('connectBleButton');
     const disconnectButton = document.getElementById('disconnectBleButton');
     const onButton = document.getElementById('onButton');
@@ -347,6 +347,7 @@ if (navigator.geolocation) {
             bleStateContainer.innerHTML = "Connected";
             bleStateContainer.style.color = "#4CAF50";
             device.addEventListener('gattservicedisconnected', onDisconnected);
+            cleanDisconnect =false;
             return device.gatt.connect();
         })
         .then(gattServer => {
@@ -366,9 +367,10 @@ if (navigator.geolocation) {
 
             // Start reading the sensor data every second
             setInterval(readSensorData, 1000); // Read every second
-            cleanDisconnect = true;
             // Initial read
+            
             return readSensorData();
+            
         })
         .catch(error => {
             console.log('Error: ', error);
@@ -478,12 +480,13 @@ if (navigator.geolocation) {
     function isConnected() {
         return bleServer && bleServer.connected;
     }
-        
+
+    var prevIsConnected=false;
     setInterval(() => {
         if (!isConnected()){
             bleStateContainer.innerHTML = "Disconnected";
             bleStateContainer.style.color = "#F44336";
-            if(!cleanDisconnect){
+            if(!cleanDisconnect && prevIsConnected){
                 connectionLostAudio.play();
                 alert("Connection Lost");
             }
@@ -491,6 +494,7 @@ if (navigator.geolocation) {
         else if (isConnected()){
             bleStateContainer.innerHTML = "Connected";
             bleStateContainer.style.color = "#4CAF50";
+            prevIsConnected=true ;
         }
 
     },1000);
