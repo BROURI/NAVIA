@@ -461,6 +461,7 @@ if (navigator.geolocation) {
             window.alert("Bluetooth is not connected.");
         }
         cleanDisconnect = true;
+        prevIsConnected= false;
     }
 
     function getDateTime() {
