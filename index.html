@@ -294,10 +294,11 @@ if (navigator.geolocation) {
 
     const headingAlertEnableButton = document.getElementById('headingAlertEnableButton');
     const headingAlertDisableButton = document.getElementById('headingAlertDisableButton');
-    const autoPilotOn = document.getElementById("autoPilotOn");
-    const autoPilotOff = document.getElementById("autoPilotOff");
+    const autoPilotOnButton = document.getElementById('autoPilotOn');
+    const autoPilotOffButton = document.getElementById('autoPilotOff');
 
 
+    autoPilotOn
     // Define BLE Device Specs
     var maxWindSpeed = 0;
     var deviceName = 'NAVIA';
@@ -325,8 +326,8 @@ if (navigator.geolocation) {
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
     minus10Button.addEventListener('click', () => writeOnCharacteristic(2));
     plus10Button.addEventListener('click', () => writeOnCharacteristic(3));
-    autoPilotOn.addEventListener('click', () => writeOnCharacteristic("autoPilotOn"));
-    autoPilotOff.addEventListener('click', () => writeOnCharacteristic("autoPilotOff");
+    autoPilotOn.addEventListener('click', () => writeOnCharacteristic(4));
+    autoPilotOff.addEventListener('click', () => writeOnCharacteristic(5));
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
     windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
     
