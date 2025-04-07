@@ -304,7 +304,8 @@ if (navigator.geolocation) {
     var deviceName = 'NAVIA';
     var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
     var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
-    var sensorCharacteristic = '19b10001-e8f2-537e-4f6c-d104768a1214';
+    var pHeadingCharacteristic = "19b10003-e8f2-537e-4f6c-d104768a1214";
+    var sensorCharacteristic = "19b10001-e8f2-537e-4f6c-d104768a1214";
 
     // Global Variables to Handle Bluetooth
     var bleServer;
@@ -449,6 +450,29 @@ if (navigator.geolocation) {
         }
     }
 
+    function sendHeadingToESP32(heading) {
+    if (bleServer && bleServer.connected) {
+        // Get the heading characteristic
+        bleServiceFound.getCharacteristic('19b10003-e8f2-537e-4f6c-d104768a1214') // Your heading characteristic UUID
+            .then(characteristic => {
+                console.log("Found the Heading characteristic: ", characteristic.uuid);
+                
+                // Prepare the data to send (convert heading to a Uint8Array)
+                const data = new Uint8Array([heading]);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                console.log("Heading sent to ESP32: ", heading);
+            })
+            .catch(error => {
+                console.error("Error writing to the Heading characteristic: ", error);
+            });
+    } else {
+        console.error("Bluetooth is not connected. Please connect to BLE first!");
+        window.alert("Bluetooth is not connected. Please connect to BLE first!");
+    }
+}
+
     function disconnectDevice() {
         console.log("Disconnect Device.");
         if (bleServer && bleServer.connected) {
@@ -510,6 +534,7 @@ if (navigator.geolocation) {
 
     setInterval(() => {
         headingContainer.innerHTML = heading;
+        sendHeadingToESP32(heading);
     },1000);
 
     
