@@ -433,7 +433,9 @@ if (navigator.geolocation) {
             bleServiceFound.getCharacteristic(ledCharacteristic)
             .then(characteristic => {
                 console.log("Found the LED characteristic: ", characteristic.uuid);
-                const data = new Uint8Array([value]);
+                let strValue = String(value);
+                const encoder = new TextEncoder();
+                const data = encoder.encode(strValue);
                 return characteristic.writeValue(data);
             })
             .then(() => {
