@@ -456,7 +456,7 @@ if (navigator.geolocation) {
         bleServiceFound.getCharacteristic(pHeadingCharacteristic) // Your heading characteristic UUID
             .then(characteristic => {
                 console.log("Found the Heading characteristic: ", characteristic.uuid);
-                strHeading = String(heading);
+                let strHeading = String(heading);
                 // Prepare the data to send (convert heading to a Uint8Array)
                 const data = new Uint8Array([strHeading]);
                 return characteristic.writeValue(data);
