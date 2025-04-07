@@ -327,7 +327,7 @@ if (navigator.geolocation) {
     minus10Button.addEventListener('click', () => writeOnCharacteristic(2));
     plus10Button.addEventListener('click', () => writeOnCharacteristic(3));
     autoPilotOnButton.addEventListener('click', () => writeOnCharacteristic("autoPilotOn"));
-    autoPilotOffButton.addEventListener('click', () => writeOnCharacteristic(autoPilotOff));
+    autoPilotOffButton.addEventListener('click', () => writeOnCharacteristic("autoPilotOff"));
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
     windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
     
