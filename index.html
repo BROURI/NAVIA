@@ -133,17 +133,6 @@ button {
                 <h2>COG</h2>
             <p class="reading"><span id="cog">-</span></p>
             </div>
-            <div class="card">
-            <h2>Wind angle alert</h2>
-            <label for="minWindAngle">Min angle</label>
-            <input type="text" id="minWindAngle" name="minWindAngle" min="-180" max="180" required>
-            <br><br>
-            <label for="maxWindAngle">Max angle</label>
-            <input type="text" id="maxWindAngle" name="maxWindAngle" min="-180" max="180" required>
-            <br><br>
-            <button type="submit" class="alertButton" id="windAngleAlertEnableButton">Enable</button>
-            <button type="submit" class="alertButton" id="windAngleAlertDisableButton">Disable</button>
-            </div>
 
             <div class="card">
             <h2>Heading alert</h2>
@@ -166,6 +155,18 @@ button {
                 <button type="submit" class="offButton" id="autoPilotOff">Off</button>
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
             </div>
+            <div class="card">
+                <h2>Wind angle alert</h2>
+                <label for="minWindAngle">Min angle</label>
+                <input type="text" id="minWindAngle" name="minWindAngle" min="-180" max="180" required>
+                <br><br>
+                <label for="maxWindAngle">Max angle</label>
+                <input type="text" id="maxWindAngle" name="maxWindAngle" min="-180" max="180" required>
+                <br><br>
+                <button type="submit" class="alertButton" id="windAngleAlertEnableButton">Enable</button>
+                <button type="submit" class="alertButton" id="windAngleAlertDisableButton">Disable</button>
+            </div>
+
         </div>
     </div>
     <div class="footer">
