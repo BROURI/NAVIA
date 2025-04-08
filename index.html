@@ -317,17 +317,23 @@ if (navigator.geolocation) {
             connectToDevice();
         }
     });
-
-    // Disconnect Button
+    var autoPilotOn = false;
+    function autoPilotOn(){
+        writeOnCharacteristic("autoPilotOn");
+        autoPilotOn = true;
+    }
+    function autoPilotOff(){
+        writeOnCharacteristic("autoPilotOff");
+        autoPilotOn = false;
+    }
     disconnectButton.addEventListener('click', disconnectDevice);
 
-    // Write to the ESP32 LED Characteristic
     onButton.addEventListener('click', () => writeOnCharacteristic(1));
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
     minus10Button.addEventListener('click', () => writeOnCharacteristic(2));
     plus10Button.addEventListener('click', () => writeOnCharacteristic(3));
-    autoPilotOnButton.addEventListener('click', () => writeOnCharacteristic("autoPilotOn"));
-    autoPilotOffButton.addEventListener('click', () => writeOnCharacteristic("autoPilotOff"));
+    autoPilotOnButton.addEventListener('click', () => autoPilotOn());
+    autoPilotOffButton.addEventListener('click', () =>autoPilotOff());
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
     windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
     
@@ -511,9 +517,13 @@ if (navigator.geolocation) {
 
     setInterval(() => {
         headingContainer.innerHTML = heading;
-        writeOnCharacteristic(heading);
-    },200);
+    },1000);
 
+    setInterval(() => {
+    if(autoPilotOn){
+        writeOnCharacteristic(heading);
+    }
+    },50);
     
     ////  alerts
     setInterval(() => {
