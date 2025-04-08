@@ -318,11 +318,11 @@ if (navigator.geolocation) {
         }
     });
     var autoPilotOn = false;
-    function autoPilotOn(){
+    function setAutoPilotOn(){
         writeOnCharacteristic("autoPilotOn");
         autoPilotOn = true;
     }
-    function autoPilotOff(){
+    function setAutoPilotOff(){
         writeOnCharacteristic("autoPilotOff");
         autoPilotOn = false;
     }
@@ -332,8 +332,8 @@ if (navigator.geolocation) {
     offButton.addEventListener('click', () => writeOnCharacteristic(0));
     minus10Button.addEventListener('click', () => writeOnCharacteristic(2));
     plus10Button.addEventListener('click', () => writeOnCharacteristic(3));
-    autoPilotOnButton.addEventListener('click', () => autoPilotOn());
-    autoPilotOffButton.addEventListener('click', () =>autoPilotOff());
+    autoPilotOnButton.addEventListener('click', () => setAutoPilotOn());
+    autoPilotOffButton.addEventListener('click', () =>setAutoPilotOff());
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
     windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
     
