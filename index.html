@@ -52,12 +52,8 @@ input {
 }
 
 button {
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+    background-color: #1b8a94;
+    font-size: 3.0rem;
 }
 .onButton{
     background-color: #1b8a94;
@@ -67,11 +63,7 @@ button {
     background-color: #1b8a94;
     font-size: 3.0rem;
 }
-.minus10Button{
-    background-color: #1b8a94;
-    font-size: 3.0rem;
-}
-.plus10Button{
+.pilotButton{
     background-color: #1b8a94;
     font-size: 3.0rem;
 }
@@ -135,8 +127,14 @@ button {
             </div>            
             <div class="card">
                 <h2>Pilot Control</h2>
-                <button id="minus10Button" class="minus10Button">-10</button>
-                <button id="plus10Button" class="plus10Button">+10</button>
+                <button id="minus10Button" class="pilotButton">-1</button>
+                <button id="plus10Button" class="pilotButton">+1</button>
+                 <br><br>
+                <button id="minus10Button" class="pilotButton">-10</button>
+                <button id="plus10Button" class="pilotButton">+10</button>
+                 <br><br>
+                <button id="minus90Button" class="pilotButton">-90</button>
+                <button id="plus90Button" class="pilotButton">+90</button>
                  <br><br>
                 <button type="submit" class="onButton" id="autoPilotOn">On</button>
                 <button type="submit" class="offButton" id="autoPilotOff">Off</button>
