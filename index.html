@@ -434,7 +434,6 @@ if (navigator.geolocation) {
             })
             .then(() => {
                 valueSentPilot.innerHTML = value;
-                valueSentGPIO.innerHTML = value;
                 console.log("Value written to LED characteristic:", value);
             })
             .catch(error => {
