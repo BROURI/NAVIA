@@ -317,17 +317,20 @@ if (navigator.geolocation) {
     });
     var autoPilotOn = false;
     function setAutoPilotOn(){
-        writeOnCharacteristic("autoPilotOn");
+        writeOnCharacteristic("autoPilotOn","pilot");
         autoPilotOn = true;
     }
     function setAutoPilotOff(){
-        writeOnCharacteristic("autoPilotOff");
+        writeOnCharacteristic("autoPilotOff","pilot");
         autoPilotOn = false;
     }
     disconnectButton.addEventListener('click', disconnectDevice);
-
-    minus10Button.addEventListener('click', () => writeOnCharacteristic("minus10"));
-    plus10Button.addEventListener('click', () => writeOnCharacteristic("plus10"));
+    minus1Button.addEventListener('click', () => writeOnCharacteristic("minus1","pilot"));
+    plus1Button.addEventListener('click', () => writeOnCharacteristic("plus1","pilot"));
+    minus10Button.addEventListener('click', () => writeOnCharacteristic("minus10","pilot"));
+    plus10Button.addEventListener('click', () => writeOnCharacteristic("plus10","pilot"));
+    minus90Button.addEventListener('click', () => writeOnCharacteristic("minus90","pilot"));
+    plus90Button.addEventListener('click', () => writeOnCharacteristic("plus90","pilot"));
     autoPilotOnButton.addEventListener('click', () => setAutoPilotOn());
     autoPilotOffButton.addEventListener('click', () =>setAutoPilotOff());
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
@@ -517,7 +520,7 @@ if (navigator.geolocation) {
 
     setInterval(() => {
     if(autoPilotOn){
-        writeOnCharacteristic(heading);
+        writeOnCharacteristic(heading,"heading");
     }
     },50);
     
