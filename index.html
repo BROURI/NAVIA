@@ -143,6 +143,7 @@ button {
                 <button type="submit" class="onButton" id="autoPilotOn">On</button>
                 <button type="submit" class="offButton" id="autoPilotOff">Off</button>
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
+                <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
             </div>
             <div class="card">
                 <h2>Heading alert</h2>
@@ -277,6 +278,8 @@ if (navigator.geolocation) {
     const windAngleContainer = document.getElementById('windAngle');
     const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
     const valueSentPilot = document.getElementById('valueSentPilot');
+    const valueSentHeading = document.getElementById('valueSentHeading');
+
     const valueSentGPIO = document.getElementById('valueSentGPIO');
     const bleStateContainer = document.getElementById('bleState');
     const angleTimestampContainer = document.getElementById('angleTimestamp');
