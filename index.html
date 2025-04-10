@@ -148,9 +148,8 @@ button {
                 <button id="minus90Button" class="pilotButton">-90</button>
                 <button id="plus90Button" class="pilotButton">+90</button>
                  <br><br>
-                <button type="submit" class="pilotButton" id="windModeOn">WdOn</button>
-                <button type="submit" class="pilotButton" id="windModeOff">WdOff</button>
-                <button type="submit" class="pilotButton toggleButton" id="windModeToggle">Wind Mode: <span id="windModeState">Off</span></button>
+            
+                <button type="submit" class="pilotButton toggleButton" id="windModeToggle">Wind Mode<span id="windModeState">Off</span></button>
                  <br><br>
                 <button type="submit" class="onButton" id="autoPilotOn">Auto</button>
                 <button type="submit" class="offButton" id="autoPilotOff">Off</button>
@@ -286,8 +285,6 @@ if (navigator.geolocation) {
     const offButton = document.getElementById('offButton');
     const minus10Button = document.getElementById('minus10Button');
     const plus10Button = document.getElementById('plus10Button');
-    const windModeOn = document.getElementById('windModeOn');
-    const windModeOff = document.getElementById('windModeOff');
     const windSpeedContainer = document.getElementById('windSpeed');
     const windAngleContainer = document.getElementById('windAngle');
     const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
@@ -362,8 +359,6 @@ windModeToggle.addEventListener('click', () => {
     plus10Button.addEventListener('click', () => writeOnCharacteristic("plus10","pilot"));
     minus90Button.addEventListener('click', () => writeOnCharacteristic("minus90","pilot"));
     plus90Button.addEventListener('click', () => writeOnCharacteristic("plus90","pilot"));
-    windModeOn.addEventListener('click', () => writeOnCharacteristic("windModeOn","pilot"));
-    windModeOff.addEventListener('click', () => writeOnCharacteristic("windModeOff","pilot"));
     autoPilotOnButton.addEventListener('click', () => setAutoPilotOn());
     autoPilotOffButton.addEventListener('click', () =>setAutoPilotOff());
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
