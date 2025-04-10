@@ -89,6 +89,14 @@ button {
 .reading {
     font-size: 3.6rem;
 }
+.toggleButton {
+    background-color: #1b8a94;
+    font-size: 1.8rem;
+    width: 200px; /* Ajustez la largeur selon vos besoins */
+}
+.toggleButton.on {
+    background-color: #4CAF50; /* Couleur quand activé */
+}
 </style>
     <meta charset="UTF-8">
 </head>
@@ -142,6 +150,7 @@ button {
                  <br><br>
                 <button type="submit" class="pilotButton" id="windModeOn">WdOn</button>
                 <button type="submit" class="pilotButton" id="windModeOff">WdOff</button>
+                <button type="submit" class="pilotButton toggleButton" id="windModeToggle">Wind Mode: <span id="windModeState">Off</span></button>
                  <br><br>
                 <button type="submit" class="onButton" id="autoPilotOn">Auto</button>
                 <button type="submit" class="offButton" id="autoPilotOff">Off</button>
@@ -299,6 +308,24 @@ if (navigator.geolocation) {
     const headingAlertDisableButton = document.getElementById('headingAlertDisableButton');
     const autoPilotOnButton = document.getElementById('autoPilotOn');
     const autoPilotOffButton = document.getElementById('autoPilotOff');
+
+    const windModeToggle = document.getElementById('windModeToggle');
+const windModeState = document.getElementById('windModeState');
+let windModeActive = false;
+
+windModeToggle.addEventListener('click', () => {
+    windModeActive = !windModeActive;
+    
+    if(windModeActive) {
+        writeOnCharacteristic("windModeOn", "pilot");
+        windModeState.textContent = "On";
+        windModeToggle.classList.add('on');
+    } else {
+        writeOnCharacteristic("windModeOff", "pilot");
+        windModeState.textContent = "Off";
+        windModeToggle.classList.remove('on');
+    }
+});
 
 
     autoPilotOn
