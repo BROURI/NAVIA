@@ -215,11 +215,9 @@ if (window.DeviceOrientationEvent) {
 }
 
 function isValidHeading(angleStr) {
-    const angle = Number(angleStr);
     return !isNaN(angle) && angle >= 0 && angle < 360;
 }
 function isValidWindAngle(angleStr) {
-    const angle = Number(angleStr);
     return !isNaN(angle) && angle >= -180 && angle <= 180;
 }
 ///////////////////geolocation et calcul angle de deplacement
