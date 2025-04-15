@@ -214,10 +214,10 @@ if (window.DeviceOrientationEvent) {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
 
-function isValidHeading(angleStr) {
+function isValidHeading(angle) {
     return !isNaN(angle) && angle >= 0 && angle < 360;
 }
-function isValidWindAngle(angleStr) {
+function isValidWindAngle(angle) {
     return !isNaN(angle) && angle >= -180 && angle <= 180;
 }
 ///////////////////geolocation et calcul angle de deplacement
