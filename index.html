@@ -311,9 +311,7 @@ const windModeState = document.getElementById('windModeState');
 let windModeActive = false;
 
 windModeToggle.addEventListener('click', () => {
-    windModeActive = !windModeActive;
-    
-    if(windModeActive) {
+    if(windModeState.textContent == "Off") {
         writeOnCharacteristic("windModeOn", "pilot");
         windModeState.textContent = "On";
         windModeToggle.classList.add('on');
@@ -473,6 +471,15 @@ windModeToggle.addEventListener('click', () => {
             .then(() => {
                 if(valueType=="heading")valueSentHeading.innerHTML = value;
                 if(valueType=="pilot")valueSentPilot.innerHTML = value;
+                if(value== "windModeOn") {
+                    windModeState.textContent = "On";
+                    windModeToggle.classList.add('on');
+                }
+                if(value== "windModeOff") {
+                    windModeState.textContent = "Off";
+                    windModeToggle.classList.remove('on');
+                }
+                
                 console.log("Value written to server characteristic:", value);
             })
             .catch(error => {
