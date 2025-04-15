@@ -300,8 +300,6 @@ if (navigator.geolocation) {
     const windAngleAlertEnableButton = document.getElementById('windAngleAlertEnableButton');
     const windAngleAlertDisableButton = document.getElementById('windAngleAlertDisableButton');
 
-    const headingAlertEnableButton = document.getElementById('headingAlertEnableButton');
-    const headingAlertDisableButton = document.getElementById('headingAlertDisableButton');
 
     const windModeToggle = document.getElementById('windModeToggle');
     const autoPilotToggle = document.getElementById('autoPilotToggle');
@@ -315,14 +313,14 @@ if (navigator.geolocation) {
     const headingAlertState = document.getElementById('headingAlertState');
     
     headingAlertToggle.addEventListener('click', () => {
-    if(headingAlertState.textContent == "Off") {
+    if(headingAlertState.textContent == "Disabled") {
         headingAlertEnabled=true;
-        headingAlertState.textContent = "On"
+        headingAlertState.textContent = "Enabled"
         windModeToggle.classList.add('on');
 
     } else {
         headingAlertEnabled=false;
-        headingAlertState.textContent = "Off"
+        headingAlertState.textContent = "Disabled"
         windModeToggle.classList.remove('on');
     }
 });
