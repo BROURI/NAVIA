@@ -148,9 +148,9 @@ button {
                 <button id="minus90Button" class="pilotButton">-90</button>
                 <button id="plus90Button" class="pilotButton">+90</button>
                 <br><br>
-                <button type="submit" class="pilotButton toggleButton" id="windModeToggle">Wind Mode <span id="windModeState">Off</span></button>
+                <button type="submit" class="toggleButton" id="windModeToggle">Wind Mode <span id="windModeState">Off</span></button>
                 <br><br>
-                <button type="submit" class="pilotButton toggleButton" id="autoPilotToggle">Auto Pilot <span id="autoPilotState">Standby</span></button>
+                <button type="submit" class="toggleButton" id="autoPilotToggle">Auto Pilot <span id="autoPilotState">Standby</span></button>
                 <br><br>
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
                 <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
@@ -165,6 +165,8 @@ button {
                 <br><br>
                 <button type="submit" class="alertButton" id="headingAlertEnableButton">Enable</button>
                 <button type="submit" class="alertButton" id="headingAlertDisableButton">Disable</button>
+                <button type="submit" class="toggleButton" id="headingAlertToggle"><span id="headingAlertState">Disabled</span></button>
+
             </div>
             <div class="card">
                 <h2>Wind angle alert</h2>
@@ -306,11 +308,26 @@ if (navigator.geolocation) {
 
     const windModeToggle = document.getElementById('windModeToggle');
     const autoPilotToggle = document.getElementById('autoPilotToggle');
+    
 
+    
     const windModeState = document.getElementById('windModeState');
     const autoPilotState = document.getElementById('autoPilotState');
 
+    const headingAlertToggle = document.getElementById('headingAlertToggle');
+    const headingAlertState = document.getElementById('headingAlertState');
+    
+    headingAlertToggle.addEventListener('click', () => {
+    if(headingAlertState.textContent == "Off") {
+        headingAlertEnabled=true;
+        windModeToggle.classList.add('on');
 
+    } else {
+        headingAlertEnabled=false;
+        windModeToggle.classList.remove('on');
+    }
+});
+    
 windModeToggle.addEventListener('click', () => {
     if(windModeState.textContent == "Off") {
         writeOnCharacteristic("windModeOn", "pilot");
