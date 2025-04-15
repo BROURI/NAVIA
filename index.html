@@ -317,10 +317,12 @@ if (navigator.geolocation) {
     headingAlertToggle.addEventListener('click', () => {
     if(headingAlertState.textContent == "Off") {
         headingAlertEnabled=true;
+        headingAlertState.textContent = "On"
         windModeToggle.classList.add('on');
 
     } else {
         headingAlertEnabled=false;
+        headingAlertState.textContent = "Off"
         windModeToggle.classList.remove('on');
     }
 });
@@ -370,8 +372,6 @@ autoPilotToggle.addEventListener('click', () => {
     windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
     windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
     
-    headingAlertEnableButton.addEventListener('click', () => {headingAlertEnabled=true});
-    headingAlertDisableButton.addEventListener('click', () => {headingAlertEnabled=false});
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
         if (!navigator.bluetooth) {
