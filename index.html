@@ -470,16 +470,17 @@ autoPilotToggle.addEventListener('click', () => {
                 if(value== "autoPilotOn") {
                     autoPilotState.textContent = "Auto";
                     autoPilotToggle.classList.add('on');
+                    autoPilotOn = true;
                 }
                 if(value== "autoPilotOff") {
                     autoPilotState.textContent = "Standby";
                     autoPilotToggle.classList.remove('on');
+                    autoPilotOn = false;
                 }
         
                 if(value== "windModeOn") {
                     windModeState.textContent = "On";
                     windModeToggle.classList.add('on');
-                    autoPilotOn = true;
                 }
                 if(value== "windModeOff") {
                     windModeState.textContent = "Off";
