@@ -141,18 +141,20 @@ button {
                 <h2>Pilot Control</h2>
                 <button id="minus1Button" class="pilotButton">-1</button>
                 <button id="plus1Button" class="pilotButton">+1</button>
-                 <br><br>
+                <br><br>
                 <button id="minus10Button" class="pilotButton">-10</button>
                 <button id="plus10Button" class="pilotButton">+10</button>
-                 <br><br>
+                <br><br>
                 <button id="minus90Button" class="pilotButton">-90</button>
                 <button id="plus90Button" class="pilotButton">+90</button>
-                 <br><br>
-            
+                <br><br>
                 <button type="submit" class="pilotButton toggleButton" id="windModeToggle">Wind Mode <span id="windModeState">Off</span></button>
-                 <br><br>
+                <br><br>
                 <button type="submit" class="onButton" id="autoPilotOn">Auto</button>
                 <button type="submit" class="offButton" id="autoPilotOff">Off</button>
+                <br><br>
+                <button type="submit" class="pilotButton toggleButton" id="autoPilotToggle"><span id="autoPilotState">Standby</span></button>
+                <br><br>
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
                 <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
             </div>
@@ -307,6 +309,8 @@ if (navigator.geolocation) {
     const autoPilotOffButton = document.getElementById('autoPilotOff');
 
     const windModeToggle = document.getElementById('windModeToggle');
+    const autoPilotToggle = document.getElementById('autoPilotToggle');
+
 const windModeState = document.getElementById('windModeState');
 
 
@@ -318,7 +322,13 @@ windModeToggle.addEventListener('click', () => {
     }
 });
 
-
+autoPilotToggle.addEventListener('click', () => {
+    if(windModeState.textContent == "Standby") {
+        writeOnCharacteristic("autoPilotOn", "pilot");
+    } else {
+        writeOnCharacteristic("autoPilotOff", "pilot");
+    }
+});
     // Define BLE Device Specs
     var maxWindSpeed = 0;
     var deviceName = 'NAVIA';
@@ -467,6 +477,16 @@ windModeToggle.addEventListener('click', () => {
             .then(() => {
                 if(valueType=="heading")valueSentHeading.innerHTML = value;
                 if(valueType=="pilot")valueSentPilot.innerHTML = value;
+                
+                if(value== "autoPilotOn") {
+                    autoPilotState.textContent = "Auto";
+                    autoPilotToggle.classList.add('on');
+                }
+                if(value== "autoPilotOff") {
+                    autoPilotState.textContent = "Standby";
+                    autoPilotToggle.classList.remove('on');
+                }
+        
                 if(value== "windModeOn") {
                     windModeState.textContent = "On";
                     windModeToggle.classList.add('on');
