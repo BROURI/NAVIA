@@ -316,12 +316,12 @@ if (navigator.geolocation) {
     if(headingAlertState.textContent == "Disabled") {
         headingAlertEnabled=true;
         headingAlertState.textContent = "Enabled";
-        windModeToggle.classList.add('on');
+        headingAlertToggle.classList.add('on');
 
     } else {
         headingAlertEnabled=false;
         headingAlertState.textContent = "Disabled";
-        windModeToggle.classList.remove('on');
+        headingAlertToggle.classList.remove('on');
     }
 });
     
