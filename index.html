@@ -320,7 +320,7 @@ windModeToggle.addEventListener('click', () => {
 });
 
 autoPilotToggle.addEventListener('click', () => {
-    if(autoPilotToggle.textContent == "Standby") {
+    if(autoPilotState.textContent == "Standby") {
         writeOnCharacteristic("autoPilotOn", "pilot");
     } else {
         writeOnCharacteristic("autoPilotOff", "pilot");
