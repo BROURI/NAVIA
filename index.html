@@ -337,6 +337,7 @@ if (navigator.geolocation) {
     
     headingAlertToggle.addEventListener('click', () => {
     minHeading = Number(minHeadingContainer.value);
+    console.log(minHeading);
     maxHeading = Number(maxHeadingContainer.value);
     if(headingAlertState.textContent == "Disabled" && isValidHeading(minHeading) && isValidHeading(maxHeading)) {
         headingAlertEnabled=true;
