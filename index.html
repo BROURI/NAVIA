@@ -173,8 +173,8 @@ button {
                 <label for="maxWindAngle">Max angle</label>
                 <input type="text" id="maxWindAngle" name="maxWindAngle" min="-180" max="180" required>
                 <br><br>
-                <button type="submit" class="alertButton" id="windAngleAlertEnableButton">Enable</button>
-                <button type="submit" class="alertButton" id="windAngleAlertDisableButton">Disable</button>
+                <button type="submit" class="toggleButton" id="windAngleToggle"><span id="windAngleAlertState">Disabled</span></button>
+
             </div>
 
         </div>
@@ -297,8 +297,7 @@ if (navigator.geolocation) {
     const headingContainer = document.getElementById('heading');
     const cogContainer = document.getElementById('cog');
 
-    const windAngleAlertEnableButton = document.getElementById('windAngleAlertEnableButton');
-    const windAngleAlertDisableButton = document.getElementById('windAngleAlertDisableButton');
+
 
 
     const windModeToggle = document.getElementById('windModeToggle');
@@ -311,6 +310,22 @@ if (navigator.geolocation) {
 
     const headingAlertToggle = document.getElementById('headingAlertToggle');
     const headingAlertState = document.getElementById('headingAlertState');
+    
+    const windAngleAlertToggle = document.getElementById('windAngleAlertToggle');
+    const windAngleAlertState = document.getElementById('windAngleAlertState');
+
+    windAngleAlertToggle.addEventListener('click', () => {
+    if(windAngleAlertState.textContent == "Disabled") {
+        windAngleAlertEnabled=true;
+        windAngleAlertState.textContent = "Enabled";
+        windAngleAlertToggle.classList.add('on');
+
+    } else {
+        windAngleAlertEnabled=false;
+        windAngleAlertState.textContent = "Disabled";
+        windAngleAlertToggle.classList.remove('on');
+    }
+});
     
     headingAlertToggle.addEventListener('click', () => {
     if(headingAlertState.textContent == "Disabled") {
@@ -367,8 +382,6 @@ autoPilotToggle.addEventListener('click', () => {
     minus90Button.addEventListener('click', () => writeOnCharacteristic("minus90","pilot"));
     plus90Button.addEventListener('click', () => writeOnCharacteristic("plus90","pilot"));
 
-    windAngleAlertEnableButton.addEventListener('click', () => {windAngleAlertEnabled=true});
-    windAngleAlertDisableButton.addEventListener('click', () => {windAngleAlertEnabled=false});
     
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
