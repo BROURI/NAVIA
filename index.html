@@ -321,8 +321,8 @@ if (navigator.geolocation) {
     const windAngleAlertState = document.getElementById('windAngleAlertState');
 
     windAngleAlertToggle.addEventListener('click', () => {
-    minWindAngle = Number(minWindAngleContainer.value);
-    maxWindAngle = Number(maxWindAngleContainer.value);
+    minWindAngle = minWindAngleContainer.value;
+    maxWindAngle = maxWindAngleContainer.value;
     if(windAngleAlertState.textContent == "Disabled" && isValidWindAngle(minWindAngle) && isValidWindAngle(maxWindAngle)) {
         windAngleAlertEnabled=true;
         windAngleAlertState.textContent = "Enabled";
@@ -336,9 +336,9 @@ if (navigator.geolocation) {
 });
     
     headingAlertToggle.addEventListener('click', () => {
-    minHeading = Number(minHeadingContainer.value);
+    minHeading = minHeadingContainer.value;
     console.log(minHeading);
-    maxHeading = Number(maxHeadingContainer.value);
+    maxHeading = maxHeadingContainer.value;
     if(headingAlertState.textContent == "Disabled" && isValidHeading(minHeading) && isValidHeading(maxHeading)) {
         headingAlertEnabled=true;
         headingAlertState.textContent = "Enabled";
