@@ -218,6 +218,10 @@ function isValidHeading(angleStr) {
     const angle = Number(angleStr);
     return !isNaN(angle) && angle >= 0 && angle < 360;
 }
+function isValidWindAngle(angleStr) {
+    const angle = Number(angleStr);
+    return !isNaN(angle) && angle >= -180 && angle <= 180;
+}
 ///////////////////geolocation et calcul angle de deplacement
 
 function calculateCOG(lat1, lon1, lat2, lon2) {
@@ -319,7 +323,7 @@ if (navigator.geolocation) {
     const windAngleAlertState = document.getElementById('windAngleAlertState');
 
     windAngleAlertToggle.addEventListener('click', () => {
-    if(windAngleAlertState.textContent == "Disabled") {
+    if(windAngleAlertState.textContent == "Disabled" && isValidWindAngle(minWindAngle) && isValidWindAngle(maxWindAngle)) {
         windAngleAlertEnabled=true;
         windAngleAlertState.textContent = "Enabled";
         windAngleAlertToggle.classList.add('on');
