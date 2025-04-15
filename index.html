@@ -491,10 +491,13 @@ autoPilotToggle.addEventListener('click', () => {
                 if(value== "windModeOn") {
                     windModeState.textContent = "On";
                     windModeToggle.classList.add('on');
+                    autoPilotOn = true;
                 }
                 if(value== "windModeOff") {
                     windModeState.textContent = "Off";
                     windModeToggle.classList.remove('on');
+                    autoPilotOn = false;
+
                 }
                 
                 console.log("Value written to server characteristic:", value);
