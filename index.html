@@ -214,6 +214,10 @@ if (window.DeviceOrientationEvent) {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
 
+function isValidHeading(angleStr) {
+    const angle = Number(angleStr);
+    return !isNaN(angle) && angle >= 0 && angle < 360;
+}
 ///////////////////geolocation et calcul angle de deplacement
 
 function calculateCOG(lat1, lon1, lat2, lon2) {
@@ -328,7 +332,7 @@ if (navigator.geolocation) {
 });
     
     headingAlertToggle.addEventListener('click', () => {
-    if(headingAlertState.textContent == "Disabled") {
+    if(headingAlertState.textContent == "Disabled" && isValidHeading(minHeading) && isValidHeading(maxHeading)) {
         headingAlertEnabled=true;
         headingAlertState.textContent = "Enabled";
         headingAlertToggle.classList.add('on');
