@@ -315,12 +315,12 @@ if (navigator.geolocation) {
     headingAlertToggle.addEventListener('click', () => {
     if(headingAlertState.textContent == "Disabled") {
         headingAlertEnabled=true;
-        headingAlertState.textContent = "Enabled"
+        headingAlertState.textContent = "Enabled";
         windModeToggle.classList.add('on');
 
     } else {
         headingAlertEnabled=false;
-        headingAlertState.textContent = "Disabled"
+        headingAlertState.textContent = "Disabled";
         windModeToggle.classList.remove('on');
     }
 });
