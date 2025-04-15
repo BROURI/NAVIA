@@ -338,6 +338,8 @@ if (navigator.geolocation) {
 });
     
     headingAlertToggle.addEventListener('click', () => {
+    minHeading = Number(minHeadingContainer.value);
+    maxHeading = Number(maxHeadingContainer.value);
     if(headingAlertState.textContent == "Disabled" && isValidHeading(minHeading) && isValidHeading(maxHeading)) {
         headingAlertEnabled=true;
         headingAlertState.textContent = "Enabled";
