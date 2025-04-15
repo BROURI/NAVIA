@@ -323,6 +323,8 @@ if (navigator.geolocation) {
     const windAngleAlertState = document.getElementById('windAngleAlertState');
 
     windAngleAlertToggle.addEventListener('click', () => {
+    minWindAngle = Number(minWindAngleContainer.value);
+    maxWindAngle = Number(maxWindAngleContainer.value);
     if(windAngleAlertState.textContent == "Disabled" && isValidWindAngle(minWindAngle) && isValidWindAngle(maxWindAngle)) {
         windAngleAlertEnabled=true;
         windAngleAlertState.textContent = "Enabled";
