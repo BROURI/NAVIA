@@ -313,12 +313,8 @@ const windModeState = document.getElementById('windModeState');
 windModeToggle.addEventListener('click', () => {
     if(windModeState.textContent == "Off") {
         writeOnCharacteristic("windModeOn", "pilot");
-        windModeState.textContent = "On";
-        windModeToggle.classList.add('on');
     } else {
         writeOnCharacteristic("windModeOff", "pilot");
-        windModeState.textContent = "Off";
-        windModeToggle.classList.remove('on');
     }
 });
 
