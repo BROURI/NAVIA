@@ -352,10 +352,18 @@ if (navigator.geolocation) {
 });
     
 windModeToggle.addEventListener('click', () => {
-    if (windModeState.textContent == "Off") {
-        writeOnCharacteristic("windModeOn", "pilot");
-    } else {
-        writeOnCharacteristic("windModeOff", "pilot");
+    try{
+        if (windModeState.textContent == "Off") {
+            writeOnCharacteristic("windModeOn", "pilot");
+        } else {
+            writeOnCharacteristic("windModeOff", "pilot");
+        }
+    }catch(erro){
+            if (windModeState.textContent == "Off") {
+            writeOnCharacteristic("windModeOn", "pilot");
+        } else {
+            writeOnCharacteristic("windModeOff", "pilot");
+        }
     }
 });
 
@@ -599,7 +607,7 @@ autoPilotToggle.addEventListener('click', () => {
     if(autoPilotOn){
         writeOnCharacteristic(heading,"heading");
     }
-    },50);
+    },100);
     
     ////  alerts
     setInterval(() => {
