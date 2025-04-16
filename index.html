@@ -352,19 +352,13 @@ if (navigator.geolocation) {
 });
     
 windModeToggle.addEventListener('click', () => {
-    try{
-        if (windModeState.textContent == "Off") {
-            writeOnCharacteristic("windModeOn", "pilot");
-        } else {
-            writeOnCharacteristic("windModeOff", "pilot");
-        }
-    }catch(erro){
-            if (windModeState.textContent == "Off") {
-            writeOnCharacteristic("windModeOn", "pilot");
-        } else {
-            writeOnCharacteristic("windModeOff", "pilot");
-        }
+    let res="";
+    if (windModeState.textContent == "Off") {
+        res=writeOnCharacteristic("windModeOn", "pilot");
+    } else {
+        res=writeOnCharacteristic("windModeOff", "pilot");
     }
+    console.log("res");
 });
 
 autoPilotToggle.addEventListener('click', () => {
