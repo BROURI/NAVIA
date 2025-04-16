@@ -416,7 +416,7 @@ autoPilotToggle.addEventListener('click', async () => {
     plus90Button.addEventListener('click', () => pilotClick("plus90"));
 
 
-    function pilotClick(value){
+    async function pilotClick(value){
         lastValueSent = "";
         let attempts = 0;
         const maxAttempts = 50;
