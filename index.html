@@ -351,22 +351,26 @@ if (navigator.geolocation) {
     }
 });
     
-windModeToggle.addEventListener('click', () => {
-    lastValueSent="";
-    let c=0;
-    if(bleServer && bleServer.connected){
-       while(!(lastValueSent=="windModeOn"||lastValueSent=="windModeOff")&& c<50){
-            if (windModeState.textContent == "Off") {
-                res=writeOnCharacteristic("windModeOn", "pilot");
+windModeToggle.addEventListener('click', async () => {
+    lastValueSent = "";
+    let attempts = 0;
+    const maxAttempts = 50;
+
+    if (bleServer && bleServer.connected) {
+        while (!(lastValueSent === "windModeOn" || lastValueSent === "windModeOff") && attempts < maxAttempts) {
+            if (windModeState.textContent === "Off") {
+                lastValueSent = await writeOnCharacteristic("windModeOn", "pilot");
             } else {
-                res=writeOnCharacteristic("windModeOff", "pilot");
+                lastValueSent = await writeOnCharacteristic("windModeOff", "pilot");
             }
-           c=c+1;
+            attempts++;
+            // Optionally, introduce a small delay between attempts
+            await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
         }
         console.log("windMode click retry");
     }
- 
 });
+
 
 autoPilotToggle.addEventListener('click', () => {
     if(autoPilotState.textContent == "Standby") {
