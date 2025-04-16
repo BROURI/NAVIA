@@ -355,7 +355,6 @@ windModeToggle.addEventListener('click', async () => {
     lastValueSent = "";
     let attempts = 0;
     const maxAttempts = 50;
-
     if (bleServer && bleServer.connected) {
         while (!(lastValueSent === "windModeOn" || lastValueSent === "windModeOff") && attempts < maxAttempts) {
             if (windModeState.textContent === "Off") {
@@ -373,10 +372,17 @@ windModeToggle.addEventListener('click', async () => {
 
 
 autoPilotToggle.addEventListener('click', () => {
-    if(autoPilotState.textContent == "Standby") {
-        writeOnCharacteristic("autoPilotOn", "pilot");
-    } else {
-        writeOnCharacteristic("autoPilotOff", "pilot");
+    lastValueSent = "";
+    let attempts = 0;
+    const maxAttempts = 50;
+    if (bleServer && bleServer.connected) {
+        while (!(lastValueSent === "autoPilotOn" || lastValueSent === "autoPilotOff") && attempts < maxAttempts) {
+            if(autoPilotState.textContent == "Standby") {
+                writeOnCharacteristic("autoPilotOn", "pilot");
+            } else {
+                writeOnCharacteristic("autoPilotOff", "pilot");
+            }
+        }
     }
 });
     // Define BLE Device Specs
@@ -501,6 +507,8 @@ autoPilotToggle.addEventListener('click', () => {
         }
     }
 let lastValueSent="";
+let lastValueTypeSent="";
+
     function writeOnCharacteristic(value,valueType){
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(ledCharacteristic)
@@ -537,6 +545,7 @@ let lastValueSent="";
                 
                 //console.log("Value written to server characteristic:", value);
                 lastValueSent=value;
+                lastValueTypeSent=valueType;
             })
             .catch(error => {
                 console.error("Error writing to the LED characteristic: ", error);
