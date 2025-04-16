@@ -358,9 +358,9 @@ windModeToggle.addEventListener('click', async () => {
     if (bleServer && bleServer.connected) {
         while (!(lastValueSent === "windModeOn" || lastValueSent === "windModeOff") && attempts < maxAttempts) {
             if (windModeState.textContent === "Off") {
-                lastValueSent = await writeOnCharacteristic("windModeOn", "pilot");
+                await writeOnCharacteristic("windModeOn", "pilot");
             } else {
-                lastValueSent = await writeOnCharacteristic("windModeOff", "pilot");
+                await writeOnCharacteristic("windModeOff", "pilot");
             }
             if(attempts>0)console.log("windMode click retry: "+ attempts);
             attempts++;
@@ -371,17 +371,20 @@ windModeToggle.addEventListener('click', async () => {
 });
 
 
-autoPilotToggle.addEventListener('click', () => {
+autoPilotToggle.addEventListener('click', async () => {
     lastValueSent = "";
     let attempts = 0;
     const maxAttempts = 50;
     if (bleServer && bleServer.connected) {
         while (!(lastValueSent === "autoPilotOn" || lastValueSent === "autoPilotOff") && attempts < maxAttempts) {
             if(autoPilotState.textContent == "Standby") {
-                writeOnCharacteristic("autoPilotOn", "pilot");
+                await writeOnCharacteristic("autoPilotOn", "pilot");
             } else {
-                writeOnCharacteristic("autoPilotOff", "pilot");
+                await writeOnCharacteristic("autoPilotOff", "pilot");
             }
+            if(attempts>0)console.log("windMode click retry: "+ attempts);
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
         }
     }
 });
