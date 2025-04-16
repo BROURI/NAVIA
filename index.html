@@ -498,7 +498,8 @@ autoPilotToggle.addEventListener('click', () => {
                 let strValue = String(value);
                 const encoder = new TextEncoder();
                 const data = encoder.encode(strValue);
-                return characteristic.writeValue(data);
+                characteristic.writeValue(data);
+                return value;
             })
             .then(() => {
                 if(valueType=="heading")valueSentHeading.innerHTML = value;
@@ -525,7 +526,6 @@ autoPilotToggle.addEventListener('click', () => {
                 }
                 
                 console.log("Value written to server characteristic:", value);
-                return value;
             })
             .catch(error => {
                 console.error("Error writing to the LED characteristic: ", error);
