@@ -351,11 +351,31 @@ if (navigator.geolocation) {
     }
 });
     
-windModeToggle.addEventListener('click', () => {
-    if(windModeState.textContent == "Off") {
-        writeOnCharacteristic("windModeOn", "pilot");
-    } else {
-        writeOnCharacteristic("windModeOff", "pilot");
+const maxRetries = 10; // Set the maximum number of attempts
+windModeToggle.addEventListener('click', async () => {
+    let success = false; // Flag to track success
+    let attempts = 0; // Counter for attempts
+
+    while (!success && attempts < maxRetries) {
+        try {
+            attempts++; // Increment attempt counter
+
+            // Attempt to write to the characteristic
+            if (windModeState.textContent == "Off") {
+                await writeOnCharacteristic("windModeOn", "pilot"); // Use await for async operation
+            } else {
+                await writeOnCharacteristic("windModeOff", "pilot"); // Use await for async operation
+            }
+            success = true; // If write is successful, set success flag to true
+        } catch (error) {
+            console.error(`Attempt ${attempts} failed:`, error); // Log the error
+            if (attempts >= maxRetries) {
+                console.error("Max retries reached. Could not toggle wind mode.");
+                // Optionally, you can show a user alert or message here
+            }
+            // Optionally, you could add a delay here before retrying
+            await new Promise(resolve => setTimeout(resolve, 25)); // Wait for 100ms before retrying
+        }
     }
 });
 
