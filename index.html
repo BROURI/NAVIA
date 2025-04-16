@@ -352,11 +352,15 @@ if (navigator.geolocation) {
 });
     
 windModeToggle.addEventListener('click', () => {
+    let pilotState = autoPilotOn;
+    if(autoPilotOn)autoPilotOn=False;
+    
     if(windModeState.textContent == "Off") {
         writeOnCharacteristic("windModeOn", "pilot");
     } else {
         writeOnCharacteristic("windModeOff", "pilot");
     }
+    setTimeout(() => {autoPilotOn=pilotState;}, 100);
 });
 
 autoPilotToggle.addEventListener('click', () => {
@@ -593,7 +597,7 @@ autoPilotToggle.addEventListener('click', () => {
 
     setInterval(() => {
         headingContainer.innerHTML = heading;
-    },1000);
+    },500);
 
     setInterval(() => {
     if(autoPilotOn){
