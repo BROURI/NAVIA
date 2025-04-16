@@ -352,16 +352,11 @@ if (navigator.geolocation) {
 });
     
 windModeToggle.addEventListener('click', () => {
-    let pilotState = autoPilotOn; // Store the current state of autoPilotOn
     if (windModeState.textContent == "Off") {
         writeOnCharacteristic("windModeOn", "pilot");
     } else {
         writeOnCharacteristic("windModeOff", "pilot");
     }
-    if (autoPilotOn) {
-        autoPilotOn = false; // Turn off autoPilotOn if it was on
-    }
-    setTimeout(() => { autoPilotOn = pilotState; }, 500);
 });
 
 autoPilotToggle.addEventListener('click', () => {
