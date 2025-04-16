@@ -352,13 +352,15 @@ if (navigator.geolocation) {
 });
     
 windModeToggle.addEventListener('click', () => {
-    let res="";
-    if (windModeState.textContent == "Off") {
-        res=writeOnCharacteristic("windModeOn", "pilot");
-    } else {
-        res=writeOnCharacteristic("windModeOff", "pilot");
+    lastValueSent="";
+    while(!(lastValueSent=="windModeOn"||lastValueSent=="windModeOff"){
+        if (windModeState.textContent == "Off") {
+            res=writeOnCharacteristic("windModeOn", "pilot");
+        } else {
+            res=writeOnCharacteristic("windModeOff", "pilot");
+        }
     }
-    console.log("res: "+res);
+    console.log("windMode click retry");
 });
 
 autoPilotToggle.addEventListener('click', () => {
@@ -489,7 +491,7 @@ autoPilotToggle.addEventListener('click', () => {
             console.error("Sensor characteristic not found.");
         }
     }
-
+let lastValueSent="";
     function writeOnCharacteristic(value,valueType){
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(ledCharacteristic)
@@ -498,8 +500,7 @@ autoPilotToggle.addEventListener('click', () => {
                 let strValue = String(value);
                 const encoder = new TextEncoder();
                 const data = encoder.encode(strValue);
-                characteristic.writeValue(data);
-                return value;
+                return characteristic.writeValue(data);
             })
             .then(() => {
                 if(valueType=="heading")valueSentHeading.innerHTML = value;
@@ -526,6 +527,7 @@ autoPilotToggle.addEventListener('click', () => {
                 }
                 
                 console.log("Value written to server characteristic:", value);
+                lastValueSent=value;
             })
             .catch(error => {
                 console.error("Error writing to the LED characteristic: ", error);
