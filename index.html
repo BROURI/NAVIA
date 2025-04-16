@@ -408,14 +408,27 @@ autoPilotToggle.addEventListener('click', async () => {
     });
 
     disconnectButton.addEventListener('click', disconnectDevice);
-    minus1Button.addEventListener('click', () => writeOnCharacteristic("minus1","pilot"));
-    plus1Button.addEventListener('click', () => writeOnCharacteristic("plus1","pilot"));
-    minus10Button.addEventListener('click', () => writeOnCharacteristic("minus10","pilot"));
-    plus10Button.addEventListener('click', () => writeOnCharacteristic("plus10","pilot"));
-    minus90Button.addEventListener('click', () => writeOnCharacteristic("minus90","pilot"));
-    plus90Button.addEventListener('click', () => writeOnCharacteristic("plus90","pilot"));
+    minus1Button.addEventListener('click', () => pilotClick("minus1"));
+    plus1Button.addEventListener('click', () => pilotClick("plus1"));
+    minus10Button.addEventListener('click', () => pilotClick("minus10"));
+    plus10Button.addEventListener('click', () => pilotClick("plus10"));
+    minus90Button.addEventListener('click', () => pilotClick("minus90"));
+    plus90Button.addEventListener('click', () => pilotClick("plus90"));
 
-    
+
+    function pilotClick(value){
+        lastValueSent = "";
+        let attempts = 0;
+        const maxAttempts = 50;
+        if (bleServer && bleServer.connected) {
+          while (!(lastValueSent === value) && attempts < maxAttempts) {
+            await writeOnCharacteristic(value,"pilot");
+            if(attempts>0)console.log("windMode click retry: "+ attempts);
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
+        }
+    }
+}
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
         if (!navigator.bluetooth) {
