@@ -353,13 +353,13 @@ if (navigator.geolocation) {
     
 windModeToggle.addEventListener('click', () => {
     let pilotState = autoPilotOn;
-    if(autoPilotOn)autoPilotOn=False;
     
     if(windModeState.textContent == "Off") {
         writeOnCharacteristic("windModeOn", "pilot");
     } else {
         writeOnCharacteristic("windModeOff", "pilot");
     }
+    if(autoPilotOn)autoPilotOn=False;
     setTimeout(() => {autoPilotOn=pilotState;}, 100);
 });
 
