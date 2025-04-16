@@ -363,11 +363,11 @@ windModeToggle.addEventListener('click', async () => {
             } else {
                 lastValueSent = await writeOnCharacteristic("windModeOff", "pilot");
             }
+            if(attempts>0)console.log("windMode click retry: "+ attempts);
             attempts++;
-            // Optionally, introduce a small delay between attempts
             await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
+
         }
-        console.log("windMode click retry");
     }
 });
 
