@@ -587,7 +587,6 @@ function readOnCharacteristic(value) {
                 let strValue = String(value);
                 const encoder = new TextEncoder();
                 const data = encoder.encode(strValue);
-                return characteristic.writeValue(data);
             })
             .then(() => {
                 const result = characteristic.readValue();
