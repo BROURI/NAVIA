@@ -427,9 +427,15 @@ autoPilotToggle.addEventListener('click', async () => {
             attempts++;
             await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
         }
-    }
+     }
     }
 
+    async function readServerValue(value){
+          if (bleServer && bleServer.connected) {
+            await writeOnCharacteristic(value,"pilot");
+            await characteristic.writeValue(command);
+
+    }
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
@@ -576,6 +582,27 @@ let lastValueTypeSent="";
             //window.alert("Bluetooth is not connected. Please connect to BLE first!");
         }
     }
+
+async function readOnCharacteristic(value) {
+    if (bleServer && bleServer.connected) {
+        try {
+            const characteristic = await bleServiceFound.getCharacteristic(commandCharacteristic);
+            console.log("Found the characteristic: ", characteristic.uuid);
+            const encoder = new TextEncoder();
+            const data = encoder.encode(String(value));
+            await characteristic.writeValue(data);
+            const result = await characteristic.readValue();
+            const decodedResult = new TextDecoder().decode(result);
+            return decodedResult;
+        } catch (error) {
+            console.error("Error reading characteristic: ", error);
+        }
+    } else {
+        console.error("Bluetooth is not connected. Please connect to BLE first!");
+    }
+}
+
+        
     function disconnectDevice() {
         console.log("Disconnect Device.");
         if (bleServer && bleServer.connected) {
