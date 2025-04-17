@@ -428,7 +428,24 @@ autoPilotToggle.addEventListener('click', async () => {
             await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
         }
     }
-}
+    async function sendCommand(value){
+        lastValueSent = "";
+        let attempts = 0;
+        const maxAttempts = 50;
+        if (bleServer && bleServer.connected) {
+          while (!(lastValueSent === value) && attempts < maxAttempts) {
+            await writeOnCharacteristic(value,"");
+            if(attempts>0)console.log("windMode click retry: "+ attempts);
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, 25)); 
+        }
+     }
+    }
+    async function getServerValue(value){
+        await sendCommand(value);
+    }
+    
+
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
         if (!navigator.bluetooth) {
