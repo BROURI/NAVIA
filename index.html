@@ -428,23 +428,8 @@ autoPilotToggle.addEventListener('click', async () => {
             await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
         }
     }
-    async function sendCommand(value){
-        lastValueSent = "";
-        let attempts = 0;
-        const maxAttempts = 50;
-        if (bleServer && bleServer.connected) {
-          while (!(lastValueSent === value) && attempts < maxAttempts) {
-            await writeOnCharacteristic(value,"");
-            if(attempts>0)console.log("windMode click retry: "+ attempts);
-            attempts++;
-            await new Promise(resolve => setTimeout(resolve, 25)); 
-        }
-     }
     }
-    async function getServerValue(value){
-        await sendCommand(value);
-    }
-    
+
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
@@ -507,21 +492,6 @@ autoPilotToggle.addEventListener('click', async () => {
         connectionLostAudio.play();
     }
 
-        function readData() {
-        if (sensorCharacteristicFound) {
-            sensorCharacteristicFound.readValue()
-            .then(value => {
-                const decodedValue = new TextDecoder().decode(value);
-                console.log("decodedValue Value: ", decodedValue);
-                return decodedValue;
-            })
-            .catch(error => {
-                console.error("Error reading server value: ", error);
-            });
-        } else {
-            console.error("Sensor characteristic not found.");
-        }
-    }
     
     function readSensorData() {
         if (sensorCharacteristicFound) {
