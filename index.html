@@ -489,6 +489,22 @@ autoPilotToggle.addEventListener('click', async () => {
         cleanDisconnect = false;
         connectionLostAudio.play();
     }
+
+        function readData() {
+        if (sensorCharacteristicFound) {
+            sensorCharacteristicFound.readValue()
+            .then(value => {
+                const decodedValue = new TextDecoder().decode(value);
+                console.log("decodedValue Value: ", decodedValue);
+                return decodedValue;
+            })
+            .catch(error => {
+                console.error("Error reading server value: ", error);
+            });
+        } else {
+            console.error("Sensor characteristic not found.");
+        }
+    }
     
     function readSensorData() {
         if (sensorCharacteristicFound) {
