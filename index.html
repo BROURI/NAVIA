@@ -392,7 +392,7 @@ autoPilotToggle.addEventListener('click', async () => {
     var maxWindSpeed = 0;
     var deviceName = 'NAVIA';
     var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
-    var ledCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
+    var commandCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
     var sensorCharacteristic = "19b10001-e8f2-537e-4f6c-d104768a1214";
 
     // Global Variables to Handle Bluetooth
@@ -527,7 +527,7 @@ let lastValueTypeSent="";
 
     function writeOnCharacteristic(value,valueType){
         if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(ledCharacteristic)
+            bleServiceFound.getCharacteristic(commandCharacteristic)
             .then(characteristic => {
                 console.log("Found the LED characteristic: ", characteristic.uuid);
                 let strValue = String(value);
