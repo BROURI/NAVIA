@@ -502,7 +502,6 @@ autoPilotToggle.addEventListener('click', async () => {
             .then(value => {
                 const decodedValue = new TextDecoder().decode(value);
                 console.log("Sensor Value: ", decodedValue);
-                if (',' in decodedValue){
                     myArray = decodedValue.split(",");
                     angle = myArray[0];
                     angle = parseInt(angle);
@@ -521,7 +520,7 @@ autoPilotToggle.addEventListener('click', async () => {
                   
                     angleTimestampContainer.innerHTML = getDateTime();
                     speedTimestampContainer.innerHTML = getDateTime();
-                }
+                
             })
             .catch(error => {
                 console.error("Error reading sensor value: ", error);
