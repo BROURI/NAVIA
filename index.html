@@ -433,12 +433,6 @@ autoPilotToggle.addEventListener('click', async () => {
      }
     }
 
-    async function readServerValue(value){
-          if (bleServer && bleServer.connected) {
-            await writeOnCharacteristic(value,"pilot");
-            await characteristic.writeValue(command);
-
-    }
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
