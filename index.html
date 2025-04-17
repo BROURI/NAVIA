@@ -367,6 +367,9 @@ windModeToggle.addEventListener('click', async () => {
             await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
 
         }
+        let getWindMode = await readOnCharacteristic("getWindMode");
+        console.log("getWindMode: "+getWindMode);
+        
     }
 });
 
