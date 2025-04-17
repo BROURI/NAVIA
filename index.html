@@ -496,24 +496,26 @@ autoPilotToggle.addEventListener('click', async () => {
             .then(value => {
                 const decodedValue = new TextDecoder().decode(value);
                 console.log("Sensor Value: ", decodedValue);
-                myArray = decodedValue.split(",");
-                angle = myArray[0];
-                angle = parseInt(angle);
-                windAngle = angle;
-                if(angle >180){
-                    angle = angle - 360;
+                if (',' in decodedValue){
+                    myArray = decodedValue.split(",");
+                    angle = myArray[0];
+                    angle = parseInt(angle);
+                    windAngle = angle;
+                    if(angle >180){
+                        angle = angle - 360;
+                    }
+                    speed = myArray[1]; 
+                    speed = parseFloat(speed);
+                    speed=Math.round(speed);
+                    maxWindSpeed = Math.max(maxWindSpeed,speed);
+                    windAngleContainer.innerHTML = angle;
+                    
+                    windSpeed.innerHTML = speed;
+                    maxWindSpeedContainer.innerHTML = maxWindSpeed;
+                  
+                    angleTimestampContainer.innerHTML = getDateTime();
+                    speedTimestampContainer.innerHTML = getDateTime();
                 }
-                speed = myArray[1]; 
-                speed = parseFloat(speed);
-                speed=Math.round(speed);
-                maxWindSpeed = Math.max(maxWindSpeed,speed);
-                windAngleContainer.innerHTML = angle;
-                
-                windSpeed.innerHTML = speed;
-                maxWindSpeedContainer.innerHTML = maxWindSpeed;
-              
-                angleTimestampContainer.innerHTML = getDateTime();
-                speedTimestampContainer.innerHTML = getDateTime();
             })
             .catch(error => {
                 console.error("Error reading sensor value: ", error);
