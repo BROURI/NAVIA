@@ -579,24 +579,31 @@ let lastValueTypeSent="";
         }
     }
 
-async function readOnCharacteristic(value) {
-    if (bleServer && bleServer.connected) {
-        try {
-            const characteristic = await bleServiceFound.getCharacteristic(commandCharacteristic);
-            console.log("Found the characteristic: ", characteristic.uuid);
-            const encoder = new TextEncoder();
-            const data = encoder.encode(String(value));
-            await characteristic.writeValue(data);
-            const result = await characteristic.readValue();
-            const decodedResult = new TextDecoder().decode(result);
-            return decodedResult;
-        } catch (error) {
-            console.error("Error reading characteristic: ", error);
+function readOnCharacteristic(value) {
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(commandCharacteristic)
+            .then(characteristic => {
+                console.log("Found the LED characteristic: ", characteristic.uuid);
+                let strValue = String(value);
+                const encoder = new TextEncoder();
+                const data = encoder.encode(strValue);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                const result = characteristic.readValue();
+                const decodedResult = new TextDecoder().decode(result);
+                console.log("decodedResult "+decodedResult)
+                return decodedResult;
+            })
+            .catch(error => {
+                console.error("Error writing to the LED characteristic: ", error);
+            });
+        } else {
+            console.error("Bluetooth is not connected. Please connect to BLE first!");
+            //window.alert("Bluetooth is not connected. Please connect to BLE first!");
         }
-    } else {
-        console.error("Bluetooth is not connected. Please connect to BLE first!");
-    }
 }
+
 
         
     function disconnectDevice() {
