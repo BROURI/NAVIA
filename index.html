@@ -723,6 +723,29 @@ function readOnCharacteristic(value) {
             event.preventDefault(); // Empêche le rafraîchissement
         }
     }, { passive: false });
+
+let wakeLock = null;
+
+async function requestWakeLock() {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      console.log('Wake Lock was released');
+    });
+    console.log('Wake Lock is active');
+  } catch (err) {
+    console.error(`${err.name}, ${err.message}`);
+  }
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (wakeLock !== null && document.visibilityState === 'visible') {
+    requestWakeLock();
+  }
+});
+
+// Appelle cette fonction au chargement :
+requestWakeLock();
 //**********
 </script>
 
