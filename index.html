@@ -724,28 +724,30 @@ function readOnCharacteristic(value) {
         }
     }, { passive: false });
 
-let wakeLock = null;
+// Vérifier si l'API est prise en charge
+if ('wakeLock' in navigator) {
+    let wakeLock = null;
 
-async function requestWakeLock() {
-  try {
-    wakeLock = await navigator.wakeLock.request('screen');
-    wakeLock.addEventListener('release', () => {
-      console.log('Wake Lock was released');
-    });
-    console.log('Wake Lock is active');
-  } catch (err) {
-    console.error(`${err.name}, ${err.message}`);
-  }
-}
+    // Demander un verrouillage d'écran
+    async function requestWakeLock() {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+            console.log("Wake Lock activé !");
+            
+            // Gérer la libération en cas de perte (par exemple, onglet caché)
+            wakeLock.addEventListener('release', () => {
+                console.log("Wake Lock désactivé.");
+            });
+        } catch (err) {
+            console.error("Erreur Wake Lock:", err);
+        }
+    }
 
-document.addEventListener('visibilitychange', () => {
-  if (wakeLock !== null && document.visibilityState === 'visible') {
+    // Appeler la fonction
     requestWakeLock();
-  }
-});
-
-// Appelle cette fonction au chargement :
-requestWakeLock();
+} else {
+    console.warn("Wake Lock API non supportée.");
+}
 //**********
 </script>
 
