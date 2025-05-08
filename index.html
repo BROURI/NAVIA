@@ -139,16 +139,10 @@ button {
             </div>            
             <div class="card">
                 <h2>Pilot Control</h2>
-                <form>
-  <label>
-    <input type="radio" name="direction" value="forward" checked>
-    Default
-  </label>
-  <label>
-    <input type="radio" name="direction" value="reverse">
-    Reverse
-  </label>
-</form>
+                <label class="switch">
+  <input type="checkbox" name="direction">
+  <span class="slider"></span>
+                </label>
                 <label for="pSlider">P Gain: <span id="pGain">1</span> </label>
                 <input type="range" id="pSlider"  oninput="pGain.textContent=this.value" min="0" max="20" value="1" step="1.0">
                 <br><br>
