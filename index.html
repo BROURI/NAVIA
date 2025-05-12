@@ -361,46 +361,7 @@ if (navigator.geolocation) {
     }
 });
     
-windModeToggle.addEventListener('click', async () => {
-    lastValueSent = "";
-    let attempts = 0;
-    const maxAttempts = 50;
-    if (bleServer && bleServer.connected) {
-        while (!(lastValueSent === "windModeOn" || lastValueSent === "windModeOff") && attempts < maxAttempts) {
-            if (windModeState.textContent === "Off") {
-                await writeOnCharacteristic("windModeOn", "pilot");
-            } else {
-                await writeOnCharacteristic("windModeOff", "pilot");
-            }
-            if(attempts>0)console.log("windMode click retry: "+ attempts);
-            attempts++;
-            await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
 
-        }
-        let getWindMode = readOnCharacteristic("getWindMode");
-        console.log("getWindMode: "+getWindMode);
-        
-    }
-});
-
-
-autoPilotToggle.addEventListener('click', async () => {
-    lastValueSent = "";
-    let attempts = 0;
-    const maxAttempts = 50;
-    if (bleServer && bleServer.connected) {
-        while (!(lastValueSent === "autoPilotOn" || lastValueSent === "autoPilotOff") && attempts < maxAttempts) {
-            if(autoPilotState.textContent == "Standby") {
-                await writeOnCharacteristic("autoPilotOn", "pilot");
-            } else {
-                await writeOnCharacteristic("autoPilotOff", "pilot");
-            }
-            if(attempts>0)console.log("windMode click retry: "+ attempts);
-            attempts++;
-            await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
-        }
-    }
-});
     // Define BLE Device Specs
     var maxWindSpeed = 0;
     var deviceName = 'NAVIA';
@@ -421,17 +382,17 @@ autoPilotToggle.addEventListener('click', async () => {
     });
 
     disconnectButton.addEventListener('click', disconnectDevice);
-    minus1Button.addEventListener('click', () => pilotClick("minus1"));
-    plus1Button.addEventListener('click', () => pilotClick("plus1"));
-    minus10Button.addEventListener('click', () => pilotClick("minus10"));
-    plus10Button.addEventListener('click', () => pilotClick("plus10"));
-    minus90Button.addEventListener('click', () => pilotClick("minus90"));
-    plus90Button.addEventListener('click', () => pilotClick("plus90"));
-    dSlider.addEventListener('change', () => pilotClick("dGain,"+dSlider.value));
-    pSlider.addEventListener('change', () => pilotClick("pGain,"+pSlider.value));
-    motorReverse.addEventListener('change', () => pilotClick("motorReverse"));
+    minus1Button.addEventListener('click', () => sendCommand("minus1"));
+    plus1Button.addEventListener('click', () => sendCommand("plus1"));
+    minus10Button.addEventListener('click', () => sendCommand("minus10"));
+    plus10Button.addEventListener('click', () => sendCommand("plus10"));
+    minus90Button.addEventListener('click', () => sendCommand("minus90"));
+    plus90Button.addEventListener('click', () => sendCommand("plus90"));
+    dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
+    pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
+    motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
 
-    async function pilotClick(value){
+    async function sendCommand(value){
         lastValueSent = "";
         let attempts = 0;
         const maxAttempts = 50;
@@ -445,6 +406,22 @@ autoPilotToggle.addEventListener('click', async () => {
      }
     }
 
+    windModeToggle.addEventListener('click', async () => {
+            if (windModeState.textContent === "Off") {
+                await sendCommand("windModeOn");
+            } else {
+                await sendCommand("windModeOff");
+            }
+});
+
+
+autoPilotToggle.addEventListener('click', async () => {
+    if(autoPilotState.textContent == "Standby") {
+            await sendCommand("autoPilotOn");
+    } else {
+            await sendCommand("autoPilotOff");
+    }
+});
 
     // Check if BLE is available in your Browser
     function isWebBluetoothEnabled() {
