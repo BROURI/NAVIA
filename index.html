@@ -140,15 +140,17 @@ button {
             <div class="card">
                 <h2>Pilot Control</h2>
                 <span>Motor Reverse</span>
-<input type="checkbox" id="motorReverse">
-                </label>
+                <input type="checkbox" id="motorReverse">
+                <br><br>
                 <label for="pSlider">P Gain: <span id="pGain">7</span> </label>
                 <input type="range" id="pSlider"  oninput="pGain.textContent=this.value" min="0" max="20" value="7" step="0.1">
                 <br><br>
                 <label for="dSlider">D Gain: <span id="dGain">500</span></label>
                 <input type="range" id="dSlider"  oninput="dGain.textContent=this.value" min="0" max="800" value="500" step="1">
                 <br><br>
-           
+                <label for="reactivitySlider">Reactivity: <span id="reactivity">1</span></label>
+                <input type="range" id="reactivitySlider"  oninput="reactivity.textContent=this.value" min="0" max="1" value="1" step="0.05">
+                <br><br>
                 <button id="minus1Button" class="pilotButton">-1</button>
                 <button id="plus1Button" class="pilotButton">+1</button>
                 <br><br>
@@ -390,6 +392,7 @@ if (navigator.geolocation) {
     plus90Button.addEventListener('click', () => sendCommand("plus90"));
     dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
     pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
+    reactivitySlider.addEventListener('change', () => sendCommand("reactivity,"+reactivitySlider.value));
     motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
 
     async function sendCommand(value){
