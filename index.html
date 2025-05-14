@@ -417,8 +417,11 @@ if (navigator.geolocation) {
 
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
-            await sendCommand(heading);
+            let targetHeading = heading;
+            await sendCommand(targetHeading);
             await sendCommand("autoPilotOn");
+            valueSentPilot.innerHTML  = targetHeading;
+    
     } else {
             await sendCommand("autoPilotOff");
     }
