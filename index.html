@@ -430,6 +430,8 @@ autoPilotToggle.addEventListener('click', async () => {
     
     } else {
             await sendCommand("autoPilotOff");
+            targetHeading.innerHTML = "";
+
     }
 });
 
