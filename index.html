@@ -426,6 +426,7 @@ autoPilotToggle.addEventListener('click', async () => {
             let targetHeading = heading;
             await sendCommand(targetHeading);
             await sendCommand("autoPilotOn");
+            targetHeading.innerHTML = targetHeading;
             valueSentPilot.innerHTML  = targetHeading;
     
     } else {
