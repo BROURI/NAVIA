@@ -390,7 +390,7 @@ if (navigator.geolocation) {
         sendCommand("plus1");
         targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading+=1;
-        if(targetHeading>360)targetHeading-=360;
+        if(targetHeading>=360)targetHeading-=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     minus10Button.addEventListener('click', () => {
@@ -404,7 +404,7 @@ if (navigator.geolocation) {
         sendCommand("plus10");
         targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading+=10;
-        if(targetHeading>360)targetHeading-=360;
+        if(targetHeading>=360)targetHeading-=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     minus90Button.addEventListener('click', () => {
@@ -418,7 +418,7 @@ if (navigator.geolocation) {
         sendCommand("plus90");
         targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading+=90;
-        if(targetHeading>360)targetHeading-=360;
+        if(targetHeading>=360)targetHeading-=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
