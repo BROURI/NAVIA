@@ -382,11 +382,26 @@ if (navigator.geolocation) {
         sendCommand("minus1");
         targetHeading.innerHTML -=1;
     });
-    plus1Button.addEventListener('click', () => sendCommand("plus1"));
-    minus10Button.addEventListener('click', () => sendCommand("minus10"));
-    plus10Button.addEventListener('click', () => sendCommand("plus10"));
-    minus90Button.addEventListener('click', () => sendCommand("minus90"));
-    plus90Button.addEventListener('click', () => sendCommand("plus90"));
+    plus1Button.addEventListener('click', () => {
+        sendCommand("plus1");
+        targetHeading.innerHTML +=1;
+    });
+    minus10Button.addEventListener('click', () => {
+        sendCommand("minus10");
+        targetHeading.innerHTML -=10;
+    });
+    plus10Button.addEventListener('click', () => {
+        sendCommand("plus10");
+        targetHeading.innerHTML +=10;
+    });
+    minus90Button.addEventListener('click', () => {
+        sendCommand("minus90");
+        targetHeading.innerHTML -=90;
+    });
+    plus90Button.addEventListener('click', () => {
+        sendCommand("plus90");
+        targetHeading.innerHTML -=90;
+    });
     dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
     pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
     reactivitySlider.addEventListener('change', () => sendCommand("reactivity,"+reactivitySlider.value));
