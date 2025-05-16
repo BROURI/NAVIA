@@ -378,7 +378,10 @@ if (navigator.geolocation) {
     });
 
     disconnectButton.addEventListener('click', disconnectDevice);
-    minus1Button.addEventListener('click', () => sendCommand("minus1"));
+    minus1Button.addEventListener('click', () => {
+        sendCommand("minus1");
+        targetHeading.innerHTML -=1;
+    });
     plus1Button.addEventListener('click', () => sendCommand("plus1"));
     minus10Button.addEventListener('click', () => sendCommand("minus10"));
     plus10Button.addEventListener('click', () => sendCommand("plus10"));
