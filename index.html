@@ -127,7 +127,7 @@ button {
                 <h2>Heading</h2>
                 <p class="reading"><span id="heading">-</span></p>
                 <h2>Target</h2>
-                <p class="reading"><span id="targetHeading">-</span></p>
+                <p class="reading"><span id="targetHeadingContainer">-</span></p>
             </div>
             <div class="card" style="display: none;">
                 <h2>COG</h2>
@@ -369,6 +369,7 @@ if (navigator.geolocation) {
     var bleServer;
     var bleServiceFound;
     var sensorCharacteristicFound;
+    var targetHeading;
 
     // Connect Button (search for BLE Devices only if BLE is available)
     connectButton.addEventListener('click', (event) => {
@@ -380,27 +381,45 @@ if (navigator.geolocation) {
     disconnectButton.addEventListener('click', disconnectDevice);
     minus1Button.addEventListener('click', () => {
         sendCommand("minus1");
-        targetHeading.innerHTML -=1;
+        targetHeading = Number(targetHeadingContainer.innerHTML); 
+        targetHeading-=1;
+        if(targetHeading<0)targetHeading+=360;
+        targetHeadingContainer.innerHTML=targetHeading;
     });
     plus1Button.addEventListener('click', () => {
         sendCommand("plus1");
-        targetHeading.innerHTML +=1;
+        targetHeading = Number(targetHeadingContainer.innerHTML); 
+        targetHeading+=1;
+        if(targetHeading>360)targetHeading-=360;
+        targetHeadingContainer.innerHTML=targetHeading;
     });
     minus10Button.addEventListener('click', () => {
         sendCommand("minus10");
-        targetHeading.innerHTML -=10;
+        targetHeading = Number(targetHeadingContainer.innerHTML); 
+        targetHeading-=10;
+        if(targetHeading<0)targetHeading+=360;
+        targetHeadingContainer.innerHTML=targetHeading;
     });
     plus10Button.addEventListener('click', () => {
         sendCommand("plus10");
-        targetHeading.innerHTML +=10;
+        targetHeading = Number(targetHeadingContainer.innerHTML); 
+        targetHeading+=10;
+        if(targetHeading>360)targetHeading-=360;
+        targetHeadingContainer.innerHTML=targetHeading;
     });
     minus90Button.addEventListener('click', () => {
         sendCommand("minus90");
-        targetHeading.innerHTML -=90;
+        targetHeading = Number(targetHeadingContainer.innerHTML); 
+        targetHeading-=90;
+        if(targetHeading<0)targetHeading+=360;
+        targetHeadingContainer.innerHTML=targetHeading;
     });
     plus90Button.addEventListener('click', () => {
         sendCommand("plus90");
-        targetHeading.innerHTML -=90;
+        targetHeading = Number(targetHeadingContainer.innerHTML); 
+        targetHeading+=90;
+        if(targetHeading>360)targetHeading-=360;
+        targetHeadingContainer.innerHTML=targetHeading;
     });
     dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
     pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
@@ -435,12 +454,12 @@ autoPilotToggle.addEventListener('click', async () => {
             let currentHeading = heading;
             await sendCommand(currentHeading);
             await sendCommand("autoPilotOn");
-            targetHeading.innerHTML = currentHeading;
+            targetHeadingContainer.innerHTML = currentHeading;
             valueSentPilot.innerHTML  = currentHeading;
     
     } else {
             await sendCommand("autoPilotOff");
-            targetHeading.innerHTML = "";
+            targetHeadingContainer.innerHTML = "";
 
     }
 });
