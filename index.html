@@ -118,10 +118,8 @@ button {
             <div class="card">
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle">-</span></p>
-                <p class="gray-label">Last reading: <span id="angleTimestamp"></span></p>
                 <h2>Wind Speed</h2>
                 <p class="reading"><span id="windSpeed">-</span></p>
-                <p class="gray-label">Last reading: <span id="speedTimestamp"></span></p>
                 <h2>Max Wind Speed</h2>
                 <p class="reading"><span id="maxWindSpeed">-</span></p>
             </div>
@@ -308,8 +306,6 @@ if (navigator.geolocation) {
 
     const valueSentGPIO = document.getElementById('valueSentGPIO');
     const bleStateContainer = document.getElementById('bleState');
-    const angleTimestampContainer = document.getElementById('angleTimestamp');
-    const speedTimestampContainer = document.getElementById('speedTimestamp');
     const headingContainer = document.getElementById('heading');
     const cogContainer = document.getElementById('cog');
 
@@ -514,9 +510,7 @@ autoPilotToggle.addEventListener('click', async () => {
                     
                     windSpeed.innerHTML = speed;
                     maxWindSpeedContainer.innerHTML = maxWindSpeed;
-                  
-                    angleTimestampContainer.innerHTML = getDateTime();
-                    speedTimestampContainer.innerHTML = getDateTime();
+                
                 
             })
             .catch(error => {
