@@ -705,6 +705,7 @@ function readOnCharacteristic(value) {
     var autoTuneArraySize = 100;
     var errors = [];
     var stdErrors=0.0;
+    var error = 0.0;
     setInterval(() => {
 if(autoPilotOn){
         writeOnCharacteristic(heading,"heading");
