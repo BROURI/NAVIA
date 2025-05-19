@@ -451,11 +451,11 @@ if (navigator.geolocation) {
 
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
-            let currentHeading = heading;
-            await sendCommand(currentHeading);
+            targetHeading = heading;
+            await sendCommand(targetHeading);
             await sendCommand("autoPilotOn");
-            targetHeadingContainer.innerHTML = currentHeading;
-            valueSentPilot.innerHTML  = currentHeading;
+            targetHeadingContainer.innerHTML = targetHeading;
+            valueSentPilot.innerHTML  = targetHeading;
     
     } else {
             await sendCommand("autoPilotOff");
