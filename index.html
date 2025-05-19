@@ -710,10 +710,10 @@ function readOnCharacteristic(value) {
 //if(autoPilotOn){
         writeOnCharacteristic(heading,"heading");
         error = heading - targetHeading;
-        erros.push(error);
-        if (erros.length>autoTuneArraySize)erros.shift();
-        stdErrors=calculateStandardDeviation(erros);
-        console.log(stdErrors);
+        errors.push(error);
+        if (errors.length>autoTuneArraySize)erros.shift();
+        stdDevErrors=calculateStandardDeviation(erros);
+        console.log(stdDevErrors);
     }
     },50);
 
