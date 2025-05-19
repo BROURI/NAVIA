@@ -697,7 +697,7 @@ function readOnCharacteristic(value) {
     }
 
     function calculateOvershooting(numbers) {
-        return (Math.max(numbers)-Math.min(numbers))/2; 
+        return (Math.max(...numbers)-Math.min(...numbers))/2; 
     }
     setInterval(() => {
         if(autoPilotOn){
