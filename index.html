@@ -713,6 +713,7 @@ function readOnCharacteristic(value) {
     var errors = [];
     var stdDevErrors=0.0;
     var error = 0.0;
+    var instability=0.0;
 
 
 setInterval(() => {
@@ -728,6 +729,9 @@ setInterval(() => {
         if (errors.length>autoTuneArraySize){errors.shift();}
         stdDevErrors=calculateStandardDeviation(errors);
         console.log("stdDevErrors "+stdDevErrors);
+        instability = stdDevErrors/180;
+        console.log("instability "+instability);
+
     }
     },50);
     
