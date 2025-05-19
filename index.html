@@ -706,17 +706,20 @@ function readOnCharacteristic(value) {
     var errors = [];
     var stdErrors=0.0;
     setInterval(() => {
-    if(true){
-//if(autoPilotOn){
+if(autoPilotOn){
         writeOnCharacteristic(heading,"heading");
+    }
+    },50);
+
+setInterval(() => {
+    if(true){
         error = heading - targetHeading;
         errors.push(error);
         if (errors.length>autoTuneArraySize)erros.shift();
         stdDevErrors=calculateStandardDeviation(errors);
         console.log(stdDevErrors);
     }
-    },50);
-
+    },100);
     
     ////  alerts
     setInterval(() => {
