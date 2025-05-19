@@ -702,7 +702,8 @@ function readOnCharacteristic(value) {
         return Math.sqrt(variance); // Standard deviation
     }
 
-    if(autoPilotOn){
+    setInterval(() => {
+            if(autoPilotOn){
         writeOnCharacteristic(heading,"heading");
     }
     },50);
@@ -711,7 +712,7 @@ function readOnCharacteristic(value) {
     var errors = [];
     var stdDevErrors=0.0;
     var error = 0.0;
-    setInterval(() => {
+
 
 setInterval(() => {
     if(true){
