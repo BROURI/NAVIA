@@ -696,12 +696,10 @@ function readOnCharacteristic(value) {
         return Math.sqrt(variance); // Standard deviation
     }
 
-    function calculateDeviation(numbers, target) {
+    function calculateOvershooting(numbers) {
         const n = numbers.length;
         if (n === 0) return 0; // Avoid division by zero
-        const mean = numbers.reduce((sum, value) => sum + value, 0) / n;
-        const variance = numbers.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / n;
-        return Math.sqrt(variance); // Standard deviation
+        return Math.max(numbers)-Math.max(numbers); 
     }
     setInterval(() => {
         if(autoPilotOn){
@@ -715,6 +713,7 @@ function readOnCharacteristic(value) {
     var error = 0.0;
     var instability=0.0;
     var stability=0.0;
+    var overshooting=0.0;
 
 
 
@@ -733,9 +732,14 @@ setInterval(() => {
         console.log("stdDevErrors "+stdDevErrors);
         instability =Math.min(1.0,stdDevErrors/90);
         stability = 1- instability;
+        overshooting = calculateOvershooting(errors);
 
         console.log("instability "+instability);
         console.log("stability "+stability);
+        console.log("overshooting "+overshooting);
+
+
+        
 
 
     }
