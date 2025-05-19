@@ -721,7 +721,9 @@ setInterval(() => {
         console.log("targetHeading "+ targetHeading);
         console.log("error "+ error);
 
-        error = (heading - targetHeading + 180) %360 -180;
+        error = heading - targetHeading;
+        if(error>180) error-=360;
+        else if(error<180) error +=360;
         errors.push(error);
         if (errors.length>autoTuneArraySize){errors.shift();}
         stdDevErrors=calculateStandardDeviation(errors);
