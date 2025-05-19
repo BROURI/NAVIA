@@ -716,7 +716,10 @@ function readOnCharacteristic(value) {
 
 setInterval(() => {
     if(true){
-        console.log("error"+ error);
+        console.log("heading "+ heading);
+        console.log("targetHeading "+ targetHeading);
+        console.log("error "+ error);
+
         error = heading - targetHeading;
         errors.push(error);
         if (errors.length>autoTuneArraySize){errors.shift();}
