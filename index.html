@@ -714,6 +714,8 @@ function readOnCharacteristic(value) {
     var stdDevErrors=0.0;
     var error = 0.0;
     var instability=0.0;
+    var stability=0.0;
+
 
 
 setInterval(() => {
@@ -730,7 +732,11 @@ setInterval(() => {
         stdDevErrors=calculateStandardDeviation(errors);
         console.log("stdDevErrors "+stdDevErrors);
         instability = stdDevErrors/180;
+        stability = 1- stdDevErrors/180;
+
         console.log("instability "+instability);
+        console.log("stability "+stability);
+
 
     }
     },50);
