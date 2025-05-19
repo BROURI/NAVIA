@@ -731,10 +731,12 @@ function readOnCharacteristic(value) {
     //// autotune
     var error;
     setInterval(() => {
-        error = heading - targetHeading;
-        console.log("error :" );
-        console.log(error);
-    }, 1000);
+        if(autoPilotOn){
+            error = heading - targetHeading;
+            console.log("error :" );
+            console.log(error);
+        }
+        }, 1000);
 
         
     ///*******avoir reload page
