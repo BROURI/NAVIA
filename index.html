@@ -712,7 +712,7 @@ function readOnCharacteristic(value) {
         error = heading - targetHeading;
         errors.push(error);
         if (errors.length>autoTuneArraySize)erros.shift();
-        stdDevErrors=calculateStandardDeviation(erros);
+        stdDevErrors=calculateStandardDeviation(errors);
         console.log(stdDevErrors);
     }
     },50);
