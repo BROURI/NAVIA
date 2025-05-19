@@ -723,7 +723,7 @@ setInterval(() => {
 
         error = heading - targetHeading;
         if(error>180) error-=360;
-        else if(error<180) error +=360;
+        else if(error<-180) error +=360;
         errors.push(error);
         if (errors.length>autoTuneArraySize){errors.shift();}
         stdDevErrors=calculateStandardDeviation(errors);
