@@ -696,6 +696,13 @@ function readOnCharacteristic(value) {
         return Math.sqrt(variance); // Standard deviation
     }
 
+    function calculateDeviation(numbers, target) {
+        const n = numbers.length;
+        if (n === 0) return 0; // Avoid division by zero
+        const mean = numbers.reduce((sum, value) => sum + value, 0) / n;
+        const variance = numbers.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / n;
+        return Math.sqrt(variance); // Standard deviation
+    }
     setInterval(() => {
         if(autoPilotOn){
             writeOnCharacteristic(heading,"heading");
@@ -718,9 +725,9 @@ setInterval(() => {
         errors.push(error);
         if (errors.length>autoTuneArraySize){errors.shift();}
         stdDevErrors=calculateStandardDeviation(errors);
-        console.log(stdDevErrors);
+        console.log("stdDevErrors "+stdDevErrors);
     }
-    },100);
+    },50);
     
     ////  alerts
     setInterval(() => {
