@@ -731,7 +731,7 @@ setInterval(() => {
         if (errors.length>autoTuneArraySize){errors.shift();}
         stdDevErrors=calculateStandardDeviation(errors);
         console.log("stdDevErrors "+stdDevErrors);
-        instability =min(1,stdDevErrors/90);
+        instability =Math.min(1.0,stdDevErrors/90);
         stability = 1- instability;
 
         console.log("instability "+instability);
