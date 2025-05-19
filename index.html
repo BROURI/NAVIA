@@ -381,42 +381,36 @@ if (navigator.geolocation) {
     disconnectButton.addEventListener('click', disconnectDevice);
     minus1Button.addEventListener('click', () => {
         sendCommand("minus1");
-        targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading-=1;
         if(targetHeading<0)targetHeading+=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     plus1Button.addEventListener('click', () => {
         sendCommand("plus1");
-        targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading+=1;
         if(targetHeading>=360)targetHeading-=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     minus10Button.addEventListener('click', () => {
         sendCommand("minus10");
-        targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading-=10;
         if(targetHeading<0)targetHeading+=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     plus10Button.addEventListener('click', () => {
         sendCommand("plus10");
-        targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading+=10;
         if(targetHeading>=360)targetHeading-=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     minus90Button.addEventListener('click', () => {
         sendCommand("minus90");
-        targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading-=90;
         if(targetHeading<0)targetHeading+=360;
         targetHeadingContainer.innerHTML=targetHeading;
     });
     plus90Button.addEventListener('click', () => {
         sendCommand("plus90");
-        targetHeading = Number(targetHeadingContainer.innerHTML); 
         targetHeading+=90;
         if(targetHeading>=360)targetHeading-=360;
         targetHeadingContainer.innerHTML=targetHeading;
