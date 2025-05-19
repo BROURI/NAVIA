@@ -689,12 +689,34 @@ function readOnCharacteristic(value) {
     setInterval(() => {
         headingContainer.innerHTML = heading;
     },500);
+    
+    /// heading sharing and autotune
 
+
+
+    function calculateStandardDeviation(numbers) {
+        const n = numbers.length;
+        if (n === 0) return 0; // Avoid division by zero
+        const mean = numbers.reduce((sum, value) => sum + value, 0) / n;
+        const variance = numbers.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / n;
+        return Math.sqrt(variance); // Standard deviation
+    }
+
+    var autoTuneArraySize = 100;
+    var errors = [];
+    var stdErrors=0.0;
     setInterval(() => {
-    if(autoPilotOn){
+    if(True){
+//if(autoPilotOn){
         writeOnCharacteristic(heading,"heading");
+        error = heading - targetHeading;
+        erros.push(error);
+        if (erros.length>autoTuneArraySize)erros.shift();
+        stdErrors=calculateStandardDeviation(erros);
+        console.log(stdErrors);
     }
     },50);
+
     
     ////  alerts
     setInterval(() => {
@@ -728,15 +750,7 @@ function readOnCharacteristic(value) {
     }, 2000); 
 
 
-    //// autotune
-    var error;
-    setInterval(() => {
-        if(autoPilotOn){
-            error = heading - targetHeading;
-            console.log("error :" );
-            console.log(error);
-        }
-        }, 1000);
+
 
         
     ///*******avoir reload page
