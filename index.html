@@ -696,10 +696,8 @@ function readOnCharacteristic(value) {
         return Math.sqrt(variance); // Standard deviation
     }
 
-    function calculateOvershooting(errors) {
-        const n = errors.length;
-        if (n === 0) return 0; // Avoid division by zero
-        return (Math.max(errors)-Math.min(errors))/2; 
+    function calculateOvershooting(numbers) {
+        return (Math.max(numbers)-Math.min(numbers))/2; 
     }
     setInterval(() => {
         if(autoPilotOn){
