@@ -717,6 +717,7 @@ function readOnCharacteristic(value) {
     var instability=0.0;
     var stability=0.0;
     var overshooting=0.0;
+    var meanError=0.0;
 
 
 
@@ -736,15 +737,10 @@ setInterval(() => {
         instability =Math.min(0.5,stdDevErrors/90);
         stability = 1- instability;
         rmse = calculateRmse(errors);
-
-        console.log("instability "+instability);
+        meanError = errors.reduce((sum, value) => sum + value, 0) / autoTuneArraySize;
         console.log("stability "+stability);
         console.log("rmse "+rmse);
-
-
-        
-
-
+        console.log("meanError "+meanError);
     }
     },50);
     
