@@ -752,7 +752,7 @@ function calculatePeriod(data, totalTime) {
     var filteredError=0.0;
     var filteredErrorp1=0.0;
     var filteredErrorp2=0.0;
-    var alpha = 0.05;
+    var alpha = 0.01;
     var currentPeak=null;
     var previousPeak=null;
     var peakPeriod=0;
@@ -778,7 +778,7 @@ setInterval(() => {
         filteredErrorp1=filteredError;
         if (isNaN(error))error=0;
 
-        filteredError = 0.5*error + 0.5*filteredError;
+        filteredError = alpha*error + (1-alpha)*filteredError;
         console.log("filteredError "+filteredError);
         period =  calculatePeriod(errors, autoTuneArraySize*50/1000);
         console.log("stability "+stability);
