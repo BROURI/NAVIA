@@ -753,7 +753,9 @@ function calculatePeriod(data, totalTime) {
     var filtererErrorp1=0.0;
     var filtererErrorp2=0.0;
     var alpha = 0.05;
-
+    var currentPeack;
+    var previousPeack;
+    var peakPeriod;
 
 setInterval(() => {
     if(true){
@@ -776,7 +778,7 @@ setInterval(() => {
         filtererErrorp1=filtererError;
         filtererError = alpha*error+ (1-alpha)*filtererError;
         
-
+    
         
         period =  calculatePeriod(errors, autoTuneArraySize*50/1000);
         console.log("stability "+stability);
@@ -784,12 +786,11 @@ setInterval(() => {
         console.log("meanError "+meanError);
         console.log("period "+period);
         if (filtererErrorp1 > filtererErrorp2 && filtererErrorp1 > filtererError){
-            console.log("no");
-        }else{
-            console.log("MOOOOOOOOOW");
+            previousPeack=currentPeack;
+            currentPeack = new Date();
+            peakPeriod=currentPeack-previousPeack;
         }
-            
-
+        console.log("peakPeriod: ${peakPeriod} ms");
 
     }
     },50);
