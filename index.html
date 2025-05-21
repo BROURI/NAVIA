@@ -776,7 +776,9 @@ setInterval(() => {
 
         filteredErrorp2=filteredErrorp1;
         filteredErrorp1=filteredError;
-        filteredError = 0.5*error + 0.5*filteredError;
+        if (isNaN(error))error=0;
+
+        if(filteredError = 0.5*error + 0.5*filteredError;
         console.log("filteredError "+filteredError);
         period =  calculatePeriod(errors, autoTuneArraySize*50/1000);
         console.log("stability "+stability);
