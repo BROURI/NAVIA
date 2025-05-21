@@ -719,7 +719,6 @@ function readOnCharacteristic(value) {
     var stability=0.0;
     var overshooting=0.0;
     var meanError=0.0;
-    var period = 0.0;
     var filteredError=0.0;
     var filteredErrorp1=0.0;
     var filteredErrorp2=0.0;
@@ -754,7 +753,6 @@ setInterval(() => {
         console.log("stability "+stability);
         console.log("rmse "+rmse);
         console.log("meanError "+meanError);
-        console.log("period "+period);
         if (filteredErrorp1 > filteredErrorp2 && filteredErrorp1 > filteredError){
             previousPeak=currentPeak;
             currentPeak = new Date();
