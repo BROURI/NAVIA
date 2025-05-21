@@ -786,7 +786,7 @@ setInterval(() => {
         console.log("meanError "+meanError);
         console.log("period "+period);
         if (filteredErrorp1 > filteredErrorp2 && filteredErrorp1 > filteredError){
-            previousPeak=currentPeack;
+            previousPeak=currentPeak;
             currentPeak = new Date();
             peakPeriod=currentPeak-previousPeak;
         }
