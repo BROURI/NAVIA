@@ -777,9 +777,7 @@ setInterval(() => {
         filtererErrorp2=filtererErrorp1;
         filtererErrorp1=filtererError;
         filtererError = alpha*error+ (1-alpha)*filtererError;
-        
-    
-        
+        console.log("filtererError "+filtererError);
         period =  calculatePeriod(errors, autoTuneArraySize*50/1000);
         console.log("stability "+stability);
         console.log("rmse "+rmse);
