@@ -705,7 +705,7 @@ function readOnCharacteristic(value) {
 
     }
 
-    function applyLowPassFilter(data, alpha = 0.1) {
+    function applyLowPassFilter(data, alpha = 0.05) {
     const filteredData = [data[0]]; 
     for (let i = 1; i < data.length; i++) {
         const filteredValue = alpha * data[i] + (1 - alpha) * filteredData[i - 1];
