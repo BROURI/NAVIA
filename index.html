@@ -705,35 +705,6 @@ function readOnCharacteristic(value) {
 
     }
 
-    function applyLowPassFilter(data, alpha = 0.05) {
-    const filteredData = [data[0]]; 
-    for (let i = 1; i < data.length; i++) {
-        const filteredValue = alpha * data[i] + (1 - alpha) * filteredData[i - 1];
-        filteredData.push(filteredValue);
-    }
-    return filteredData;
-    }
-
-    function detectCycles(data) {
-    const peaks = [];
-    for (let i = 1; i < data.length - 1; i++) {
-        if (data[i] > data[i - 1] && data[i] > data[i + 1]) {
-            peaks.push(i);
-        } 
-    }
-    return peaks.length;
-}
-
-function calculatePeriod(data, totalTime) {
-    const filteredData = applyLowPassFilter(data);
-    const numberOfCycles = detectCycles(filteredData);
-    if (numberOfCycles === 0) {
-        return null; 
-    }
-    const period = totalTime / numberOfCycles;
-    return period;
-}
-    
     setInterval(() => {
         if(autoPilotOn){
             writeOnCharacteristic(heading,"heading");
@@ -752,7 +723,7 @@ function calculatePeriod(data, totalTime) {
     var filteredError=0.0;
     var filteredErrorp1=0.0;
     var filteredErrorp2=0.0;
-    var alpha = 0.01;
+    var alpha = 0.005;
     var currentPeak=null;
     var previousPeak=null;
     var peakPeriod=0;
@@ -780,7 +751,6 @@ setInterval(() => {
 
         filteredError = alpha*error + (1-alpha)*filteredError;
         console.log("filteredError "+filteredError);
-        period =  calculatePeriod(errors, autoTuneArraySize*50/1000);
         console.log("stability "+stability);
         console.log("rmse "+rmse);
         console.log("meanError "+meanError);
@@ -788,10 +758,9 @@ setInterval(() => {
         if (filteredErrorp1 > filteredErrorp2 && filteredErrorp1 > filteredError){
             previousPeak=currentPeak;
             currentPeak = new Date();
-            peakPeriod=currentPeak-previousPeak;
+            peakPeriod=(currentPeak-previousPeak)/1000;
         }
         console.log("peakPeriod "+ peakPeriod);
-
     }
     },50);
     
