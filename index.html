@@ -704,13 +704,43 @@ function readOnCharacteristic(value) {
         return Math.sqrt(variance);
 
     }
+
+    function applyLowPassFilter(data, alpha = 0.1) {
+    const filteredData = [data[0]]; 
+    for (let i = 1; i < data.length; i++) {
+        const filteredValue = alpha * data[i] + (1 - alpha) * filteredData[i - 1];
+        filteredData.push(filteredValue);
+    }
+    return filteredData;
+    }
+
+    function detectCycles(data) {
+    const peaks = [];
+    for (let i = 1; i < data.length - 1; i++) {
+        if (data[i] > data[i - 1] && data[i] > data[i + 1]) {
+            peaks.push(i);
+        } 
+    }
+    return peaks.length;
+}
+
+function calculatePeriod(data, totalTime) {
+    const filteredData = applyLowPassFilter(data);
+    const numberOfCycles = detectCycles(filteredData);
+    if (numberOfCycles === 0) {
+        return null; 
+    }
+    const period = totalTime / numberOfCycles;
+    return period;
+}
+    
     setInterval(() => {
         if(autoPilotOn){
             writeOnCharacteristic(heading,"heading");
         }
     },50);
     
-    var autoTuneArraySize = 50;
+    var autoTuneArraySize = 100;
     var errors = [];
     var stdDevErrors=0.0;
     var error = 0.0;
@@ -718,6 +748,7 @@ function readOnCharacteristic(value) {
     var stability=0.0;
     var overshooting=0.0;
     var meanError=0.0;
+    var period = 0.0;
 
 
 
@@ -733,14 +764,16 @@ setInterval(() => {
         errors.push(error);
         if (errors.length>autoTuneArraySize){errors.shift();}
         stdDevErrors=calculateStandardDeviation(errors);
-        console.log("stdDevErrors "+stdDevErrors);
         instability =Math.min(0.5,stdDevErrors/90);
         stability = 1- instability;
         rmse = calculateRmse(errors);
         meanError = errors.reduce((sum, value) => sum + value, 0) / autoTuneArraySize;
+        period =  calculatePeriod(errors, autoTuneArraySize*50/1000);
         console.log("stability "+stability);
         console.log("rmse "+rmse);
         console.log("meanError "+meanError);
+        console.log("period "+period);
+
     }
     },50);
     
