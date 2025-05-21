@@ -753,8 +753,8 @@ function calculatePeriod(data, totalTime) {
     var filtererErrorp1=0.0;
     var filtererErrorp2=0.0;
     var alpha = 0.05;
-    var currentPeak;
-    var previousPeak=0;
+    var currentPeak=null;
+    var previousPeak=null;
     var peakPeriod=0;
 
 setInterval(() => {
