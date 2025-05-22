@@ -190,6 +190,7 @@ button {
     <div class="footer">
         <p><a>Created by Tahar BROURI</a></p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/fft-js"></script>
 </body>
 <script>
 /// service worker
@@ -204,6 +205,31 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
+///////////////FFT
+
+
+const FFT = window.FFT;
+const fftSize = 8; // You can choose a size that is a power of 2
+const fft = new FFT(fftSize);
+// Example input signal (real numbers)
+const input = new Array(fftSize).fill(0).map((_, i) => Math.sin(2 * Math.PI * i / fftSize));
+// Prepare the input in the format expected by the FFT function
+const inputComplex = new Array(fftSize * 2);
+for (let i = 0; i < fftSize; i++) {
+    inputComplex[2 * i] = input[i];      // real part
+    inputComplex[2 * i + 1] = 0;         // imaginary part (set to 0 for real input)
+}
+// Compute the FFT
+const outputComplex = fft.createComplexArray();
+fft.realTransform(outputComplex, inputComplex);
+// Optional: Normalize the output
+fft.scale(outputComplex, 1 / fftSize);
+// Output the results
+console.log('FFT Output (Real and Imaginary Parts):');
+for (let i = 0; i < fftSize; i++) {
+    console.log(`Frequency ${i}: Real: ${outputComplex[2 * i]}, Imaginary: ${outputComplex[2 * i + 1]}`);
+}
+
 
     
 /////////  Cap magnetique et accelerometre
