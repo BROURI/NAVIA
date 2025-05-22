@@ -99,6 +99,7 @@ button {
 }
 </style>
     <meta charset="UTF-8">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/fft.js/1.0.0/fft.min.js"></script>
 </head>
 <body>
     <div class="topnav">
@@ -709,7 +710,30 @@ function readOnCharacteristic(value) {
             writeOnCharacteristic(heading,"heading");
         }
     },50);
-    
+
+
+
+//FFT
+
+    function decomposeInFrequency(data) {
+    const fft = new FFT(data.length);
+    const spectrum = fft.createComplexArray();
+    const output = fft.createComplexArray();
+    for (let i = 0; i < data.length; i++) {
+        spectrum[i * 2] = data[i]; // Partie réelle
+        spectrum[i * 2 + 1] = 0;    // Partie imaginaire
+    }
+    fft.realTransform(spectrum, output);
+    fft.completeSpectrum(output);
+    const magnitude = [];
+    for (let i = 0; i < output.length / 2; i++) {
+        const re = output[i * 2];
+        const im = output[i * 2 + 1];
+        magnitude.push(Math.sqrt(re * re + im * im)); // Magnitude
+    }
+    return magnitude;
+}
+
     var autoTuneArraySize = 200;
     var errors = [];
     var stdDevErrors=0.0;
@@ -758,6 +782,7 @@ setInterval(() => {
             peakPeriod=(currentPeak-previousPeak)/1000;
         }
         console.log("peakPeriod "+ peakPeriod);
+        console.log(decomposeInFrequency(errors));
     }
     },50);
     
