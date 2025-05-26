@@ -524,7 +524,7 @@ autoPilotToggle.addEventListener('click', async () => {
             sensorCharacteristicFound.readValue()
             .then(value => {
                 const decodedValue = new TextDecoder().decode(value);
-                console.log("Sensor Value: ", decodedValue);
+                //console.log("Sensor Value: ", decodedValue);
                     myArray = decodedValue.split(",");
                     angle = myArray[0];
                     angle = parseInt(angle);
@@ -544,7 +544,7 @@ autoPilotToggle.addEventListener('click', async () => {
                 
             })
             .catch(error => {
-                console.error("Error reading sensor value: ", error);
+                //console.error("Error reading sensor value: ", error);
             });
         } else {
             console.error("Sensor characteristic not found.");
