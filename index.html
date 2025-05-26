@@ -748,6 +748,7 @@ setInterval(() => {
         if (isNaN(error))error=0;
 
         filteredError = alpha*error + (1-alpha)*filteredError;
+        console.log("stdDevErrors "+stdDevErrors);
         console.log("filteredError "+filteredError);
         console.log("stability "+stability);
         console.log("rmse "+rmse);
