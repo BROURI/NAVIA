@@ -254,14 +254,14 @@ var latitude;
 var longitude;
 var previousLatitude;
 var previousLongitude;
-if (navigator.geolocation) {
+if (false && navigator.geolocation) {
     setInterval(() => {
         navigator.geolocation.getCurrentPosition(position => {
             previousLatitude = latitude;
             previousLongitude = longitude;
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            console.log("Latitude : " + latitude + ", Longitude : " + longitude);
+            //console.log("Latitude : " + latitude + ", Longitude : " + longitude);
             cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
             //console.log("cog : " +cog);
             cogContainer.innerHTML =cog;
