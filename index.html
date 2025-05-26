@@ -767,6 +767,7 @@ setInterval(() => {
         }
         console.log("peakPeriod "+ peakPeriod);
         console.log("kp "+ kp);
+
     }
     },50);
 
@@ -775,11 +776,15 @@ setInterval(() => {
         if(stdDevErrors<5.0 && rmse > 10.0){
             kp=kp+pAutotune;
             if(kp>kpMax)kp=kpMax;
+            pGain.textContent=kp;
+            pSlider.value = kp;
         }
         // cap oscillant autour de la cible
         else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
             kp=kp-pAutotune;
             if(kp<kpMin)kp=kpMin;
+            pGain.textContent=kp;
+            pSlider.value = kp;
         }
     }, 5000); 
     
