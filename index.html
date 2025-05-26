@@ -771,13 +771,13 @@ setInterval(() => {
     },50);
 
     setInterval(() => {
-        // si cap stable et erreur importante
+        // cap stable et erreur importante
         if(stdDevErrors<5.0 && rmse > 10.0){
             kp=kp+pAutotune;
             if(kp>kpMax)kp=kpMax;
         }
-        // cas oscillations
-        else if(stdDevErrors>10.0){
+        // cap oscillant autour de la cible
+        else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
             kp=kp-pAutotune;
             if(kp<kpMin)kp=kpMin;
         }
