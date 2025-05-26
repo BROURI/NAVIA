@@ -727,7 +727,8 @@ function readOnCharacteristic(value) {
     var previousPeak=null;
     var peakPeriod=0;
     var pAutotune=0.1;
-    var kp=0;
+    var kp=parseFloat(pGain.textContent);
+
 
 setInterval(() => {
     if(true){
@@ -764,16 +765,11 @@ setInterval(() => {
         console.log("peakPeriod "+ peakPeriod);
         // si cap stable et erreur importante
         if(stdDevErrors<5.0 && rmse < 10.0){
-            kp=parseFloat(pGain.textContent);
             kp=kp(1+pAutotune);
-            pGain.textContent=kp;
-            
         }
         // cas oscillations
         else if(stdDevErrors>10.0){
-            kp=parseFloat(pGain.textContent);
             kp=kp(1-pAutotune);
-            pGain.textContent=kp;
         }
         console.log("pGain "+ pGain);
         console.log("kp "+ kp);
