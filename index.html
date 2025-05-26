@@ -263,7 +263,7 @@ if (navigator.geolocation) {
             longitude = position.coords.longitude;
             console.log("Latitude : " + latitude + ", Longitude : " + longitude);
             cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
-            console.log("cog : " +cog);
+            //console.log("cog : " +cog);
             cogContainer.innerHTML =cog;
         }, error => {
             console.log("Erreur geolocation");
