@@ -766,6 +766,11 @@ setInterval(() => {
             peakPeriod=(currentPeak-previousPeak)/1000;
         }
         console.log("peakPeriod "+ peakPeriod);
+        console.log("kp "+ kp);
+    }
+    },50);
+
+    setInterval(() => {
         // si cap stable et erreur importante
         if(stdDevErrors<5.0 && rmse > 10.0){
             kp=kp*(1+pAutotune);
@@ -776,11 +781,7 @@ setInterval(() => {
             kp=kp*(1-pAutotune);
             if(kp<kpMin)kp=kpMin;
         }
-        console.log("kp "+ kp);
-
-
-    }
-    },50);
+    }, 5000); 
     
     ////  alerts
     setInterval(() => {
