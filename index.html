@@ -735,10 +735,6 @@ function readOnCharacteristic(value) {
 
 setInterval(() => {
     if(true){
-        console.log("heading "+ heading);
-        console.log("targetHeading "+ targetHeading);
-        console.log("error "+ error);
-
         error = heading - targetHeading;
         if(error>180) error-=360;
         else if(error<-180) error +=360;
@@ -755,19 +751,21 @@ setInterval(() => {
         if (isNaN(error))error=0;
 
         filteredError = alpha*error + (1-alpha)*filteredError;
-        console.log("stdDevErrors "+stdDevErrors);
-        console.log("filteredError "+filteredError);
-        console.log("stability "+stability);
-        console.log("rmse "+rmse);
-        console.log("meanError "+meanError);
+        //console.log("heading "+ heading);
+        //console.log("targetHeading "+ targetHeading);
+        //console.log("error "+ error);
+        //console.log("stdDevErrors "+stdDevErrors);
+        //console.log("filteredError "+filteredError);
+        //console.log("stability "+stability);
+        //console.log("rmse "+rmse);
+        //console.log("meanError "+meanError);
         if (filteredErrorp1 > filteredErrorp2 && filteredErrorp1 > filteredError){
             previousPeak=currentPeak;
             currentPeak = new Date();
             peakPeriod=(currentPeak-previousPeak)/1000;
         }
-        console.log("peakPeriod "+ peakPeriod);
-        console.log("kp "+ kp);
-
+        //console.log("peakPeriod "+ peakPeriod);
+        //console.log("kp "+ kp);
     }
     },50);
 
