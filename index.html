@@ -703,7 +703,8 @@ function readOnCharacteristic(value) {
         return Math.sqrt(variance);
 
     }
-
+    
+    
     setInterval(() => {
         if(autoPilotOn){
             writeOnCharacteristic(heading,"heading");
@@ -725,6 +726,7 @@ function readOnCharacteristic(value) {
     var currentPeak=null;
     var previousPeak=null;
     var peakPeriod=0;
+    var pAutotune=0.1;
 
 setInterval(() => {
     if(true){
@@ -759,6 +761,16 @@ setInterval(() => {
             peakPeriod=(currentPeak-previousPeak)/1000;
         }
         console.log("peakPeriod "+ peakPeriod);
+        // si cap stable et erreur importante
+        if(stdDevErrors<5.0 && rmse < 10.0){
+            pGain=pGain(1+pAutotune);
+        }
+        // cas oscillations
+        else if(stdDevErrors>10.0){
+            pGain=pGain(1-pAutotune);
+        }
+        console.log("pGain "+ pGain);
+
     }
     },50);
     
