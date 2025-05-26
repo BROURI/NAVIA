@@ -764,12 +764,12 @@ setInterval(() => {
         }
         console.log("peakPeriod "+ peakPeriod);
         // si cap stable et erreur importante
-        if(stdDevErrors<5.0 && rmse < 10.0){
-            kp=kp(1+pAutotune);
+        if(stdDevErrors<5.0 && rmse > 10.0){
+            kp=kp*(1+pAutotune);
         }
         // cas oscillations
         else if(stdDevErrors>10.0){
-            kp=kp(1-pAutotune);
+            kp=kp*(1-pAutotune);
         }
         console.log("kp "+ kp);
 
