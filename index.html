@@ -557,7 +557,7 @@ let lastValueTypeSent="";
         if (bleServer && bleServer.connected) {
             bleServiceFound.getCharacteristic(commandCharacteristic)
             .then(characteristic => {
-                console.log("Found the server characteristic: ", characteristic.uuid);
+                //console.log("Found the server characteristic: ", characteristic.uuid);
                 let strValue = String(value);
                 const encoder = new TextEncoder();
                 const data = encoder.encode(strValue);
@@ -592,11 +592,10 @@ let lastValueTypeSent="";
                 lastValueTypeSent=valueType;
             })
             .catch(error => {
-                console.error("Error writing to the server characteristic: ", error);
+                //console.error("Error writing to the server characteristic: ", error);
             });
         } else {
             console.error("Bluetooth is not connected. Please connect to BLE first!");
-            //window.alert("Bluetooth is not connected. Please connect to BLE first!");
         }
     }
 
