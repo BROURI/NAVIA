@@ -776,6 +776,7 @@ setInterval(() => {
         if(stdDevErrors<5.0 && rmse > 10.0){
             kp=kp+pAutotune;
             if(kp>kpMax)kp=kpMax;
+            kp=Math.round(kp * 10) / 10;
             pGain.textContent=kp;
             pSlider.value = kp;
         }
@@ -783,6 +784,7 @@ setInterval(() => {
         else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
             kp=kp-pAutotune;
             if(kp<kpMin)kp=kpMin;
+            kp=Math.round(kp * 10) / 10;
             pGain.textContent=kp;
             pSlider.value = kp;
         }
