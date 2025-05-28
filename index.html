@@ -214,7 +214,7 @@ if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
          heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
          pitch = Math.round(event.beta)-90;
-         heel = Math.round(event.gamma);
+         heel = Math.abs(Math.round(event.gamma));
 
     }, false);
 } else {
