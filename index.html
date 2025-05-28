@@ -426,10 +426,10 @@ if (false && navigator.geolocation) {
         if (bleServer && bleServer.connected) {
           while (!(lastValueSent === value) && attempts < maxAttempts) {
             await writeOnCharacteristic(value,"pilot");
-            if(attempts>0)console.log("sendCommand retry: "+ attempts);
             attempts++;
             await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
         }
+        console.log("sendCommand "+ value + " retry: "+ attempts);
      }
     }
 
