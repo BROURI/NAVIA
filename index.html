@@ -771,7 +771,8 @@ setInterval(() => {
 
     }
     },50);
-    var pGainPrev=parseFloat(pGain.textContent);
+    
+    var kpPrev=parseFloat(pGain.textContent);
     setInterval(() => {
         // cap stable et erreur importante
         if(stdDevErrors<5.0 && rmse > 10.0){
@@ -791,8 +792,8 @@ setInterval(() => {
             pGain.textContent=kp;
             pSlider.value = kp;
         }
-        if(pGainPrev!=pGain)sendCommand("pGain,"+pSlider.value);
-        pGainPrev=pGain;
+        if(kpPrev!=kp)sendCommand("pGain,"+pSlider.value);
+        kpPrev=kp;
     }, 2000); 
     
     ////  alerts
