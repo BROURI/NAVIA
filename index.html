@@ -781,6 +781,7 @@ setInterval(() => {
             kp=Math.round(kp * 10) / 10;
             pGain.textContent=kp;
             pSlider.value = kp;
+            sendCommand("pGain,"+pSlider.value)
         }
         // cap oscillant autour de la cible
         else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
@@ -790,6 +791,7 @@ setInterval(() => {
             kp=Math.round(kp * 10) / 10;
             pGain.textContent=kp;
             pSlider.value = kp;
+            sendCommand("pGain,"+pSlider.value)
         }
     }, 2000); 
     
