@@ -213,8 +213,8 @@ var cog;
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
          heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
-         pitch = Math.round(event.beta);   // Angle de rotation autour de l'axe X
-         heel = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
+         pitch = Math.round(event.beta)-90;
+         heel = Math.round(event.gamma);
 
     }, false);
 } else {
