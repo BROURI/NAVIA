@@ -771,7 +771,7 @@ setInterval(() => {
 
     }
     },50);
-
+    var pGainPrev=parseFloat(pGain.textContent);
     setInterval(() => {
         // cap stable et erreur importante
         if(stdDevErrors<5.0 && rmse > 10.0){
@@ -781,7 +781,6 @@ setInterval(() => {
             kp=Math.round(kp * 10) / 10;
             pGain.textContent=kp;
             pSlider.value = kp;
-            sendCommand("pGain,"+pSlider.value)
         }
         // cap oscillant autour de la cible
         else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
@@ -791,8 +790,9 @@ setInterval(() => {
             kp=Math.round(kp * 10) / 10;
             pGain.textContent=kp;
             pSlider.value = kp;
-            sendCommand("pGain,"+pSlider.value)
         }
+        if(pGainPrev!=pGain)sendCommand("pGain,"+pSlider.value);
+        pGainPrev=pGain;
     }, 2000); 
     
     ////  alerts
