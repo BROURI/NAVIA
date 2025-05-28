@@ -208,13 +208,13 @@ if ('serviceWorker' in navigator) {
 /////////  Cap magnetique et accelerometre
 var heading;
 var beta;
-var gamma;
+var heel;
 var cog;
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
          heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
          beta = Math.round(event.beta);   // Angle de rotation autour de l'axe X
-         gamma = Math.round(event.gamma); // Angle de rotation autour de l'axe Y
+         heel = Math.round(event.heel); // Angle de rotation autour de l'axe Y
 
     }, false);
 } else {
@@ -766,7 +766,7 @@ setInterval(() => {
         //console.log("peakPeriod "+ peakPeriod);
         //console.log("kp "+ kp);
         console.log("beta "+ beta);
-        console.log("gamma "+ gamma);
+        console.log("heel "+ heel);
 
 
     }
