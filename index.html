@@ -453,7 +453,7 @@ if (false && navigator.geolocation) {
 
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
-            targetHeading = heading;
+            targetHeading = correctedHeading;
             await sendCommand(targetHeading);
             await sendCommand("autoPilotOn");
             targetHeadingContainer.innerHTML = targetHeading;
@@ -688,7 +688,7 @@ function readOnCharacteristic(value) {
     },1000);
 
     setInterval(() => {
-        headingContainer.innerHTML = heading;
+        headingContainer.innerHTML = correctedHeading;
     },500);
     
     /// heading sharing and autotune
@@ -715,7 +715,7 @@ function readOnCharacteristic(value) {
     
     setInterval(() => {
         if(autoPilotOn){
-            writeOnCharacteristic(heading,"heading");
+            writeOnCharacteristic(correctedHeading,"heading");
         }
     },50);
 
@@ -744,7 +744,7 @@ function readOnCharacteristic(value) {
 
 setInterval(() => {
     if(true){
-        error = heading - targetHeading;
+        error = correctedHeading - targetHeading;
         if(error>180) error-=360;
         else if(error<-180) error +=360;
         errors.push(error);
@@ -825,7 +825,7 @@ setInterval(() => {
             maxHeading = maxHeadingContainer.value;
             myMinHeading=minHeading;
             myMaxHeading=maxHeading;
-            myHeading = heading;
+            myHeading = correctedHeading;
             if(minHeading >maxHeading){
                 myMinHeading = minHeading-360;
                  if(myHeading>180){
