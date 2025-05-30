@@ -220,7 +220,6 @@ if (window.DeviceOrientationEvent) {
          heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
          headingDiff=Math.abs(previousHeading-heading);
          if(headingDiff > 150 && headingDiff < 210)headingCorrection = (headingCorrection+180)%360;
-         else headingCorrection =0;
          correctedHeading=heading+headingCorrection;
          if(correctedHeading > 360) correctedHeading-=360;
          pitch = Math.round(event.beta)-90;
