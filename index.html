@@ -184,6 +184,12 @@ button {
                 <button type="submit" class="toggleButton" id="windAngleAlertToggle"><span id="windAngleAlertState">Disabled</span></button>
 
             </div>
+            
+        <div class="card">
+        <button onclick="connectToSensor()">Connect to Sensor</button>
+        <p>Check browser console (F12)</p>
+        <p><strong>Note:</strong> Requires Chrome/Edge on HTTPS or localhost</p>
+        </div>
 
         </div>
     </div>
@@ -205,6 +211,47 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+
+//// Ultrasonic direct connection
+
+     async function connectToSensor() {
+            try {
+                if (!navigator.bluetooth) {
+                    throw new Error("Web Bluetooth not supported or not enabled");
+                }
+                
+                console.log('Requesting Bluetooth device...');
+                const device = await navigator.bluetooth.requestDevice({
+                    filters: [{ name: 'ULTRASONIC' }],
+                    optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+                });
+                
+                console.log('Connecting...');
+                const server = await device.gatt.connect();
+                
+                const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
+                const characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
+                
+                await characteristic.startNotifications();
+                console.log('Connected! Waiting for data...');
+                
+                characteristic.addEventListener('characteristicvaluechanged', event => {
+                    const data = new TextDecoder().decode(event.target.value);
+                    console.log('Raw:', data);
+                    
+                    // Simple parsing
+                    const angle = data.substr(3, 3);
+                    const speed = (parseInt(data.substr(6, 5)) / 1000).toFixed(2);
+                    console.log(`Wind: ${angle}° at ${speed} m/s`);
+                });
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert(`Error: ${error.message}`);
+            }
+        }
+
+    
 /////////  Cap magnetique et accelerometre
 var heading;
 var pitch;
