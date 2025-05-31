@@ -493,7 +493,7 @@ if (false && navigator.geolocation) {
           while (!(lastValueSent === value) && attempts < maxAttempts) {
             await writeOnCharacteristic(value,"pilot");
             attempts++;
-            await new Promise(resolve => setTimeout(resolve, 75)); 
+            await new Promise(resolve => setTimeout(resolve, 200)); 
         }
         console.log("sendCommand "+ value + " retry: "+ attempts);
      }
