@@ -241,6 +241,9 @@ if ('serviceWorker' in navigator) {
                     
                     // Simple parsing
                     const angle = data.substr(3, 3);
+                    if(angle >180){
+                        angle = angle - 360;
+                    }
                     const speed = ((parseInt(data.substr(6, 5)) / 1000)* 1.94384).toFixed(2);
                     console.log(`Wind: ${angle}° at ${speed} knots`);
                 });
