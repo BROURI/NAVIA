@@ -241,11 +241,11 @@ if ('serviceWorker' in navigator) {
                     console.log('Raw:', data);
                     
                     // Simple parsing
-                    const angle = data.substr(3, 3);
+                    var angle = data.substr(3, 3);
                     if(angle >180){
                         angle = angle - 360;
                     }
-                    const speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
+                    var speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
 
                     speed=Math.round(speed);
                     maxWindSpeed = Math.max(maxWindSpeed,speed);
