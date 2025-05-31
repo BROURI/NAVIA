@@ -560,20 +560,7 @@ autoPilotToggle.addEventListener('click', async () => {
         .then(service => {
             bleServiceFound = service;
             console.log("Service discovered:", service.uuid);
-            return service.getCharacteristic(sensorCharacteristic);
-        })
-        .then(characteristic => {
-            console.log("Characteristic discovered:", characteristic.uuid);
-            sensorCharacteristicFound = characteristic;
-
-            // Start reading the sensor data every second
-            setInterval(readSensorData, 1000); // Read every second
-            // Initial read
-            
-            return readSensorData();
-            
-        })
-        .catch(error => {
+        }).catch(error => {
             console.log('Error: ', error);
         });
     }
