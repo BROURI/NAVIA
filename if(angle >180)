@@ -213,6 +213,7 @@ if ('serviceWorker' in navigator) {
 
 
 //// Ultrasonic direct connection
+    var maxWindSpeed = 0;
 
      async function connectToSensor() {
             try {
@@ -244,8 +245,17 @@ if ('serviceWorker' in navigator) {
                     if(angle >180){
                         angle = angle - 360;
                     }
-                    const speed = ((parseInt(data.substr(6, 5)) / 1000)* 1.94384).toFixed(2);
+                    const speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
+
+                    speed=Math.round(speed);
+                    maxWindSpeed = Math.max(maxWindSpeed,speed);
+                    windAngleContainer.innerHTML = angle;
+                    
+                    windSpeed.innerHTML = speed;
+                    maxWindSpeedContainer.innerHTML = maxWindSpeed;
+
                     console.log(`Wind: ${angle}° at ${speed} knots`);
+
                 });
                 
             } catch (error) {
@@ -417,7 +427,6 @@ if (false && navigator.geolocation) {
     
 
     // Define BLE Device Specs
-    var maxWindSpeed = 0;
     var deviceName = 'NAVIA';
     var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
     var commandCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
@@ -609,6 +618,8 @@ autoPilotToggle.addEventListener('click', async () => {
             console.error("Sensor characteristic not found.");
         }
     }
+
+    
 let lastValueSent="";
 let lastValueTypeSent="";
 
