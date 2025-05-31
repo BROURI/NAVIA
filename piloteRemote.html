@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NAVIA SYSTEM</title>
+    <link rel="icon" href="/NAVIA/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+html {
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    text-align: center;
+}
+h1 {
+    font-size: 1.8rem;
+    color: white;
+}
+.topnav {
+    overflow: hidden;
+    background-color: #0A1128;
+}
+body {
+    margin: 0;
+}
+.content {
+    padding: 5%; 
+}
+.card-grid {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+.card {
+    background-color: white;
+    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+}
+label {
+    font-weight: bold; /* Make labels bold for better visibility */
+    display: block; /* Ensure labels occupy full width */
+    margin-bottom: 5px; /* Space between label and input */
+}
+input {
+    width: 50%; /* Full width input */
+    padding: 10px; /* Inner padding for comfort */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1rem; /* Font size for readability */
+    margin-bottom: 20px; /* Space below input */
+    transition: border-color 0.3s; /* Smooth transition for focus state */
+}
+
+button {
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.onButton{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.offButton{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.pilotButton{
+    background-color: #1b8a94;
+    font-size: 3.0rem;
+}
+.connectButton{
+    background-color: #4CAF50;
+}
+
+.disconnectButton{
+    background-color: #F44336;
+}
+.alertButton{
+    background-color: #1b8a94;
+    font-size: 1.8rem;
+}
+.gray-label {
+    color: #bebebe;
+    font-size: 1rem;
+}
+.reading {
+    font-size: 3.6rem;
+}
+.toggleButton {
+    background-color: #1b8a94;
+    font-size: 1.8rem;
+    width: 200px; /* Ajustez la largeur selon vos besoins */
+}
+.toggleButton.on {
+    background-color: #4CAF50; /* Couleur quand activé */
+}
+</style>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="topnav">
+        <h1>NAVIA SYSTEM</h1>
+    </div>
+    <div class="content">
+        <div class="card-grid">
+            <div class="card">
+                <p>
+                    <button id="connectBleButton" class="connectButton"> Connect   </button>
+                    <button id="disconnectBleButton" class="disconnectButton"> Disconnect</button>
+                </p>
+                <p class="gray-label"><strong><span style="color: #F44336;" id="bleState">Disconnected</span></strong></p>
+            </div>
+        </div>
+        <div class="card-grid">
+            <div class="card">
+                <h2>Wind Angle</h2>
+                <p class="reading"><span id="windAngle">-</span></p>
+                <h2>Wind Speed</h2>
+                <p class="reading"><span id="windSpeed">-</span></p>
+                <h2>Max Wind Speed</h2>
+                <p class="reading"><span id="maxWindSpeed">-</span></p>
+            </div>
+            <div class="card">
+                <h2>Heading</h2>
+                <p class="reading"><span id="heading">-</span></p>
+                <h2>Target</h2>
+                <p class="reading"><span id="targetHeadingContainer">-</span></p>
+            </div>
+            <div class="card" style="display: none;">
+                <h2>COG</h2>
+            <p class="reading"><span id="cog">-</span></p>
+            </div>            
+            <div class="card">
+                <h2>Pilot Control</h2>
+                <label <span>Motor Reverse</span></label>
+                <input type="checkbox" id="motorReverse">
+                <br><br>
+                <label for="pSlider">P Gain: <span id="pGain">7</span> </label>
+                <input type="range" id="pSlider"  oninput="pGain.textContent=this.value" min="0" max="10" value="7" step="0.1">
+                <br><br>
+                <label for="dSlider">D Gain: <span id="dGain">500</span></label>
+                <input type="range" id="dSlider"  oninput="dGain.textContent=this.value" min="0" max="800" value="500" step="1">
+                <br><br>
+                <label for="reactivitySlider">Reactivity: <span id="reactivity">0.5</span></label>
+                <input type="range" id="reactivitySlider"  oninput="reactivity.textContent=this.value" min="0.05" max="1" value="0.5" step="0.05">
+                <br><br>
+                <button id="minus1Button" class="pilotButton">-1</button>
+                <button id="plus1Button" class="pilotButton">+1</button>
+                <br><br>
+                <button id="minus10Button" class="pilotButton">-10</button>
+                <button id="plus10Button" class="pilotButton">+10</button>
+                <br><br>
+                <button id="minus90Button" class="pilotButton">-90</button>
+                <button id="plus90Button" class="pilotButton">+90</button>
+                <br><br>
+                <button type="submit" class="toggleButton" id="windModeToggle">Wind Mode <span id="windModeState">Off</span></button>
+                <br><br>
+                <button type="submit" class="toggleButton" id="autoPilotToggle">Auto Pilot <span id="autoPilotState">Standby</span></button>
+                <br><br>
+                <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
+                <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
+            </div>
+            <div class="card">
+                <h2>Heading alert</h2>
+                <label for="minHeading">Min Heading</label>
+                <input type="number" id="minHeading" name="minHeading" min="0" max="360" required>
+                <br><br>
+                <label for="maxHeading">Max Heading</label>
+                <input type="number" id="maxHeading" name="maxHeading" min="0" max="360" required>
+                <br><br>
+                <button type="submit" class="toggleButton" id="headingAlertToggle"><span id="headingAlertState">Disabled</span></button>
+            </div>
+            <div class="card">
+                <h2>Wind angle alert</h2>
+                <label for="minWindAngle">Min angle</label>
+                <input type="text" id="minWindAngle" name="minWindAngle" min="-180" max="180" required>
+                <br><br>
+                <label for="maxWindAngle">Max angle</label>
+                <input type="text" id="maxWindAngle" name="maxWindAngle" min="-180" max="180" required>
+                <br><br>
+                <button type="submit" class="toggleButton" id="windAngleAlertToggle"><span id="windAngleAlertState">Disabled</span></button>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="footer">
+        <p><a>Created by Tahar BROURI</a></p>
+    </div>
+</body>
+<script>
+/// service worker
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/NAVIA/service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.log('Service Worker registration failed:', error);
+            });
+    });
+}
+
+/////////  Cap magnetique et accelerometre
+var heading;
+var pitch;
+var heel;
+var cog;
+var headingCorrection=0;
+var previousHeading=0;
+var headingDiff=0;
+var correctedHeading=0;
+if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', function(event) {
+         previousHeading=heading;
+         heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
+         headingDiff=Math.abs(previousHeading-heading);
+         if(headingDiff > 150 && headingDiff < 210)headingCorrection = (headingCorrection+180)%360;
+         correctedHeading=heading+headingCorrection;
+         if(correctedHeading > 360) correctedHeading-=360;
+         pitch = Math.round(event.beta)-90;
+         heel = Math.abs(Math.round(event.gamma));
+
+    }, false);
+} else {
+    console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
+}
+
+function isValidHeading(angle) {
+    return !angle==''&& !isNaN(angle) && angle >= 0 && angle < 360;
+}
+function isValidWindAngle(angle) {
+    return !angle=='' && !isNaN(angle) && angle >= -180 && angle <= 180;
+}
+///////////////////geolocation et calcul angle de deplacement
+
+function calculateCOG(lat1, lon1, lat2, lon2) {
+
+    if (lat1 === lat2 && lon1 === lon2) {
+    return "-";
+    }
+    // Convertir les degrés en radians
+    var toRadians = (degrees) => degrees * (Math.PI / 180);
+    // Convertir les coordonnées en radians
+    var lat1Rad = toRadians(lat1);
+    var lat2Rad = toRadians(lat2);
+    var deltaLon = toRadians(lon2 - lon1);
+    // Calculer le cog
+    var x = Math.sin(deltaLon) * Math.cos(lat2Rad);
+    const y = Math.cos(lat1Rad) * Math.sin(lat2Rad) - 
+    Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLon);
+    var cogInRadians = Math.atan2(x, y);
+    // Convertir le résultat en degrés
+    cog =Math.round ((cogInRadians * (180 / Math.PI) + 360) % 360); // Normaliser à [0, 360)
+    return cog;
+}
+    
+var latitude;
+var longitude;
+var previousLatitude;
+var previousLongitude;
+if (false && navigator.geolocation) {
+    setInterval(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            previousLatitude = latitude;
+            previousLongitude = longitude;
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            //console.log("Latitude : " + latitude + ", Longitude : " + longitude);
+            cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
+            //console.log("cog : " +cog);
+            cogContainer.innerHTML =cog;
+        }, error => {
+            console.log("Erreur geolocation");
+        });
+    }, 5000); // Vérifie toutes les secondes
+} else {
+    console.error("La géolocalisation n'est pas supportée par ce navigateur.");
+}
+
+    var autoPilotOn = false;
+    var windAngleAlertEnabled=false;
+    var minWindAngleContainer = document.getElementById('minWindAngle');
+    var maxWindAngleContainer = document.getElementById('maxWindAngle');
+    var windAngle;
+    var minWindAngle;
+    var maxWindAngle;
+    
+    var headingAlertEnabled=false;
+    var minHeadingContainer = document.getElementById('minHeading');
+    var maxHeadingContainer = document.getElementById('maxHeading');
+    var minHeading;
+    var maxHeading;
+    
+    const windAngleAudio = new Audio('windAngleAudio.mp3');
+    const connectionLostAudio = new Audio('connectionLostAudio.mp3');
+    const headingAlertAudio = new Audio('headingAlertAudio.mp3');
+    var cleanDisconnect = false;   
+    const connectButton = document.getElementById('connectBleButton');
+    const disconnectButton = document.getElementById('disconnectBleButton');
+    const onButton = document.getElementById('onButton');
+    const offButton = document.getElementById('offButton');
+    const minus10Button = document.getElementById('minus10Button');
+    const plus10Button = document.getElementById('plus10Button');
+    const windSpeedContainer = document.getElementById('windSpeed');
+    const windAngleContainer = document.getElementById('windAngle');
+    const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
+    const valueSentPilot = document.getElementById('valueSentPilot');
+    const valueSentHeading = document.getElementById('valueSentHeading');
+
+    const valueSentGPIO = document.getElementById('valueSentGPIO');
+    const bleStateContainer = document.getElementById('bleState');
+    const headingContainer = document.getElementById('heading');
+    const cogContainer = document.getElementById('cog');
+
+
+
+
+    const windModeToggle = document.getElementById('windModeToggle');
+    const autoPilotToggle = document.getElementById('autoPilotToggle');
+    
+
+    
+    const windModeState = document.getElementById('windModeState');
+    const autoPilotState = document.getElementById('autoPilotState');
+
+    const headingAlertToggle = document.getElementById('headingAlertToggle');
+    const headingAlertState = document.getElementById('headingAlertState');
+    
+    const windAngleAlertToggle = document.getElementById('windAngleAlertToggle');
+    const windAngleAlertState = document.getElementById('windAngleAlertState');
+
+    windAngleAlertToggle.addEventListener('click', () => {
+    minWindAngle = minWindAngleContainer.value;
+    maxWindAngle = maxWindAngleContainer.value;
+    if(windAngleAlertState.textContent == "Disabled" && isValidWindAngle(minWindAngle) && isValidWindAngle(maxWindAngle)) {
+        windAngleAlertEnabled=true;
+        windAngleAlertState.textContent = "Enabled";
+        windAngleAlertToggle.classList.add('on');
+
+    } else {
+        windAngleAlertEnabled=false;
+        windAngleAlertState.textContent = "Disabled";
+        windAngleAlertToggle.classList.remove('on');
+    }
+});
+    
+    headingAlertToggle.addEventListener('click', () => {
+    minHeading = minHeadingContainer.value;
+    console.log(minHeading);
+    maxHeading = maxHeadingContainer.value;
+    if(headingAlertState.textContent == "Disabled" && isValidHeading(minHeading) && isValidHeading(maxHeading)) {
+        headingAlertEnabled=true;
+        headingAlertState.textContent = "Enabled";
+        headingAlertToggle.classList.add('on');
+
+    } else {
+        headingAlertEnabled=false;
+        headingAlertState.textContent = "Disabled";
+        headingAlertToggle.classList.remove('on');
+    }
+});
+    
+
+    // Define BLE Device Specs
+    var maxWindSpeed = 0;
+    var deviceName = 'NAVIA';
+    var bleService = '19b10000-e8f2-537e-4f6c-d104768a1214';
+    var commandCharacteristic = '19b10002-e8f2-537e-4f6c-d104768a1214';
+    var sensorCharacteristic = "19b10001-e8f2-537e-4f6c-d104768a1214";
+
+    // Global Variables to Handle Bluetooth
+    var bleServer;
+    var bleServiceFound;
+    var sensorCharacteristicFound;
+    var targetHeading;
+
+    // Connect Button (search for BLE Devices only if BLE is available)
+    connectButton.addEventListener('click', (event) => {
+        if (isWebBluetoothEnabled()) {
+            connectToDevice();
+        }
+    });
+
+    disconnectButton.addEventListener('click', disconnectDevice);
+    minus1Button.addEventListener('click', () => {
+        sendCommand("minus1");
+        targetHeading-=1;
+        if(targetHeading<0)targetHeading+=360;
+        targetHeadingContainer.innerHTML=targetHeading;
+    });
+    plus1Button.addEventListener('click', () => {
+        sendCommand("plus1");
+        targetHeading+=1;
+        if(targetHeading>=360)targetHeading-=360;
+        targetHeadingContainer.innerHTML=targetHeading;
+    });
+    minus10Button.addEventListener('click', () => {
+        sendCommand("minus10");
+        targetHeading-=10;
+        if(targetHeading<0)targetHeading+=360;
+        targetHeadingContainer.innerHTML=targetHeading;
+    });
+    plus10Button.addEventListener('click', () => {
+        sendCommand("plus10");
+        targetHeading+=10;
+        if(targetHeading>=360)targetHeading-=360;
+        targetHeadingContainer.innerHTML=targetHeading;
+    });
+    minus90Button.addEventListener('click', () => {
+        sendCommand("minus90");
+        targetHeading-=90;
+        if(targetHeading<0)targetHeading+=360;
+        targetHeadingContainer.innerHTML=targetHeading;
+    });
+    plus90Button.addEventListener('click', () => {
+        sendCommand("plus90");
+        targetHeading+=90;
+        if(targetHeading>=360)targetHeading-=360;
+        targetHeadingContainer.innerHTML=targetHeading;
+    });
+    dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
+    pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
+    reactivitySlider.addEventListener('change', () => sendCommand("reactivity,"+reactivitySlider.value));
+    motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
+
+    async function sendCommand(value){
+        lastValueSent = "";
+        let attempts = 0;
+        const maxAttempts = 50;
+        if (bleServer && bleServer.connected) {
+          while (!(lastValueSent === value) && attempts < maxAttempts) {
+            await writeOnCharacteristic(value,"pilot");
+            attempts++;
+            await new Promise(resolve => setTimeout(resolve, 25)); // 25 ms delay
+        }
+        console.log("sendCommand "+ value + " retry: "+ attempts);
+     }
+    }
+
+    windModeToggle.addEventListener('click', async () => {
+            if (windModeState.textContent === "Off") {
+                await sendCommand("windModeOn");
+            } else {
+                await sendCommand("windModeOff");
+            }
+});
+
+
+autoPilotToggle.addEventListener('click', async () => {
+    if(autoPilotState.textContent == "Standby") {
+            targetHeading = correctedHeading;
+            await sendCommand(targetHeading);
+            await sendCommand("autoPilotOn");
+            targetHeadingContainer.innerHTML = targetHeading;
+            valueSentPilot.innerHTML  = targetHeading;
+    
+    } else {
+            await sendCommand("autoPilotOff");
+            targetHeadingContainer.innerHTML = "";
+
+    }
+});
+
+    // Check if BLE is available in your Browser
+    function isWebBluetoothEnabled() {
+        if (!navigator.bluetooth) {
+            console.log('Web Bluetooth API is not available in this browser!');
+            bleStateContainer.innerHTML = "Web Bluetooth API is not available in this browser/device!";
+            return false;
+        }
+        console.log('Web Bluetooth API supported in this browser.');
+        return true;
+    }
+
+    // Connect to BLE Device
+    function connectToDevice() {
+        console.log('Initializing Bluetooth...');
+        navigator.bluetooth.requestDevice({
+            filters: [{ name: deviceName }],
+            optionalServices: [bleService]
+        })
+        .then(device => {
+            console.log('Device Selected:', device.name);
+            bleStateContainer.innerHTML = "Connected";
+            bleStateContainer.style.color = "#4CAF50";
+            device.addEventListener('gattservicedisconnected', onDisconnected);
+            cleanDisconnect =false;
+            return device.gatt.connect();
+        })
+        .then(gattServer => {
+            bleServer = gattServer;
+            console.log("Connected to GATT Server");
+            //bleServer.addEventListener('disconnected', onDisconnected);
+            return bleServer.getPrimaryService(bleService);
+        })
+        .then(service => {
+            bleServiceFound = service;
+            console.log("Service discovered:", service.uuid);
+            return service.getCharacteristic(sensorCharacteristic);
+        })
+        .then(characteristic => {
+            console.log("Characteristic discovered:", characteristic.uuid);
+            sensorCharacteristicFound = characteristic;
+
+            // Start reading the sensor data every second
+            setInterval(readSensorData, 1000); // Read every second
+            // Initial read
+            
+            return readSensorData();
+            
+        })
+        .catch(error => {
+            console.log('Error: ', error);
+        });
+    }
+
+    function onDisconnected(event) {
+        console.log('Device Disconnected:', event.target.device.name);
+        bleStateContainer.innerHTML = "Device disconnected";
+        bleStateContainer.style.color = "#F44336";
+        cleanDisconnect = false;
+        connectionLostAudio.play();
+    }
+
+    
+    function readSensorData() {
+        if (sensorCharacteristicFound) {
+            sensorCharacteristicFound.readValue()
+            .then(value => {
+                const decodedValue = new TextDecoder().decode(value);
+                //console.log("Sensor Value: ", decodedValue);
+                    myArray = decodedValue.split(",");
+                    angle = myArray[0];
+                    angle = parseInt(angle);
+                    windAngle = angle;
+                    if(angle >180){
+                        angle = angle - 360;
+                    }
+                    speed = myArray[1]; 
+                    speed = parseFloat(speed);
+                    speed=Math.round(speed);
+                    maxWindSpeed = Math.max(maxWindSpeed,speed);
+                    windAngleContainer.innerHTML = angle;
+                    
+                    windSpeed.innerHTML = speed;
+                    maxWindSpeedContainer.innerHTML = maxWindSpeed;
+                
+                
+            })
+            .catch(error => {
+                //console.error("Error reading sensor value: ", error);
+            });
+        } else {
+            console.error("Sensor characteristic not found.");
+        }
+    }
+let lastValueSent="";
+let lastValueTypeSent="";
+
+    function writeOnCharacteristic(value,valueType){
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(commandCharacteristic)
+            .then(characteristic => {
+                //console.log("Found the server characteristic: ", characteristic.uuid);
+                let strValue = String(value);
+                const encoder = new TextEncoder();
+                const data = encoder.encode(strValue);
+                return characteristic.writeValue(data);
+            })
+            .then(() => {
+                if(valueType=="heading")valueSentHeading.innerHTML = value;
+                if(valueType=="pilot")valueSentPilot.innerHTML = value;
+                
+                if(value== "autoPilotOn") {
+                    autoPilotState.textContent = "Auto";
+                    autoPilotToggle.classList.add('on');
+                    autoPilotOn = true;
+                }
+                if(value== "autoPilotOff") {
+                    autoPilotState.textContent = "Standby";
+                    autoPilotToggle.classList.remove('on');
+                    autoPilotOn = false;
+                }
+        
+                if(value== "windModeOn") {
+                    windModeState.textContent = "On";
+                    windModeToggle.classList.add('on');
+                }
+                if(value== "windModeOff") {
+                    windModeState.textContent = "Off";
+                    windModeToggle.classList.remove('on');
+                }
+                
+                //console.log("Value written to server characteristic:", value);
+                lastValueSent=value;
+                lastValueTypeSent=valueType;
+            })
+            .catch(error => {
+                //console.error("Error writing to the server characteristic: ", error);
+            });
+        } else {
+            console.error("Bluetooth is not connected. Please connect to BLE first!");
+        }
+    }
+
+function readOnCharacteristic(value) {
+        if (bleServer && bleServer.connected) {
+            bleServiceFound.getCharacteristic(commandCharacteristic)
+            .then(characteristic => {
+                console.log("Found the characteristic: ", characteristic.uuid);
+                const result = characteristic.readValue();
+                const decodedResult = new TextDecoder().decode(result);
+                console.log("decodedResult "+decodedResult)
+                return decodedResult;
+            }).catch(error => {
+                console.error("Error writing to the server characteristic: ", error);
+            });
+        } else {
+            console.error("Bluetooth is not connected. Please connect to BLE first!");
+            //window.alert("Bluetooth is not connected. Please connect to BLE first!");
+        }
+}
+
+
+        
+    function disconnectDevice() {
+        console.log("Disconnect Device.");
+        if (bleServer && bleServer.connected) {
+            if (sensorCharacteristicFound) {
+                return bleServer.disconnect()
+                .then(() => {
+                    console.log("Device Disconnected");
+                    bleStateContainer.innerHTML = "Device Disconnected";
+                    bleStateContainer.style.color = "#d13a30";
+                })
+                .catch(error => {
+                    console.log("An error occurred:", error);
+                });
+            } else {
+                console.log("No characteristic found to disconnect.");
+            }
+        } else {
+            console.error("Bluetooth is not connected.");
+            //window.alert("Bluetooth is not connected.");
+        }
+        cleanDisconnect = true;
+        prevIsConnected= false;
+    }
+
+    function getDateTime() {
+        var currentdate = new Date();
+        var day = ("00" + currentdate.getDate()).slice(-2); // Convert day to string and slice
+        var month = ("00" + (currentdate.getMonth() + 1)).slice(-2);
+        var year = currentdate.getFullYear();
+        var hours = ("00" + currentdate.getHours()).slice(-2);
+        var minutes = ("00" + currentdate.getMinutes()).slice(-2);
+        var seconds = ("00" + currentdate.getSeconds()).slice(-2);
+
+        var datetime = day + "/" + month + "/" + year + " at " + hours + ":" + minutes + ":" + seconds;
+        return datetime;
+    }
+
+    // Function to check if the BLE server is connected
+    function isConnected() {
+        return bleServer && bleServer.connected;
+    }
+
+    var prevIsConnected=false;
+    setInterval(() => {
+        if (!isConnected()){
+            bleStateContainer.innerHTML = "Disconnected";
+            bleStateContainer.style.color = "#F44336";
+            if(!cleanDisconnect && prevIsConnected){
+                connectionLostAudio.play();
+            }
+        }
+        else if (isConnected()){
+            bleStateContainer.innerHTML = "Connected";
+            bleStateContainer.style.color = "#4CAF50";
+            prevIsConnected=true ;
+        }
+
+    },1000);
+
+    setInterval(() => {
+        headingContainer.innerHTML = correctedHeading;
+    },500);
+    
+    /// heading sharing and autotune
+
+
+
+    function calculateStandardDeviation(numbers) {
+        const n = numbers.length;
+        if (n === 0) return 0; // Avoid division by zero
+        const mean = numbers.reduce((sum, value) => sum + value, 0) / n;
+        const variance = numbers.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / n;
+        return Math.sqrt(variance); // Standard deviation
+    }
+
+    function calculateRmse(numbers) {
+        const n = numbers.length;
+        if (n === 0) return 0; // Avoid division by zero
+
+        const variance = numbers.reduce((sum, value) => sum + Math.pow(value, 2), 0) / n;
+        return Math.sqrt(variance);
+
+    }
+    
+    
+    setInterval(() => {
+        if(autoPilotOn){
+            writeOnCharacteristic(correctedHeading,"heading");
+        }
+    },50);
+
+    var autoTuneArraySize = 200;
+    var errors = [];
+    var stdDevErrors=0.0;
+    var error = 0.0;
+    var instability=0.0;
+    var stability=0.0;
+    var overshooting=0.0;
+    var meanError=0.0;
+    var filteredError=0.0;
+    var filteredErrorp1=0.0;
+    var filteredErrorp2=0.0;
+    var alpha = 0.008;
+    var currentPeak=null;
+    var previousPeak=null;
+    var peakPeriod=0;
+    var pAutotune=0.1;
+    var kp=parseFloat(pGain.textContent);
+    var kpMax=8;
+    var kpMin=5;
+    
+    
+
+
+setInterval(() => {
+    if(true){
+        error = correctedHeading - targetHeading;
+        if(error>180) error-=360;
+        else if(error<-180) error +=360;
+        errors.push(error);
+        if (errors.length>autoTuneArraySize){errors.shift();}
+        stdDevErrors=calculateStandardDeviation(errors);
+        instability =Math.min(0.5,stdDevErrors/90);
+        stability = 1- instability;
+        rmse = calculateRmse(errors);
+        meanError = errors.reduce((sum, value) => sum + value, 0) / autoTuneArraySize;
+
+        filteredErrorp2=filteredErrorp1;
+        filteredErrorp1=filteredError;
+        if (isNaN(error))error=0;
+
+        filteredError = alpha*error + (1-alpha)*filteredError;
+        //console.log("heading "+ heading);
+        //console.log("targetHeading "+ targetHeading);
+        //console.log("error "+ error);
+        //console.log("stdDevErrors "+stdDevErrors);
+        //console.log("filteredError "+filteredError);
+        //console.log("stability "+stability);
+        //console.log("rmse "+rmse);
+        //console.log("meanError "+meanError);
+        if (filteredErrorp1 > filteredErrorp2 && filteredErrorp1 > filteredError){
+            previousPeak=currentPeak;
+            currentPeak = new Date();
+            peakPeriod=(currentPeak-previousPeak)/1000;
+        }
+        //console.log("peakPeriod "+ peakPeriod);
+        //console.log("kp "+ kp);
+        //console.log("pitch "+ pitch);
+        //console.log("heel "+ heel);
+        console.log("heading "+ heading);
+        console.log("correctedHeading "+ correctedHeading);
+
+    }
+    },50);
+    
+    var kpPrev=parseFloat(pGain.textContent);
+    setInterval(() => {
+        // cap stable et erreur importante
+        if(stdDevErrors<5.0 && rmse > 10.0){
+            kp=parseFloat(pGain.textContent);
+            kp=kp+pAutotune;
+            if(kp>kpMax)kp=kpMax;
+            kp=Math.round(kp * 10) / 10;
+            pGain.textContent=kp;
+            pSlider.value = kp;
+        }
+        // cap oscillant autour de la cible
+        else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
+            kp=parseFloat(pGain.textContent);
+            kp=kp-pAutotune;
+            if(kp<kpMin)kp=kpMin;
+            kp=Math.round(kp * 10) / 10;
+            pGain.textContent=kp;
+            pSlider.value = kp;
+        }
+        if(kpPrev!=kp)sendCommand("pGain,"+pSlider.value);
+        kpPrev=kp;
+    }, 2000); 
+    
+    ////  alerts
+    setInterval(() => {
+        var myHeading;
+        var myMinHeading;
+        var myMaxHeading;
+
+        if (windAngleAlertEnabled){
+        minWindAngle = minWindAngleContainer.value;
+        maxWindAngle = maxWindAngleContainer.value;
+            if(windAngle > maxWindAngle || windAngle < minWindAngle){
+            windAngleAudio.play();
+            }
+        }
+        if (headingAlertEnabled){
+            minHeading = minHeadingContainer.value;
+            maxHeading = maxHeadingContainer.value;
+            myMinHeading=minHeading;
+            myMaxHeading=maxHeading;
+            myHeading = correctedHeading;
+            if(minHeading >maxHeading){
+                myMinHeading = minHeading-360;
+                 if(myHeading>180){
+                    myHeading = heading-360;
+                }
+            }
+            if(myHeading > myMaxHeading || myHeading < myMinHeading){
+                headingAlertAudio.play();
+            }
+        }
+    }, 2000); 
+
+
+
+
+        
+    ///*******avoir reload page
+    let isAtTop = true;
+    
+    // Vérifier si on est en haut de la page
+    window.addEventListener('scroll', function() {
+        isAtTop = window.scrollY === 0;
+    });
+    
+    // Empêcher le rafraîchissement lors d'un tirage vers le bas depuis le haut de la page
+    document.addEventListener('touchstart', function(event) {
+        // Vérifiez si l'utilisateur est en haut de la page et essaie de tirer vers le bas
+        if (isAtTop && event.touches[0].clientY > 0) {
+            // Enregistrer la position initiale
+            this.startY = event.touches[0].clientY;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', function(event) {
+        // Vérifiez si l'utilisateur est en haut de la page et tire vers le bas
+        if (isAtTop && event.touches[0].clientY > this.startY) {
+            event.preventDefault(); // Empêche le rafraîchissement
+        }
+    }, { passive: false });
+
+// Wake Lock + Mouvement de souris virtuel
+let wakeLock = null;
+
+async function preventSleep() {
+    if ('wakeLock' in navigator) {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+        } catch (e) { console.error("Wake Lock failed:", e); }
+    }
+
+    // Simuler un mouvement toutes les 15 secondes
+    setInterval(() => {
+        window.dispatchEvent(new Event('mousemove'));
+    }, 15000);
+}
+
+// Démarrer au clic ou au chargement
+window.addEventListener('click', preventSleep);
+</script>
+
+</html>
