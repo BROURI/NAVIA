@@ -645,7 +645,6 @@ function readOnCharacteristic(value) {
     function disconnectDevice() {
         console.log("Disconnect Device.");
         if (bleServer && bleServer.connected) {
-            if (sensorCharacteristicFound) {
                 return bleServer.disconnect()
                 .then(() => {
                     console.log("Device Disconnected");
@@ -655,12 +654,6 @@ function readOnCharacteristic(value) {
                 .catch(error => {
                     console.log("An error occurred:", error);
                 });
-            } else {
-                console.log("No characteristic found to disconnect.");
-            }
-        } else {
-            console.error("Bluetooth is not connected.");
-            //window.alert("Bluetooth is not connected.");
         }
         cleanDisconnect = true;
         prevIsConnected= false;
