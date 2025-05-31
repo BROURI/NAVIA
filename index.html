@@ -210,6 +210,27 @@ if ('serviceWorker' in navigator) {
 }
 
 
+/// PILOT REMOTE SERVER
+
+async function startRemoteControlServer() {
+  const server = await navigator.bluetooth.requestLEServer({
+    filters: [{services: ['0000180a-0000-1000-8000-00805f9b34fb']}]
+  });
+  const service = await server.addService('0000180a-0000-1000-8000-00805f9b34fb', true);
+  const characteristic = await service.addCharacteristic('00002a57-0000-1000-8000-00805f9b34fb', {
+    properties: ['write']
+  });
+  characteristic.onwrite = (value) => {
+    console.log("Received:", new TextDecoder().decode(value));
+  };
+  await server.advertise({
+    serviceUUIDs: ['0000180a-0000-1000-8000-00805f9b34fb'],
+    localName: 'BLE Server'
+  });
+}
+startRemoteControlServer();
+
+    
 //// Ultrasonic direct connection
     var maxWindSpeed = 0;
 
