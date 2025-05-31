@@ -573,38 +573,6 @@ autoPilotToggle.addEventListener('click', async () => {
         connectionLostAudio.play();
     }
 
-    
-    function readSensorData() {
-        if (sensorCharacteristicFound) {
-            sensorCharacteristicFound.readValue()
-            .then(value => {
-                const decodedValue = new TextDecoder().decode(value);
-                //console.log("Sensor Value: ", decodedValue);
-                    myArray = decodedValue.split(",");
-                    angle = myArray[0];
-                    angle = parseInt(angle);
-                    windAngle = angle;
-                    if(angle >180){
-                        angle = angle - 360;
-                    }
-                    speed = myArray[1]; 
-                    speed = parseFloat(speed);
-                    speed=Math.round(speed);
-                    maxWindSpeed = Math.max(maxWindSpeed,speed);
-                    windAngleContainer.innerHTML = angle;
-                    
-                    windSpeed.innerHTML = speed;
-                    maxWindSpeedContainer.innerHTML = maxWindSpeed;
-                
-                
-            })
-            .catch(error => {
-                //console.error("Error reading sensor value: ", error);
-            });
-        } else {
-            console.error("Sensor characteristic not found.");
-        }
-    }
 
     
 let lastValueSent="";
