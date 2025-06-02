@@ -120,6 +120,8 @@ button {
                 <input id = "connectToSensorCheckBox" type="checkbox" onclick="connectToSensor()">
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle">-</span></p>
+                <h2>Target Wind Angle</h2>
+                <p class="reading"><span id="targetWindAngleContainer">-</span></p>
                 <h2>Wind Speed</h2>
                 <p class="reading"><span id="windSpeedContainer">-</span></p>
                 <h2>Max Wind Speed</h2>
@@ -128,7 +130,7 @@ button {
             <div class="card">
                 <h2>Heading</h2>
                 <p class="reading"><span id="heading">-</span></p>
-                <h2>Target</h2>
+                <h2>Target Heading</h2>
                 <p class="reading"><span id="targetHeadingContainer">-</span></p>
             </div>
             <div class="card" style="display: none;">
@@ -806,6 +808,7 @@ setInterval(() => {
     let windCorrection =0;
     setInterval(() => {
     if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
+          targetWindAngleContainer.innerHTML=windAngle;
           windError=targetWindAngle-windAngle;
           console.log("windError "+ windError);
           if (windError > 180) windError -= 360;
