@@ -813,13 +813,15 @@ setInterval(() => {
           windError = windError*0.1;
           if(windError>1)windCorrection=-1;
           if(windError<-1)windCorrection=1;
-          targetHeading += windCorrection;
-          if(targetHeading>360)targetHeading-=360;
-          if(targetHeading<0)targetHeading+=360;
-          targetHeadingContainer.innerHTML=targetHeading;
-          console.log("windError "+ windError);
-          console.log("windCorrection "+ windCorrection);
-          console.log("targetHeading "+ targetHeading);
+          if(Math.abs(windCorrection)==1){
+              targetHeading += windCorrection;
+              if(targetHeading>360)targetHeading-=360;
+              if(targetHeading<0)targetHeading+=360;
+              targetHeadingContainer.innerHTML=targetHeading;
+              console.log("windError "+ windError);
+              console.log("windCorrection "+ windCorrection);
+              console.log("targetHeading "+ targetHeading);
+          }
         }
     },1000);
     
