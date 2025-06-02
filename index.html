@@ -215,6 +215,7 @@ if ('serviceWorker' in navigator) {
 //// Ultrasonic direct connection
     var maxWindSpeed = 0;
     let ultrasonicServer;
+    var windSpeed;
 
     function disconnectUltrasonic() {
         console.log("disconnectUltrasonic");
@@ -228,7 +229,6 @@ if ('serviceWorker' in navigator) {
                 });
         }
     }
-    var windSpeed;
      async function connectToSensor() {
             if(connectToSensorCheckBox.checked){
                 try {
@@ -392,14 +392,8 @@ if (false && navigator.geolocation) {
     const headingContainer = document.getElementById('heading');
     const cogContainer = document.getElementById('cog');
 
-
-
-
     const windModeToggle = document.getElementById('windModeToggle');
     const autoPilotToggle = document.getElementById('autoPilotToggle');
-    
-
-    
     const windModeState = document.getElementById('windModeState');
     const autoPilotState = document.getElementById('autoPilotState');
 
@@ -833,7 +827,6 @@ setInterval(() => {
           console.log("windCorrection "+ windCorrection);
           console.log("targetHeading "+ targetHeading);
         }
-    }
     },1000);
     
     var kpPrev=parseFloat(pGain.textContent);
