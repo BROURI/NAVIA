@@ -253,9 +253,6 @@ if ('serviceWorker' in navigator) {
                     
                     characteristic.addEventListener('characteristicvaluechanged', event => {
                         const data = new TextDecoder().decode(event.target.value);
-                        console.log('Raw:', data);
-                        
-                        // Simple parsing
                         var angle = Number(data.substr(3, 3));
                         if(angle >180){
                             angle = angle - 360;
