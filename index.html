@@ -213,7 +213,20 @@ if ('serviceWorker' in navigator) {
     
 //// Ultrasonic direct connection
     var maxWindSpeed = 0;
+    let ultrasonicServer;
 
+    function disconnectUltrasonic() {
+        console.log("disconnectUltrasonic");
+        if (ultrasonicServer && ultrasonicServer.connected) {
+                return ultrasonicServer.disconnect()
+                .then(() => {
+                    console.log("disconnected Ultrasonic");
+                })
+                .catch(error => {
+                    console.log("An error occurred:", error);
+                });
+        }
+    }
      async function connectToSensor() {
             if(connectToSensorCheckBox.checked){
                 try {
@@ -228,9 +241,9 @@ if ('serviceWorker' in navigator) {
                     });
                     
                     console.log('Connecting...');
-                    const server = await device.gatt.connect();
+                    const ultrasonicServer = await device.gatt.connect();
                     
-                    const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
+                    const service = await ultrasonicServer.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
                     const characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
                     
                     await characteristic.startNotifications();
@@ -263,6 +276,7 @@ if ('serviceWorker' in navigator) {
                     alert(`Error: ${error.message}`);
                 }
             }
+         else disconnectUltrasonic();
         }
 
     
