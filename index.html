@@ -815,20 +815,18 @@ setInterval(() => {
 
     if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
 
-          windError=targetWindAngle-windAngle;
+          windError=targetWindAngle-filteredWindAngle;
           if (windError > 180) windError -= 360;
           if (windError < -180) windError += 360;
-          if(windError>10)windCorrection=-1;
-          else if(windError<-10)windCorrection=1;
-          else windCorrection=0;
-          if(windCorrection!=0){
-              targetHeading += windCorrection;
+          if(windError>10){
+            windCorrection=-1;
+            sendCommand("minus1");
+            if(targetHeading<0)targetHeading+=360;
+          }
+          else if(windError<-10){
+              windCorrection=1;
+              sendCommand("plus1");
               if(targetHeading>360)targetHeading-=360;
-              if(targetHeading<0)targetHeading+=360;
-              targetHeadingContainer.innerHTML=targetHeading;
-              console.log("windError "+ windError);
-              console.log("windCorrection "+ windCorrection);
-              console.log("targetHeading "+ targetHeading);
           }
         }
     },1000);
