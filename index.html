@@ -241,7 +241,7 @@ if ('serviceWorker' in navigator) {
                     });
                     
                     console.log('Connecting...');
-                    const ultrasonicServer = await device.gatt.connect();
+                    ultrasonicServer = await device.gatt.connect();
                     
                     const service = await ultrasonicServer.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
                     const characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
