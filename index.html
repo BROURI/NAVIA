@@ -121,7 +121,7 @@ button {
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle">-</span></p>
                 <h2>Wind Speed</h2>
-                <p class="reading"><span id="windSpeed">-</span></p>
+                <p class="reading"><span id="windSpeedContainer">-</span></p>
                 <h2>Max Wind Speed</h2>
                 <p class="reading"><span id="maxWindSpeed">-</span></p>
             </div>
@@ -266,7 +266,7 @@ if ('serviceWorker' in navigator) {
                         maxWindSpeed = Math.max(maxWindSpeed,windSpeed);
                         windAngleContainer.innerHTML = angle;
                         
-                        windSpeed.innerHTML = windSpeed;
+                        windSpeedContainer.innerHTML = windSpeed;
                         maxWindSpeedContainer.innerHTML = maxWindSpeed;
         
                     });
@@ -381,7 +381,6 @@ if (false && navigator.geolocation) {
     const offButton = document.getElementById('offButton');
     const minus10Button = document.getElementById('minus10Button');
     const plus10Button = document.getElementById('plus10Button');
-    const windSpeedContainer = document.getElementById('windSpeed');
     const windAngleContainer = document.getElementById('windAngle');
     const maxWindSpeedContainer = document.getElementById('maxWindSpeed');
     const valueSentPilot = document.getElementById('valueSentPilot');
