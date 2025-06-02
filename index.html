@@ -216,7 +216,7 @@ if ('serviceWorker' in navigator) {
     var maxWindSpeed = 0;
     let ultrasonicServer;
     var windSpeed;
-
+    var windAngle;
     function disconnectUltrasonic() {
         console.log("disconnectUltrasonic");
         if (ultrasonicServer && ultrasonicServer.connected) {
@@ -257,12 +257,12 @@ if ('serviceWorker' in navigator) {
                         if(angle >180){
                             angle = angle - 360;
                         }
+                        windAngle = angle;
+                        windAngleContainer.innerHTML = windAngle;
+                        
                         var speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
-    
                         windSpeed=Math.round(speed);
                         maxWindSpeed = Math.max(maxWindSpeed,windSpeed);
-                        windAngleContainer.innerHTML = angle;
-                        
                         windSpeedContainer.innerHTML = windSpeed;
                         maxWindSpeedContainer.innerHTML = maxWindSpeed;
         
