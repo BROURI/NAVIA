@@ -116,7 +116,7 @@ button {
         </div>
         <div class="card-grid">
             <div class="card">
-                <input id = "connectToSensor" type="checkbox" onclick="connectToSensor()">
+                <input id = "connectToSensorCheckBox" type="checkbox" onclick="connectToSensor()">
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle">-</span></p>
                 <h2>Wind Speed</h2>
@@ -215,7 +215,7 @@ if ('serviceWorker' in navigator) {
     var maxWindSpeed = 0;
 
      async function connectToSensor() {
-             console.log("connectToSensor.checked "+connectToSensor.checked);
+             console.log("connectToSensorCheckBox.checked "+connectToSensorCheckBox.checked);
             try {
                 if (!navigator.bluetooth) {
                     throw new Error("Web Bluetooth not supported or not enabled");
