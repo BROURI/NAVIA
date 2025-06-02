@@ -215,7 +215,7 @@ if ('serviceWorker' in navigator) {
     var maxWindSpeed = 0;
 
      async function connectToSensor() {
-             console.log("connectToSensor.checked "connectToSensor.checked);
+             console.log("connectToSensor.checked "+connectToSensor.checked);
             try {
                 if (!navigator.bluetooth) {
                     throw new Error("Web Bluetooth not supported or not enabled");
