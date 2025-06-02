@@ -808,7 +808,7 @@ setInterval(() => {
     let windCorrection =0;
     let filteredWindAngle=0.0;
     setInterval(() => {
-        filteredWindAngle = 0.4 * windAngle + 0.6 * filteredWindAngle;
+        if(!isAnan(windAngle))filteredWindAngle = 0.4 * windAngle + 0.6 * filteredWindAngle;
         console.log("filteredWindAngle "+ filteredWindAngle);
         console.log("windAngle "+ windAngle);
 
