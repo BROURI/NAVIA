@@ -215,52 +215,53 @@ if ('serviceWorker' in navigator) {
     var maxWindSpeed = 0;
 
      async function connectToSensor() {
-             console.log("connectToSensorCheckBox.checked "+connectToSensorCheckBox.checked);
-            try {
-                if (!navigator.bluetooth) {
-                    throw new Error("Web Bluetooth not supported or not enabled");
-                }
-                
-                console.log('Requesting Bluetooth device...');
-                const device = await navigator.bluetooth.requestDevice({
-                    filters: [{ name: 'ULTRASONIC' }],
-                    optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e']
-                });
-                
-                console.log('Connecting...');
-                const server = await device.gatt.connect();
-                
-                const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
-                const characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
-                
-                await characteristic.startNotifications();
-                console.log('Connected! Waiting for data...');
-                
-                characteristic.addEventListener('characteristicvaluechanged', event => {
-                    const data = new TextDecoder().decode(event.target.value);
-                    console.log('Raw:', data);
-                    
-                    // Simple parsing
-                    var angle = Number(data.substr(3, 3));
-                    if(angle >180){
-                        angle = angle - 360;
+            if(connectToSensorCheckBox.checked){
+                try {
+                    if (!navigator.bluetooth) {
+                        throw new Error("Web Bluetooth not supported or not enabled");
                     }
-                    var speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
-
-                    speed=Math.round(speed);
-                    maxWindSpeed = Math.max(maxWindSpeed,speed);
-                    windAngleContainer.innerHTML = angle;
                     
-                    windSpeed.innerHTML = speed;
-                    maxWindSpeedContainer.innerHTML = maxWindSpeed;
-
-                    //console.log(`Wind: ${angle}° at ${speed} knots`);
-
-                });
-                
-            } catch (error) {
-                console.error('Error:', error);
-                alert(`Error: ${error.message}`);
+                    console.log('Requesting Bluetooth device...');
+                    const device = await navigator.bluetooth.requestDevice({
+                        filters: [{ name: 'ULTRASONIC' }],
+                        optionalServices: ['6e400001-b5a3-f393-e0a9-e50e24dcca9e']
+                    });
+                    
+                    console.log('Connecting...');
+                    const server = await device.gatt.connect();
+                    
+                    const service = await server.getPrimaryService('6e400001-b5a3-f393-e0a9-e50e24dcca9e');
+                    const characteristic = await service.getCharacteristic('6e400003-b5a3-f393-e0a9-e50e24dcca9e');
+                    
+                    await characteristic.startNotifications();
+                    console.log('Connected! Waiting for data...');
+                    
+                    characteristic.addEventListener('characteristicvaluechanged', event => {
+                        const data = new TextDecoder().decode(event.target.value);
+                        console.log('Raw:', data);
+                        
+                        // Simple parsing
+                        var angle = Number(data.substr(3, 3));
+                        if(angle >180){
+                            angle = angle - 360;
+                        }
+                        var speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
+    
+                        speed=Math.round(speed);
+                        maxWindSpeed = Math.max(maxWindSpeed,speed);
+                        windAngleContainer.innerHTML = angle;
+                        
+                        windSpeed.innerHTML = speed;
+                        maxWindSpeedContainer.innerHTML = maxWindSpeed;
+    
+                        //console.log(`Wind: ${angle}° at ${speed} knots`);
+    
+                    });
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert(`Error: ${error.message}`);
+                }
             }
         }
 
