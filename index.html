@@ -807,6 +807,7 @@ setInterval(() => {
     setInterval(() => {
     if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
           windError=targetWindAngle-windAngle;
+          console.log("windError "+ windError);
           if (windError > 180) windError -= 360;
           if (windError < -180) windError += 360;
           windError = windError*0.1;
