@@ -818,15 +818,18 @@ setInterval(() => {
           windError=targetWindAngle-filteredWindAngle;
           if (windError > 180) windError -= 360;
           if (windError < -180) windError += 360;
+          console.log("windError "+ windError);
           if(windError>10){
             windCorrection=-1;
             sendCommand("minus1");
             if(targetHeading<0)targetHeading+=360;
+            targetHeadingContainer.innerHTML=targetHeading;
           }
           else if(windError<-10){
               windCorrection=1;
               sendCommand("plus1");
               if(targetHeading>360)targetHeading-=360;
+              targetHeadingContainer.innerHTML=targetHeading;
           }
         }
     },1000);
