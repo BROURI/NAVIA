@@ -228,6 +228,7 @@ if ('serviceWorker' in navigator) {
                 });
         }
     }
+    var windSpeed;
      async function connectToSensor() {
             if(connectToSensorCheckBox.checked){
                 try {
@@ -261,15 +262,13 @@ if ('serviceWorker' in navigator) {
                         }
                         var speed = (parseInt(data.substr(6, 5)) / 1000)* 1.94384;
     
-                        speed=Math.round(speed);
-                        maxWindSpeed = Math.max(maxWindSpeed,speed);
+                        windSpeed=Math.round(speed);
+                        maxWindSpeed = Math.max(maxWindSpeed,windSpeed);
                         windAngleContainer.innerHTML = angle;
                         
-                        windSpeed.innerHTML = speed;
+                        windSpeed.innerHTML = windSpeed;
                         maxWindSpeedContainer.innerHTML = maxWindSpeed;
-    
-                        //console.log(`Wind: ${angle}° at ${speed} knots`);
-    
+        
                     });
                     
                 } catch (error) {
@@ -517,10 +516,12 @@ if (false && navigator.geolocation) {
      }
     }
 
+    var targetWindAngle;
     windModeToggle.addEventListener('click', () => {
             if (windModeState.textContent === "Off" && ultrasonicServer.connected) {
                 windModeState.textContent = "On";
                 windModeToggle.classList.add('on');
+                targetWindAngle=windAngle;
             }
             else{
                 windModeState.textContent = "Off";
@@ -812,6 +813,25 @@ setInterval(() => {
 
     }
     },50);
+
+    // windmode loop
+    let windError=0;
+    let windCorrection =0;
+    setInterval(() => {
+    if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
+          windError=targetWindAngle-windAngle;
+          if (windError > 180) windError -= 360;
+          if (windError < -180) windError += 360;
+          windError = windError*0.1;
+          if(windError>1)windCorrection=-1;
+          if(windError<-1)windCorrection=1;
+          targetHeading += windCorrection;
+          if(targetHeading>360)targetHeading-=360;
+          if(targetHeading<0)targetHeading+=360;
+          targetHeadingContainer.innerHTML=targetHeading;
+        }
+    }
+    },1000);
     
     var kpPrev=parseFloat(pGain.textContent);
     setInterval(() => {
