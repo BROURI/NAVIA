@@ -806,7 +806,7 @@ setInterval(() => {
     // windmode loop
     let windError=0;
     let windCorrection =0;
-    let filteredWindAngle=0;
+    let filteredWindAngle=0.0;
     setInterval(() => {
         filteredWindAngle = 0.4*windAngle+0.6*filteredWindAngle;
         console.log("filteredWindAngle "+ filteredWindAngle);
