@@ -510,7 +510,7 @@ if (false && navigator.geolocation) {
 
     var targetWindAngle;
     windModeToggle.addEventListener('click', () => {
-            if (windModeState.textContent === "Off" && ultrasonicServer.connected) {
+            if (windModeState.textContent === "Off" && ultrasonicServer.connected && windSpeed >=2) {
                 windModeState.textContent = "On";
                 windModeToggle.classList.add('on');
                 targetWindAngle=windAngle;
