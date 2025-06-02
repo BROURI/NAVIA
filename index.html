@@ -518,7 +518,7 @@ if (false && navigator.geolocation) {
     }
 
     windModeToggle.addEventListener('click', () => {
-            if (windModeState.textContent === "Off") {
+            if (windModeState.textContent === "Off" && ultrasonicServer.connected) {
                 windModeState.textContent = "On";
                 windModeToggle.classList.add('on');
             }
