@@ -809,7 +809,7 @@ setInterval(() => {
     let filteredWindAngle=0;
     setInterval(() => {
         filteredWindAngle = 0.4*windAngle+0.6*filteredWindAngle;
-        console.log("filteredWindAngle "+ windError);
+        console.log("filteredWindAngle "+ filteredWindAngle);
         console.log("windAngle "+ windAngle);
 
     if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
