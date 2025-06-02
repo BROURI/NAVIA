@@ -517,13 +517,18 @@ if (false && navigator.geolocation) {
      }
     }
 
-    windModeToggle.addEventListener('click', async () => {
+    windModeToggle.addEventListener('click', () => {
             if (windModeState.textContent === "Off") {
-                await sendCommand("windModeOn");
-            } else {
-                await sendCommand("windModeOff");
+                windModeState.textContent = "On";
+                windModeToggle.classList.add('on');
             }
-});
+            else{
+                windModeState.textContent = "Off";
+                windModeToggle.classList.remove('on');
+            }
+    }
+
+);
 
 
 autoPilotToggle.addEventListener('click', async () => {
