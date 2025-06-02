@@ -829,6 +829,9 @@ setInterval(() => {
           if(targetHeading>360)targetHeading-=360;
           if(targetHeading<0)targetHeading+=360;
           targetHeadingContainer.innerHTML=targetHeading;
+          console.log("windError "+ windError);
+          console.log("windCorrection "+ windCorrection);
+          console.log("targetHeading "+ targetHeading);
         }
     }
     },1000);
