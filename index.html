@@ -135,18 +135,7 @@ button {
             </div>            
             <div class="card">
                 <h2>Pilot Control</h2>
-                <label <span>Motor Reverse</span></label>
-                <input type="checkbox" id="motorReverse">
-                <br><br>
-                <label for="pSlider">P Gain: <span id="pGain">7</span> </label>
-                <input type="range" id="pSlider"  oninput="pGain.textContent=this.value" min="0" max="10" value="7" step="0.1">
-                <br><br>
-                <label for="dSlider">D Gain: <span id="dGain">500</span></label>
-                <input type="range" id="dSlider"  oninput="dGain.textContent=this.value" min="0" max="800" value="500" step="1">
-                <br><br>
-                <label for="reactivitySlider">Reactivity: <span id="reactivity">0.5</span></label>
-                <input type="range" id="reactivitySlider"  oninput="reactivity.textContent=this.value" min="0.05" max="1" value="0.5" step="0.05">
-                <br><br>
+               
                 <button id="minus1Button" class="pilotButton">-1</button>
                 <button id="plus1Button" class="pilotButton">+1</button>
                 <br><br>
@@ -162,6 +151,19 @@ button {
                 <br><br>
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
                 <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
+                <br><br>
+                <label for="pSlider">P Gain: <span id="pGain">7</span> </label>
+                <input type="range" id="pSlider"  oninput="pGain.textContent=this.value" min="0" max="10" value="7" step="0.1">
+                <br><br>
+                <label for="dSlider">D Gain: <span id="dGain">500</span></label>
+                <input type="range" id="dSlider"  oninput="dGain.textContent=this.value" min="0" max="800" value="500" step="1">
+                <br><br>
+                <label for="reactivitySlider">Reactivity: <span id="reactivity">0.5</span></label>
+                <input type="range" id="reactivitySlider"  oninput="reactivity.textContent=this.value" min="0.05" max="1" value="0.5" step="0.05">
+                <br><br>
+                <label <span>Motor Reverse</span></label>
+                <input type="checkbox" id="motorReverse">
+                <br><br>
             </div>
             <div class="card">
                 <h2>Heading alert</h2>
