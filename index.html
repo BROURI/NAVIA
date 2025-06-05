@@ -313,14 +313,12 @@ if (window.DeviceOrientationEvent) {
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         console.log("hidden");
-        headingBeforeHidden = correctedHeading;
+        headingBeforeHidden = heading;
         console.log("headingBeforeHidden "+ headingBeforeHidden);
-        console.log("correctedHeading "+ correctedHeading);
     } else {
         console.log("visible");
-        console.log("headingBeforeHidden "+ headingBeforeHidden);
-        console.log("correctedHeading "+ correctedHeading);
-        visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
+        console.log("heading "+ heading);
+        visibilitychangeCorrection=headingBeforeHidden-heading;
         console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
 
 
