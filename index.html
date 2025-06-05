@@ -291,27 +291,29 @@ var correctedHeading=0;
 var headingBeforeHidden;
 var visibilitychangeCorrection=0;
 var previousVisibilityState="visible";
+var correctedHeading2=0;
 
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
          previousHeading=heading;
          heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
          headingDiff=Math.abs(previousHeading-heading);
-         if(headingDiff > 150 && headingDiff < 210)headingCorrection = (headingCorrection+180)%360;
+         if(headingDiff > 170 && headingDiff < 190)headingCorrection = (headingCorrection+180)%360;
          correctedHeading=heading+headingCorrection;
          if(correctedHeading > 360) correctedHeading-=360;
+
+        
         if(document.visibilityState=="visible" && previousVisibilityState=="hidden"){
             previousVisibilityState="visible";
-            visibilitychangeCorrection=headingBeforeHidden+correctedHeading;
+            visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
             console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
-            console.log("heading "+ heading);
-            console.log("correctedHeading "+ correctedHeading);
         }
-        correctedHeading += visibilitychangeCorrection;
-        if(correctedHeading > 360) correctedHeading-=360;
-        if(correctedHeading < 0) correctedHeading+=360;
-         pitch = Math.round(event.beta)-90;
-         heel = Math.abs(Math.round(event.gamma));
+        correctedHeading2= correctedHeading + visibilitychangeCorrection;
+        if(correctedHeading2 > 360) correctedHeading2-=360;
+        if(correctedHeading2 < 0) correctedHeading2+=360;
+        console.log("correctedHeading2 ",correctedHeading2);
+        pitch = Math.round(event.beta)-90;
+        heel = Math.abs(Math.round(event.gamma));
 
     }, false);
 } else {
