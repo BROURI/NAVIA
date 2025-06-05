@@ -321,6 +321,8 @@ if (window.DeviceOrientationEvent) {
             computeVisibilityCorrection=true;
          }
          previousVisibilityState=document.visibilityState;
+         headingContainer.innerHTML = correctedHeading;
+
     }, false);
     
 } else {
