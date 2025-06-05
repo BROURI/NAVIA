@@ -309,7 +309,9 @@ if (window.DeviceOrientationEvent) {
          correctedHeading=heading+headingCorrection;
          if(correctedHeading >= 360) correctedHeading-=360;
          console.log("correctedHeading "+correctedHeading + " document.visibilityState "+ document.visibilityState + " previousVisibilityState "+previousVisibilityState );
+         previousVisibilityState=document.visibilityState;
     }, false);
+    
 } else {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
