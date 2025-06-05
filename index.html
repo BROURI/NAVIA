@@ -292,29 +292,23 @@ var headingBeforeHidden;
 var visibilitychangeCorrection=0;
 var previousVisibilityState="visible";
 var correctedHeading2=0;
-
+var previousCorrectedHeading=0;
+var correctedHeadingDiff=0;
+    
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
-         previousHeading=heading;
-         heading = 360 - Math.round(event.alpha); // Angle de rotation autour de l'axe Z
-         headingDiff=Math.abs(previousHeading-heading);
-         if(headingDiff > 170 && headingDiff < 190)headingCorrection = (headingCorrection+180)%360;
-         correctedHeading=heading+headingCorrection;
-         if(correctedHeading > 360) correctedHeading-=360;
-
-        
-        if(document.visibilityState=="visible" && previousVisibilityState=="hidden"){
-            previousVisibilityState="visible";
-            visibilitychangeCorrection=headingBeforeHidden-correctedHeading2;
-            console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
-        }
-        correctedHeading2= correctedHeading + visibilitychangeCorrection;
-        if(correctedHeading2 > 360) correctedHeading2-=360;
-        if(correctedHeading2 < 0) correctedHeading2+=360;
-        console.log("correctedHeading2 ",correctedHeading2);
+       
         pitch = Math.round(event.beta)-90;
         heel = Math.abs(Math.round(event.gamma));
 
+         previousHeading=heading;
+         heading = 360 - Math.round(event.alpha); 
+         headingDiff=Math.abs(previousHeading-heading);
+         if(headingDiff > 170 && headingDiff < 190) headingCorrection = (headingCorrection+180)%360;
+         correctedHeading=heading+headingCorrection;
+         if(correctedHeading > 360) correctedHeading-=360;
+        console.log("correctedHeading "+correctedHeading);
+        
     }, false);
 } else {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
@@ -322,15 +316,8 @@ if (window.DeviceOrientationEvent) {
 
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
-        console.log("hidden");
-        headingBeforeHidden = correctedHeading2;
-        console.log("headingBeforeHidden "+ headingBeforeHidden);
-        previousVisibilityState="visible";
-    } else if (document.visibilityState === 'visible') {
-        console.log("visible");
-        console.log("correctedHeading2 "+ correctedHeading2);
-        previousVisibilityState="hidden";
-    }
+        headingBeforeHidden = correctedHeading;
+        console.log("headingBeforeHidden "+headingBeforeHidden);
 });
 
 function isValidHeading(angle) {
