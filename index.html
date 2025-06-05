@@ -318,6 +318,11 @@ window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         headingBeforeHidden = correctedHeading;
         console.log("headingBeforeHidden "+headingBeforeHidden);
+        previousVisibilityState ="visible";
+
+    }
+    else if (document.visibilityState === 'visible') {
+        previousVisibilityState ="hidden";
     }
 });
 
