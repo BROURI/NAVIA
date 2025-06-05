@@ -300,10 +300,10 @@ if (window.DeviceOrientationEvent) {
        
         pitch = Math.round(event.beta)-90;
         heel = Math.abs(Math.round(event.gamma));
+        previousHeading=heading;
+        heading = 360 - Math.round(event.alpha); 
+        if(heading == 360)heading=0; 
 
-         previousHeading=heading;
-         heading = 360 - Math.round(event.alpha); 
-        
          headingDiff=Math.abs(previousHeading-heading);
          if(headingDiff > 170 && headingDiff < 190) headingCorrection = (headingCorrection+180)%360;
          correctedHeading=heading+headingCorrection;
