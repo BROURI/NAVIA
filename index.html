@@ -794,7 +794,7 @@ setInterval(() => {
             currentPeak = new Date();
             peakPeriod=(currentPeak-previousPeak)/1000;
         }
-        console.log("peakPeriod "+ peakPeriod);
+        //console.log("peakPeriod "+ peakPeriod);
         //console.log("kp "+ kp);
         //console.log("pitch "+ pitch);
         //console.log("heel "+ heel);
@@ -892,7 +892,13 @@ setInterval(() => {
     }, 2000); 
 
 
-
+window.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        console.log("L'onglet est masqué. Arrêt des mises à jour d'orientation.");
+    } else {
+        console.log("L'onglet est visible. Reprise des mises à jour d'orientation.");
+    }
+});
 
         
     ///*******avoir reload page
