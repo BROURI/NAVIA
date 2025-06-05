@@ -892,6 +892,7 @@ setInterval(() => {
     }, 2000); 
 
 var headingBeforeHidden;
+var visibilitychangeCorrection=0;
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         headingBeforeHidden = correctedHeading;
@@ -901,6 +902,7 @@ window.addEventListener('visibilitychange', () => {
         console.log("L'onglet est visible. Reprise des mises à jour d'orientation.");
         console.log("headingBeforeHidden "+ headingBeforeHidden);
         console.log("correctedHeading "+ correctedHeading);
+        //visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
 
     }
 });
