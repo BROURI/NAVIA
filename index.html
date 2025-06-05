@@ -310,15 +310,16 @@ if (window.DeviceOrientationEvent) {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
 
+    var previousVisibilitychange="visible
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         console.log("hidden");
-        headingBeforeHidden = heading;
+        headingBeforeHidden = correctedHeading;
         console.log("headingBeforeHidden "+ headingBeforeHidden);
-    } else {
+    } else (document.visibilityState === 'visible') {
         console.log("visible");
-        console.log("heading "+ heading);
-        visibilitychangeCorrection=headingBeforeHidden-heading;
+        console.log("correctedHeading "+ correctedHeading);
+        visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
         console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
 
 
