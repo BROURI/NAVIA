@@ -895,11 +895,12 @@ var headingBeforeHidden;
 var visibilitychangeCorrection=0;
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
+        console.log("hidden");
         headingBeforeHidden = correctedHeading;
         console.log("headingBeforeHidden "+ headingBeforeHidden);
         console.log("correctedHeading "+ correctedHeading);
     } else {
-        console.log("L'onglet est visible. Reprise des mises à jour d'orientation.");
+        console.log("visible");
         console.log("headingBeforeHidden "+ headingBeforeHidden);
         console.log("correctedHeading "+ correctedHeading);
         //visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
