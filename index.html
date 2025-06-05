@@ -290,6 +290,8 @@ var headingDiff=0;
 var correctedHeading=0;
 var headingBeforeHidden;
 var visibilitychangeCorrection=0;
+var previousVisibilityState="visible";
+
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
          previousHeading=heading;
@@ -310,19 +312,18 @@ if (window.DeviceOrientationEvent) {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
 
-var previousVisibilitychange="visible";
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         console.log("hidden");
         headingBeforeHidden = correctedHeading;
         console.log("headingBeforeHidden "+ headingBeforeHidden);
+        previousVisibilityState="visible";
     } else (document.visibilityState === 'visible') {
         console.log("visible");
         console.log("correctedHeading "+ correctedHeading);
         visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
         console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
-
-
+        previousVisibilityState="hidden";
     }
 });
 
