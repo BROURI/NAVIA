@@ -304,6 +304,8 @@ if (window.DeviceOrientationEvent) {
             previousVisibilityState="visible";
             visibilitychangeCorrection=headingBeforeHidden+correctedHeading;
             console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
+            console.log("heading "+ heading);
+            console.log("correctedHeading "+ correctedHeading);
         }
         correctedHeading += visibilitychangeCorrection;
         if(correctedHeading > 360) correctedHeading-=360;
