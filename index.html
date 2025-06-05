@@ -301,8 +301,9 @@ if (window.DeviceOrientationEvent) {
          correctedHeading=heading+headingCorrection;
          if(correctedHeading > 360) correctedHeading-=360;
         if(document.visibilityState!=previousVisibilityState){
-            console.log("moiiiiiiiiiiiiiw");
             previousVisibilityState=document.visibilityState;
+            visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
+            console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
         }
          correctedHeading += visibilitychangeCorrection;
          if(correctedHeading > 360) correctedHeading-=360;
@@ -325,8 +326,6 @@ window.addEventListener('visibilitychange', () => {
     } else if (document.visibilityState === 'visible') {
         console.log("visible");
         console.log("correctedHeading "+ correctedHeading);
-        visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
-        console.log("visibilitychangeCorrection "+ visibilitychangeCorrection);
         previousVisibilityState="hidden";
     }
 });
