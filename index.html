@@ -310,7 +310,7 @@ if (window.DeviceOrientationEvent) {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
 
-    var previousVisibilitychange="visible
+var previousVisibilitychange="visible";
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         console.log("hidden");
