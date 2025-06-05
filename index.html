@@ -297,7 +297,8 @@ if (window.DeviceOrientationEvent) {
          headingDiff=Math.abs(previousHeading-heading);
          if(headingDiff > 150 && headingDiff < 210)headingCorrection = (headingCorrection+180)%360;
          correctedHeading=heading+headingCorrection;
-         correctedHeading + visibilitychangeCorrection;
+         if(correctedHeading > 360) correctedHeading-=360;
+         correctedHeading += visibilitychangeCorrection;
          if(correctedHeading > 360) correctedHeading-=360;
          if(correctedHeading < 0) correctedHeading+=360;
 
