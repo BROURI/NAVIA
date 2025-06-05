@@ -794,7 +794,7 @@ setInterval(() => {
             currentPeak = new Date();
             peakPeriod=(currentPeak-previousPeak)/1000;
         }
-        //console.log("peakPeriod "+ peakPeriod);
+        console.log("peakPeriod "+ peakPeriod);
         //console.log("kp "+ kp);
         //console.log("pitch "+ pitch);
         //console.log("heel "+ heel);
@@ -810,8 +810,8 @@ setInterval(() => {
     let filteredWindAngle=0.0;
     setInterval(() => {
         if(!isNaN(windAngle)&& windSpeed >=1)filteredWindAngle = 0.4 * windAngle + 0.6 * filteredWindAngle;
-        console.log("filteredWindAngle "+ filteredWindAngle);
-        console.log("windAngle "+ windAngle);
+        //console.log("filteredWindAngle "+ filteredWindAngle);
+        //console.log("windAngle "+ windAngle);
 
     if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
 
