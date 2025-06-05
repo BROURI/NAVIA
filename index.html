@@ -318,7 +318,7 @@ window.addEventListener('visibilitychange', () => {
         headingBeforeHidden = correctedHeading;
         console.log("headingBeforeHidden "+ headingBeforeHidden);
         previousVisibilityState="visible";
-    } else (document.visibilityState === 'visible') {
+    } else if (document.visibilityState === 'visible') {
         console.log("visible");
         console.log("correctedHeading "+ correctedHeading);
         visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
