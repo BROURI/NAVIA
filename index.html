@@ -315,6 +315,7 @@ if (window.DeviceOrientationEvent) {
          }
          correctedHeading+=visibilitychangeCorrection;
          if(correctedHeading < 0) correctedHeading+=360;
+         if(correctedHeading >= 360) correctedHeading-=360;
 
          console.log("correctedHeading "+correctedHeading + " document.visibilityState "+ document.visibilityState + " previousVisibilityState "+previousVisibilityState );
          if(previousVisibilityState=="hidden"){
@@ -773,10 +774,13 @@ function readOnCharacteristic(value) {
 
     }
     
-    
+    var headingToSend;
     setInterval(() => {
         if(autoPilotOn){
-            writeOnCharacteristic(correctedHeading,"heading");
+            headingToSend = correctedHeading;
+            if(correctedHeading < 0) correctedHeading+=360;
+            else if(correctedHeading >= 360) correctedHeading-=360;
+            writeOnCharacteristic(headingToSend,"heading");
         }
     },50);
 
