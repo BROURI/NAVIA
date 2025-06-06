@@ -851,7 +851,7 @@ setInterval(() => {
         //console.log("filteredWindAngle "+ filteredWindAngle);
         //console.log("windAngle "+ windAngle);
 
-    if(autoPilotState.textContent == "Auto" && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
+    if(autoPilotOn && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
 
           windError=targetWindAngle-filteredWindAngle;
           if (windError > 180) windError -= 360;
