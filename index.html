@@ -876,7 +876,7 @@ setInterval(() => {
     
     var kpPrev=parseFloat(pGain.textContent);
     setInterval(() => {
-        if(autopilotOn){
+        if(autoPilotOn){
             // cap stable et erreur importante
             if(stdDevErrors<5.0 && rmse > 10.0){
                 kp=parseFloat(pGain.textContent);
