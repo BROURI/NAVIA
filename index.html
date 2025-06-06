@@ -324,7 +324,7 @@ if (window.DeviceOrientationEvent) {
          }
          previousVisibilityState=document.visibilityState;
          finalHeading=correctedHeading;
-         headingContainer.innerHTML = correctedHeading;
+         headingContainer.innerHTML = finalHeading;
     }, false);
     
 } else {
@@ -333,8 +333,8 @@ if (window.DeviceOrientationEvent) {
 
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
-        headingBeforeHidden = correctedHeading;
-        console.log("headingBeforeHidden "+headingBeforeHidden);
+        headingBeforeHidden = finalHeading;
+        //console.log("headingBeforeHidden "+headingBeforeHidden);
         previousVisibilityState ="visible";
 
     }
