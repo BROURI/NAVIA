@@ -295,6 +295,7 @@ var correctedHeading2=0;
 var previousCorrectedHeading=0;
 var correctedHeadingDiff=0;
 var computeVisibilityCorrection=false;
+var finalHeading;
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
        
@@ -317,13 +318,13 @@ if (window.DeviceOrientationEvent) {
          if(correctedHeading < 0) correctedHeading+=360;
          if(correctedHeading >= 360) correctedHeading-=360;
 
-         console.log("correctedHeading "+correctedHeading + " document.visibilityState "+ document.visibilityState + " previousVisibilityState "+previousVisibilityState );
+         //console.log("correctedHeading "+correctedHeading + " document.visibilityState "+ document.visibilityState + " previousVisibilityState "+previousVisibilityState );
          if(previousVisibilityState=="hidden"){
             computeVisibilityCorrection=true;
          }
          previousVisibilityState=document.visibilityState;
+         finalHeading=correctedHeading;
          headingContainer.innerHTML = correctedHeading;
-
     }, false);
     
 } else {
@@ -774,13 +775,9 @@ function readOnCharacteristic(value) {
 
     }
     
-    var headingToSend;
     setInterval(() => {
         if(autoPilotOn){
-            headingToSend = correctedHeading;
-            if(correctedHeading < 0) correctedHeading+=360;
-            else if(correctedHeading >= 360) correctedHeading-=360;
-            writeOnCharacteristic(headingToSend,"heading");
+            writeOnCharacteristic(finalHeading,"heading");
         }
     },50);
 
