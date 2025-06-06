@@ -876,26 +876,29 @@ setInterval(() => {
     
     var kpPrev=parseFloat(pGain.textContent);
     setInterval(() => {
-        // cap stable et erreur importante
-        if(stdDevErrors<5.0 && rmse > 10.0){
-            kp=parseFloat(pGain.textContent);
-            kp=kp+pAutotune;
-            if(kp>kpMax)kp=kpMax;
-            kp=Math.round(kp * 10) / 10;
-            pGain.textContent=kp;
-            pSlider.value = kp;
+        if(autopilotOn){
+            // cap stable et erreur importante
+            if(stdDevErrors<5.0 && rmse > 10.0){
+                kp=parseFloat(pGain.textContent);
+                kp=kp+pAutotune;
+                if(kp>kpMax)kp=kpMax;
+                kp=Math.round(kp * 10) / 10;
+                pGain.textContent=kp;
+                pSlider.value = kp;
+            }
+            // cap oscillant autour de la cible
+            else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
+                kp=parseFloat(pGain.textContent);
+                kp=kp-pAutotune;
+                if(kp<kpMin)kp=kpMin;
+                kp=Math.round(kp * 10) / 10;
+                pGain.textContent=kp;
+                pSlider.value = kp;
+            }
+            if(kpPrev!=kp)sendCommand("pGain,"+pSlider.value);
+            kpPrev=kp;
         }
-        // cap oscillant autour de la cible
-        else if(stdDevErrors>10.0 && Math.abs(meanError) < 10.0){
-            kp=parseFloat(pGain.textContent);
-            kp=kp-pAutotune;
-            if(kp<kpMin)kp=kpMin;
-            kp=Math.round(kp * 10) / 10;
-            pGain.textContent=kp;
-            pSlider.value = kp;
-        }
-        if(kpPrev!=kp)sendCommand("pGain,"+pSlider.value);
-        kpPrev=kp;
+        
     }, 2000); 
     
     ////  alerts
