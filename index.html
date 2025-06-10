@@ -169,7 +169,7 @@ button {
                 <input type="range" id="motorSpeedSlider"  oninput="motorSpeed.textContent=this.value" min="50" max="255" value="200" step="1">
                 <br><br>
                 <label <span>Autotune</span></label>
-                <input type="checkbox" id="autotune">
+                <input type="checkbox" id="autotune" checked>
                 <br><br>
                 <label <span>Motor Reverse</span></label>
                 <input type="checkbox" id="motorReverse">
@@ -539,6 +539,14 @@ if (false && navigator.geolocation) {
     pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
     reactivitySlider.addEventListener('change', () => sendCommand("reactivity,"+reactivitySlider.value));
     motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
+    autotune.addEventListener('change', () => {
+        if (this.checked) {
+            sendCommand("autotuneOn")
+        } else {
+            sendCommand("autotuneOff")
+        }
+    });
+
 
     async function sendCommand(value){
         lastValueSent = "";
@@ -883,7 +891,7 @@ setInterval(() => {
     
     var kpPrev=parseFloat(pGain.textContent);
     setInterval(() => {
-        if(autoPilotOn){
+        if(autoPilotOn && autotune.checked){
             // cap stable et erreur importante
             if(stdDevErrors<5.0 && rmse > 10.0){
                 kp=parseFloat(pGain.textContent);
