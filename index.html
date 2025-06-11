@@ -684,7 +684,6 @@ let lastValueTypeSent="";
                 //console.log("Value written to server characteristic:", value);
                 lastValueSent=value;
                 lastValueTypeSent=valueType;
-                return value;
             })
             .catch(error => {
                 //console.error("Error writing to the server characteristic: ", error);
