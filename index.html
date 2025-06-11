@@ -637,7 +637,7 @@ autoPilotToggle.addEventListener('click', async () => {
         return characteristic.startNotifications().then(() => {
             console.log("Notifications started for characteristic:", characteristic.uuid);
             // Ajouter un gestionnaire d'événements pour les notifications
-            characteristic.addEventListener('characteristicvaluechanged', handleNotification);
+            characteristic.addEventListener(event, handleNotification);
         });
     })
     .catch(error => {
