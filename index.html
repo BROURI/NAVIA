@@ -637,7 +637,13 @@ autoPilotToggle.addEventListener('click', async () => {
         return characteristic.startNotifications().then(() => {
             console.log("Notifications started for characteristic:", characteristic.uuid);
             // Ajouter un gestionnaire d'événements pour les notifications
-            characteristic.addEventListener(event, handleNotification);
+            characteristic.addEventListener("characteristicvaluechanged", event => {
+                 const characteristic = event.target; 
+                const value = characteristic.value; 
+                const decoder = new TextDecoder('utf-8');
+                const decodedValue = decoder.decode(value);
+                console.log('Notification received:', decodedValue);
+        });
         });
     })
     .catch(error => {
@@ -645,13 +651,6 @@ autoPilotToggle.addEventListener('click', async () => {
     });
     }
 
-    function handleNotification(event) {
-    const characteristic = event.target; 
-    const value = characteristic.value; 
-    const decoder = new TextDecoder('utf-8');
-    const decodedValue = decoder.decode(value);
-    console.log('Notification received:', decodedValue);
-}
 
     function onDisconnected(event) {
         console.log('Device Disconnected:', event.target.device.name);
