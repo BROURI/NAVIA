@@ -549,21 +549,16 @@ if (false && navigator.geolocation) {
 
 
     async function sendCommand(value){
-        let res ="";
         lastValueSent = "";
         let attempts = 0;
         const maxAttempts = 50;
         if (bleServer && bleServer.connected) {
-          while (attempts < maxAttempts) {
-            res = await writeOnCharacteristic(value,"pilot");
-            console.log("res "+ res);
+          while (!(lastValueSent === value) && attempts < maxAttempts) {
+            await writeOnCharacteristic(value,"pilot");
             attempts++;
             await new Promise(resolve => setTimeout(resolve, 50)); 
-            if(res==value){
-                console.log("sendCommand "+ value + " retry: "+ attempts);
-                return res;
-            }
         }
+        console.log("sendCommand "+ value + " retry: "+ attempts);
      }
     }
 
