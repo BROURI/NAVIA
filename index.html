@@ -540,7 +540,7 @@ if (false && navigator.geolocation) {
     reactivitySlider.addEventListener('change', () => sendCommand("reactivity,"+reactivitySlider.value));
     motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
     autotune.addEventListener('change', () => {
-        if (this.checked) {
+        if (autotune.checked) {
             sendCommand("autotuneOn");
         } else {
             sendCommand("autotuneOff");
