@@ -556,6 +556,7 @@ if (false && navigator.geolocation) {
         if (bleServer && bleServer.connected) {
           while (attempts < maxAttempts) {
             res = await writeOnCharacteristic(value,"pilot");
+            console.log("res "+ res);
             attempts++;
             await new Promise(resolve => setTimeout(resolve, 50)); 
             if(res==value){
