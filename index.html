@@ -554,10 +554,11 @@ if (false && navigator.geolocation) {
         const maxAttempts = 50;
         if (bleServer && bleServer.connected) {
           while (!(lastValueSent === value) && attempts < maxAttempts) {
-            await writeOnCharacteristic(value,"pilot");
+            let res = await writeOnCharacteristic(value,"pilot");
             attempts++;
             await new Promise(resolve => setTimeout(resolve, 50)); 
         }
+        console.log("res "+res);
         console.log("sendCommand "+ value + " retry: "+ attempts);
      }
     }
@@ -684,6 +685,7 @@ let lastValueTypeSent="";
                 //console.log("Value written to server characteristic:", value);
                 lastValueSent=value;
                 lastValueTypeSent=valueType;
+                return value;
             })
             .catch(error => {
                 //console.error("Error writing to the server characteristic: ", error);
