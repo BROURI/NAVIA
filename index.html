@@ -634,13 +634,11 @@ autoPilotToggle.addEventListener('click', async () => {
         return bleServiceFound.getCharacteristic(commandCharacteristic); 
     })
     .then(characteristic => {
-        console.log("Characteristic discovered:", characteristic.uuid);
-        // S'abonner aux notifications
+        console.log("Characteristic discovered");
         return characteristic.startNotifications().then(() => {
             console.log("Notifications started for characteristic:", characteristic.uuid);
-            // Ajouter un gestionnaire d'événements pour les notifications
             characteristic.addEventListener("characteristicvaluechanged", event => {
-                 const characteristic = event.target; 
+                const characteristic = event.target; 
                 const value = characteristic.value; 
                 const decoder = new TextDecoder('utf-8');
                 const decodedValue = decoder.decode(value);
