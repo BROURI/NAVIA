@@ -629,6 +629,18 @@ autoPilotToggle.addEventListener('click', async () => {
         .then(service => {
             bleServiceFound = service;
             console.log("Service discovered:", service.uuid);
+            // Obtenez la caractéristique
+            return bleServiceFound.getCharacteristic(commandCharacteristic); 
+                })
+            .then(characteristic => {
+                console.log("Characteristic discovered:", characteristic.uuid);
+                // S'abonner aux notifications
+                return characteristic.startNotifications().then(() => {
+                    console.log("Notifications started for characteristic:", characteristic.uuid);
+                    // Ajouter un gestionnaire d'événements pour les notifications
+                    characteristic.addEventListener('characteristicvaluechanged', handleNotification);
+                });
+    })
         }).catch(error => {
             console.log('Error: ', error);
         });
@@ -693,22 +705,12 @@ let lastValueTypeSent="";
         }
     }
 
-function readOnCharacteristic(value) {
-        if (bleServer && bleServer.connected) {
-            bleServiceFound.getCharacteristic(commandCharacteristic)
-            .then(characteristic => {
-                console.log("Found the characteristic: ", characteristic.uuid);
-                const result = characteristic.readValue();
-                const decodedResult = new TextDecoder().decode(result);
-                console.log("decodedResult "+decodedResult)
-                return decodedResult;
-            }).catch(error => {
-                console.error("Error writing to the server characteristic: ", error);
-            });
-        } else {
-            console.error("Bluetooth is not connected. Please connect to BLE first!");
-            //window.alert("Bluetooth is not connected. Please connect to BLE first!");
-        }
+function handleNotification(event) {
+    const characteristic = event.target; 
+    const value = characteristic.value; 
+    const decoder = new TextDecoder('utf-8');
+    const decodedValue = decoder.decode(value);
+    console.log('Notification received:', decodedValue);
 }
 
 
