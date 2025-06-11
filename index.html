@@ -287,6 +287,9 @@ if ('serviceWorker' in navigator) {
 
     
 /////////  Cap magnetique et accelerometre
+    window.addEventListener('deviceorientationabsolute', (event) => {
+  console.log("DeviceOrientationAbsoluteEvent déclenché !");
+});
 var heading;
 var pitch;
 var heel;
