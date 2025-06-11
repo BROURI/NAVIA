@@ -626,24 +626,23 @@ autoPilotToggle.addEventListener('click', async () => {
             //bleServer.addEventListener('disconnected', onDisconnected);
             return bleServer.getPrimaryService(bleService);
         })
-        .then(service => {
-            bleServiceFound = service;
-            console.log("Service discovered:", service.uuid);
-            // Obtenez la caractéristique
-            return bleServiceFound.getCharacteristic(commandCharacteristic); 
-                })
-            .then(characteristic => {
-                console.log("Characteristic discovered:", characteristic.uuid);
-                // S'abonner aux notifications
-                return characteristic.startNotifications().then(() => {
-                    console.log("Notifications started for characteristic:", characteristic.uuid);
-                    // Ajouter un gestionnaire d'événements pour les notifications
-                    characteristic.addEventListener('characteristicvaluechanged', handleNotification);
-                });
+    .then(service => {
+        bleServiceFound = service;
+        console.log("Service discovered:", service.uuid);
+        return bleServiceFound.getCharacteristic(commandCharacteristic); 
     })
-        }).catch(error => {
-            console.log('Error: ', error);
+    .then(characteristic => {
+        console.log("Characteristic discovered:", characteristic.uuid);
+        // S'abonner aux notifications
+        return characteristic.startNotifications().then(() => {
+            console.log("Notifications started for characteristic:", characteristic.uuid);
+            // Ajouter un gestionnaire d'événements pour les notifications
+            characteristic.addEventListener('characteristicvaluechanged', handleNotification);
         });
+    })
+    .catch(error => {
+        console.log('Error: ', error);
+    });
     }
 
     function onDisconnected(event) {
