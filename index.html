@@ -645,6 +645,14 @@ autoPilotToggle.addEventListener('click', async () => {
     });
     }
 
+    function handleNotification(event) {
+    const characteristic = event.target; 
+    const value = characteristic.value; 
+    const decoder = new TextDecoder('utf-8');
+    const decodedValue = decoder.decode(value);
+    console.log('Notification received:', decodedValue);
+}
+
     function onDisconnected(event) {
         console.log('Device Disconnected:', event.target.device.name);
         bleStateContainer.innerHTML = "Device disconnected";
@@ -704,13 +712,6 @@ let lastValueTypeSent="";
         }
     }
 
-function handleNotification(event) {
-    const characteristic = event.target; 
-    const value = characteristic.value; 
-    const decoder = new TextDecoder('utf-8');
-    const decodedValue = decoder.decode(value);
-    console.log('Notification received:', decodedValue);
-}
 
 
         
