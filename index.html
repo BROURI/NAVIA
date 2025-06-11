@@ -541,9 +541,9 @@ if (false && navigator.geolocation) {
     motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
     autotune.addEventListener('change', () => {
         if (this.checked) {
-            sendCommand("autotuneOn")
+            sendCommand("autotuneOn");
         } else {
-            sendCommand("autotuneOff")
+            sendCommand("autotuneOff");
         }
     });
 
