@@ -336,8 +336,8 @@ if (window.DeviceOrientationEvent) {
          previousVisibilityState=document.visibilityState;
          finalHeading=correctedHeading;
         console.log("finalHeading "+finalHeading);
-
-         headingContainer.innerHTML = finalHeading;
+        console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
+        headingContainer.innerHTML = finalHeading;
     }, false);
 
      window.addEventListener('deviceorientationabsolute', function(event) {
@@ -349,7 +349,6 @@ if (window.DeviceOrientationEvent) {
          correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
          if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
          finalAbsoluteHeading=correctedAbsoluteHeading;
-         console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
     }, false);
     
     
