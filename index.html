@@ -289,6 +289,9 @@ if ('serviceWorker' in navigator) {
 /////////  Cap magnetique et accelerometre
 
 var relativeAbsoluteDiff=0;
+var finalRelativeAbsoluteDiff=0;
+var relativeAbsoluteCorrection=0;
+
 var heading;
 var absoluteHeading;
 var pitch;
@@ -321,7 +324,12 @@ if (window.DeviceOrientationEvent) {
          if(headingDiff > 170 && headingDiff < 190) headingCorrection = (headingCorrection+180)%360;
          correctedHeading=heading+headingCorrection;
          if(correctedHeading >= 360) correctedHeading-=360;
-        
+         
+         correctedHeading+=relativeAbsoluteCorrection;
+         if(correctedHeading < 0) correctedHeading+=360;
+         if(correctedHeading >= 360) correctedHeading-=360;
+
+
         if(computeVisibilityCorrection==true){
             computeVisibilityCorrection=false;
             visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
@@ -343,7 +351,8 @@ if (window.DeviceOrientationEvent) {
         relativeAbsoluteDiff=finalHeading-finalAbsoluteHeading;
         if(relativeAbsoluteDiff>180)relativeAbsoluteDiff-=360;
         if(relativeAbsoluteDiff<-180)relativeAbsoluteDiff+=360;
-        console.log("relativeAbsoluteDiff "+relativeAbsoluteDiff);
+        finalRelativeAbsoluteDiff=relativeAbsoluteDiff;
+        console.log("finalRelativeAbsoluteDiff "+finalRelativeAbsoluteDiff);
 
     }, false);
 
@@ -608,6 +617,7 @@ if (false && navigator.geolocation) {
 
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
+            relativeAbsoluteCorrection = finalRelativeAbsoluteDiff;
             targetHeading = correctedHeading;
             await sendCommand(targetHeading);
             await sendCommand("autoPilotOn");
