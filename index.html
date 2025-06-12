@@ -320,8 +320,11 @@ if (window.DeviceOrientationEvent) {
         heading = 360 - Math.round(event.alpha); 
         if(heading == 360)heading=0; 
 
-         headingDiff=Math.abs(previousHeading-heading);
-         if(headingDiff > 150 && headingDiff < 210) headingCorrection = (headingCorrection+180)%360;
+        headingDiff=previousHeading-heading;
+        if(headingDiff>180)headingDiff-=360;
+        if(headingDiff<-180)headingDiff+=360;
+        console.log("headingDiff "+headingDiff);
+         if(Math.abs(headingDiff)) headingCorrection = (headingCorrection+180)%360;
          correctedHeading=heading+headingCorrection;
          if(correctedHeading >= 360) correctedHeading-=360;
          
@@ -361,11 +364,13 @@ if (window.DeviceOrientationEvent) {
         previousAbsoluteHeading=absoluteHeading;
         absoluteHeading = 360 - Math.round(event.alpha); 
         if(absoluteHeading == 360)absoluteHeading=0; 
-         absoluteHeadingDiff=Math.abs(previousAbsoluteHeading-absoluteHeading);
-         if(absoluteHeadingDiff > 150 && absoluteHeadingDiff < 210) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
-         correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
-         if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
-         finalAbsoluteHeading=correctedAbsoluteHeading;
+        absoluteHeadingDiff=previousAbsoluteHeading-absoluteHeading;
+        if(absoluteHeadingDiff>180)absoluteHeadingDiff-=360;
+        if(absoluteHeadingDiff<-180)absoluteHeadingDiff+=360;
+        if(Math.abs(absoluteHeadingDiff) > 150) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
+        correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
+        if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
+        finalAbsoluteHeading=correctedAbsoluteHeading;
     }, false);
     
     
