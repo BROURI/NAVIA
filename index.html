@@ -329,7 +329,7 @@ if (window.DeviceOrientationEvent) {
          if(correctedHeading < 0) correctedHeading+=360;
          if(correctedHeading >= 360) correctedHeading-=360;
 
-
+        /*
         if(computeVisibilityCorrection==true){
             computeVisibilityCorrection=false;
             visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
@@ -343,12 +343,13 @@ if (window.DeviceOrientationEvent) {
             computeVisibilityCorrection=true;
          }
          previousVisibilityState=document.visibilityState;
+         */
          finalHeading=correctedHeading;
-        headingContainer.innerHTML = finalHeading;
+         headingContainer.innerHTML = finalHeading;
 
         console.log("finalHeading "+finalHeading);
         console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
-        relativeAbsoluteDiff=finalHeading-finalAbsoluteHeading;
+        relativeAbsoluteDiff=finalAbsoluteHeading-finalHeading;
         if(relativeAbsoluteDiff>180)relativeAbsoluteDiff-=360;
         if(relativeAbsoluteDiff<-180)relativeAbsoluteDiff+=360;
         finalRelativeAbsoluteDiff=relativeAbsoluteDiff;
