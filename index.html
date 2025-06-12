@@ -307,7 +307,7 @@ var correctedHeadingDiff=0;
 var computeVisibilityCorrection=false;
 var finalHeading;
 if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', function(event) {
+    window.addEventListener('deviceorientationabsolute', function(event) {
        
         pitch = Math.round(event.beta)-90;
         heel = Math.abs(Math.round(event.gamma));
