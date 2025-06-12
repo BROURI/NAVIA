@@ -321,7 +321,7 @@ if (window.DeviceOrientationEvent) {
         if(heading == 360)heading=0; 
 
          headingDiff=Math.abs(previousHeading-heading);
-         if(headingDiff > 170 && headingDiff < 190) headingCorrection = (headingCorrection+180)%360;
+         if(headingDiff > 150 && headingDiff < 210) headingCorrection = (headingCorrection+180)%360;
          correctedHeading=heading+headingCorrection;
          if(correctedHeading >= 360) correctedHeading-=360;
          
@@ -362,7 +362,7 @@ if (window.DeviceOrientationEvent) {
         absoluteHeading = 360 - Math.round(event.alpha); 
         if(absoluteHeading == 360)absoluteHeading=0; 
          absoluteHeadingDiff=Math.abs(previousAbsoluteHeading-absoluteHeading);
-         if(absoluteHeadingDiff > 170 && absoluteHeadingDiff < 190) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
+         if(absoluteHeadingDiff > 150 && absoluteHeadingDiff < 210) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
          correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
          if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
          finalAbsoluteHeading=correctedAbsoluteHeading;
