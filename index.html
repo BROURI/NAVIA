@@ -128,7 +128,7 @@ button {
                 <p class="reading"><span id="maxWindSpeed">-</span></p>
             </div>
             <div class="card">
-                <h2>Heading</h2>
+                <h2 onclick="relativeAbsoluteCorrection = finalRelativeAbsoluteDiff;">Heading</h2>
                 <p class="reading"><span id="heading">-</span></p>
                 <h2>Target Heading</h2>
                 <p class="reading"><span id="targetHeadingContainer">-</span></p>
@@ -617,8 +617,7 @@ if (false && navigator.geolocation) {
 
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
-            relativeAbsoluteCorrection = finalRelativeAbsoluteDiff;
-            targetHeading = correctedHeading;
+            targetHeading = finalHeading;
             await sendCommand(targetHeading);
             await sendCommand("autoPilotOn");
             targetHeadingContainer.innerHTML = targetHeading;
