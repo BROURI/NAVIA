@@ -314,7 +314,6 @@ if (window.DeviceOrientationEvent) {
         heel = Math.abs(Math.round(event.gamma));
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
-        console.log("heading "+heading);
         if(heading == 360)heading=0; 
 
          headingDiff=Math.abs(previousHeading-heading);
