@@ -291,29 +291,32 @@ if ('serviceWorker' in navigator) {
   console.log("DeviceOrientationAbsoluteEvent déclenché !");
 });
 var heading;
+var absoluteHeading;
 var pitch;
 var heel;
 var cog;
 var headingCorrection=0;
+var absoluteHeadingCorrection=0;
 var previousHeading=0;
+var previousAbsoluteHeading=0;
 var headingDiff=0;
+var absoluteHeadingDiff=0;
 var correctedHeading=0;
+var correctedAbsoluteHeading=0;
 var headingBeforeHidden;
 var visibilitychangeCorrection=0;
 var previousVisibilityState="visible";
-var correctedHeading2=0;
-var previousCorrectedHeading=0;
-var correctedHeadingDiff=0;
 var computeVisibilityCorrection=false;
 var finalHeading;
+var finalAbsoluteHeading;
+
 if (window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientationabsolute', function(event) {
-       
+    window.addEventListener('deviceorientation', function(event) {
         pitch = Math.round(event.beta)-90;
         heel = Math.abs(Math.round(event.gamma));
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
-        console.log(heading);
+        console.log("heading "+heading);
         if(heading == 360)heading=0; 
 
          headingDiff=Math.abs(previousHeading-heading);
@@ -337,6 +340,20 @@ if (window.DeviceOrientationEvent) {
          finalHeading=correctedHeading;
          headingContainer.innerHTML = finalHeading;
     }, false);
+
+     window.addEventListener('deviceorientationabsolute', function(event) {
+        previousAbsoluteHeading=absoluteHeading;
+        absoluteHeading = 360 - Math.round(event.alpha); 
+        console.log("absoluteHeading "+absoluteHeading);
+        if(absoluteHeading == 360)absoluteHeading=0; 
+         absoluteHeadingDiff=Math.abs(previousAbsoluteHeading-absoluteHeading);
+         if(absoluteHeadingDiff > 170 && absoluteHeadingDiff < 190) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
+         correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
+         if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
+         finalAbsoluteHeading=correctedAbsoluteHeading;
+         console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
+    }, false);
+    
     
 } else {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
