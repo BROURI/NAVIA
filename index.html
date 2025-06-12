@@ -220,7 +220,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-    
+
 //// Ultrasonic direct connection
     var maxWindSpeed = 0;
     let ultrasonicServer;
@@ -288,6 +288,7 @@ if ('serviceWorker' in navigator) {
     
 /////////  Cap magnetique et accelerometre
 
+var relativeAbsoluteDiff=0;
 var heading;
 var absoluteHeading;
 var pitch;
@@ -335,9 +336,15 @@ if (window.DeviceOrientationEvent) {
          }
          previousVisibilityState=document.visibilityState;
          finalHeading=correctedHeading;
+        headingContainer.innerHTML = finalHeading;
+
         console.log("finalHeading "+finalHeading);
         console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
-        headingContainer.innerHTML = finalHeading;
+        relativeAbsoluteDiff=finalHeading-finalAbsoluteHeading;
+        if(relativeAbsoluteDiff>180)relativeAbsoluteDiff-=360;
+        if(relativeAbsoluteDiff<-180)relativeAbsoluteDiff+=360;
+        console.log("relativeAbsoluteDiff "+relativeAbsoluteDiff);
+
     }, false);
 
      window.addEventListener('deviceorientationabsolute', function(event) {
