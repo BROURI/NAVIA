@@ -399,59 +399,50 @@ function isValidWindAngle(angle) {
 ///////////////////geolocation et calcul angle de deplacement
 
 function calculateCOG(lat1, lon1, lat2, lon2) {
-    // Early return if positions are the same or invalid
-    if (!lat1 || !lat2 || (lat1 === lat2 && lon1 === lon2)) {
-        return "--";
+
+    if (lat1 === lat2 && lon1 === lon2) {
+    return "-";
     }
-
-    // Convert degrees to radians
-    const toRad = deg => deg * (Math.PI / 180);
-    const φ1 = toRad(lat1);
-    const φ2 = toRad(lat2);
-    const Δλ = toRad(lon2 - lon1);
-
-    // Calculate COG using atan2 (correct spherical Earth formula)
-    const x = Math.sin(Δλ) * Math.cos(φ2);
-    const y = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
-    const θ = Math.atan2(x, y);
-
-    // Convert to degrees and normalize to 0-360°
-    const cog = Math.round((θ * 180 / Math.PI + 360) % 360);
+    // Convertir les degrés en radians
+    var toRadians = (degrees) => degrees * (Math.PI / 180);
+    // Convertir les coordonnées en radians
+    var lat1Rad = toRadians(lat1);
+    var lat2Rad = toRadians(lat2);
+    var deltaLon = toRadians(lon2 - lon1);
+    // Calculer le cog
+    var x = Math.sin(deltaLon) * Math.cos(lat2Rad);
+    const y = Math.cos(lat1Rad) * Math.sin(lat2Rad) - 
+    Math.sin(lat1Rad) * Math.cos(lat2Rad) * Math.cos(deltaLon);
+    var cogInRadians = Math.atan2(x, y);
+    // Convertir le résultat en degrés
+    cog =Math.round ((cogInRadians * (180 / Math.PI) + 360) % 360); // Normaliser à [0, 360)
     return cog;
 }
-
-let prevLat, prevLon;
-
-if (navigator.geolocation) {
-    // Use watchPosition instead of setInterval + getCurrentPosition (more efficient)
-    const watchId = navigator.geolocation.watchPosition(
-        position => {
-            const newLat = position.coords.latitude;
-            const newLon = position.coords.longitude;
-            const speedKnots = position.coords.speed * 1.94384; // m/s → knots
-
-            // Calculate COG only if previous position exists
-            const cog = prevLat ? calculateCOG(prevLat, prevLon, newLat, newLon) : "--";
-
-            console.clear();
-            console.log(`Latitude: ${newLat.toFixed(6)}, Longitude: ${newLon.toFixed(6)}`);
-            console.log(`COG: ${cog}°`);
-            console.log(`Speed: ${speedKnots?.toFixed(1) || "--"} knots`);
-
-            // Update previous position
-            prevLat = newLat;
-            prevLon = newLon;
-        },
-        error => console.error("GPS Error:", error.message),
-        { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
-    );
-
-    // To stop tracking later: navigator.geolocation.clearWatch(watchId);
-} else {
-    console.error("Geolocation not supported");
-}
     
-
+var latitude;
+var longitude;
+var previousLatitude;
+var previousLongitude;
+var speed;
+if (navigator.geolocation) {
+    setInterval(() => {
+        navigator.geolocation.getCurrentPosition(position => {
+            previousLatitude = latitude;
+            previousLongitude = longitude;
+            latitude = position.coords.latitude;
+            longitude = position.coords.longitude;
+            console.log("Latitude : " + latitude + ", Longitude : " + longitude);
+            cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
+            console.log("cog : " +cog);
+            speed= position.coords.speed * 1.94384;
+            console.log( "speed " + speed);
+        }, error => {
+            console.log("Erreur geolocation");
+        });
+    }, 1000); // Vérifie toutes les secondes
+} else {
+    console.error("La géolocalisation n'est pas supportée par ce navigateur.");
+}
 
     var autoPilotOn = false;
     var windAngleAlertEnabled=false;
