@@ -350,13 +350,13 @@ if (window.DeviceOrientationEvent) {
          finalHeading=correctedHeading;
          headingContainer.innerHTML = finalHeading;
 
-        console.log("finalHeading "+finalHeading);
-        console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
+        //console.log("finalHeading "+finalHeading);
+        //console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
         relativeAbsoluteDiff=finalAbsoluteHeading-finalHeading;
         if(relativeAbsoluteDiff>180)relativeAbsoluteDiff-=360;
         if(relativeAbsoluteDiff<-180)relativeAbsoluteDiff+=360;
         finalRelativeAbsoluteDiff=relativeAbsoluteDiff;
-        console.log("finalRelativeAbsoluteDiff "+finalRelativeAbsoluteDiff);
+        //console.log("finalRelativeAbsoluteDiff "+finalRelativeAbsoluteDiff);
 
     }, false);
 
@@ -423,21 +423,23 @@ var latitude;
 var longitude;
 var previousLatitude;
 var previousLongitude;
-if (false && navigator.geolocation) {
+var speed;
+if (navigator.geolocation) {
     setInterval(() => {
         navigator.geolocation.getCurrentPosition(position => {
             previousLatitude = latitude;
             previousLongitude = longitude;
             latitude = position.coords.latitude;
             longitude = position.coords.longitude;
-            //console.log("Latitude : " + latitude + ", Longitude : " + longitude);
+            console.log("Latitude : " + latitude + ", Longitude : " + longitude);
             cog = calculateCOG(previousLatitude, previousLongitude, latitude, longitude)
-            //console.log("cog : " +cog);
-            cogContainer.innerHTML =cog;
+            console.log("cog : " +cog);
+            speed= position.coords.speed * 1.94384;
+            console.log( "speed " + speed);
         }, error => {
             console.log("Erreur geolocation");
         });
-    }, 5000); // Vérifie toutes les secondes
+    }, 1000); // Vérifie toutes les secondes
 } else {
     console.error("La géolocalisation n'est pas supportée par ce navigateur.");
 }
