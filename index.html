@@ -383,8 +383,6 @@ window.addEventListener('visibilitychange', () => {
         headingBeforeHidden = finalHeading;
         //console.log("headingBeforeHidden "+headingBeforeHidden);
         previousVisibilityState ="visible";
-        relativeAbsoluteCorrection += finalRelativeAbsoluteDiff;
-
     }
     else if (document.visibilityState === 'visible') {
         previousVisibilityState ="hidden";
