@@ -418,9 +418,11 @@ if (navigator.geolocation) {
             const newLat = position.coords.latitude;
             const newLon = position.coords.longitude;
             const speedKnots = position.coords.speed * 1.94384; // m/s → knots
-            console.log(`Latitude: ${newLat.toFixed(6)}, Longitude: ${newLon.toFixed(6)}`);
+            //console.log(`Latitude: ${newLat.toFixed(6)}, Longitude: ${newLon.toFixed(6)}`);
             console.log(`COG: ${calculateCOG(previousLat, previousLon, newLat, newLon)}°`);
+            console.log("magnetic heading "+ finalAbsoluteHeading);
             console.log(`Speed: ${speedKnots?.toFixed(1) || "--"} knots`);
+            
 
             previousLat = newLat;
             previousLon = newLon;
