@@ -417,6 +417,9 @@ let filteredSog=0.0;
 let alphaSog=0.2;
 let prevFilteredSog=0.0;
 let magneticDeclination = 0.0;
+let filteredMagneticDeclination = 0.0;
+let prevFilteredMagneticDeclination = 0.0;
+
 if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(
         position => {
@@ -439,6 +442,9 @@ if (navigator.geolocation) {
                 if(magneticDeclination>180)magneticDeclination-=360;
                 if(magneticDeclination<-180)magneticDeclination+=360;
                 console.log("magneticDeclination "+ magneticDeclination);
+                prevFilteredMagneticDeclination=filteredMagneticDeclination;
+                filteredMagneticDeclination = magneticDeclination * alphaSog + (1-alphaSog)*prevFilteredMagneticDeclination;
+                console.log("filteredMagneticDeclination "+ filteredMagneticDeclination);
             }
 
         },
