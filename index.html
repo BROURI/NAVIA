@@ -429,10 +429,10 @@ if (navigator.geolocation) {
             previousLon = newLon;
             filteredSog=alphaSog*sog + (1-alphaSog)*prevFilteredSog;
 
-            console.log("sog "+sog);
-            console.log("filteredSog "+filteredSog);
-            console.log("cog "+ cog);
-            console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
+            //console.log("sog "+sog);
+            //console.log("filteredSog "+filteredSog);
+            //console.log("cog "+ cog);
+            //console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
 
             if(filteredSog>0.5 && cog!="--"){
                 magneticDeclination = cog-finalAbsoluteHeading;
