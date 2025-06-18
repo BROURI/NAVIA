@@ -400,6 +400,7 @@ function isValidWindAngle(angle) {
 let previousLat, previousLon;
 let watchId;
 
+    
 function calculateCOG(lat1, lon1, lat2, lon2) {
     if (!lat1 || !lat2 || (lat1 === lat2 && lon1 === lon2)) return "--";
     
@@ -411,21 +412,28 @@ function calculateCOG(lat1, lon1, lat2, lon2) {
     const y = Math.cos(φ1) * Math.sin(φ2) - Math.sin(φ1) * Math.cos(φ2) * Math.cos(Δλ);
     return Math.round((Math.atan2(x, y) * 180 / Math.PI + 360) % 360);
 }
-
+    
+let filteredSog=0.0;
+let alphaSog=0.1;
+let prevFilteredSog=0.0;
+    
 if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(
         position => {
             const newLat = position.coords.latitude;
             const newLon = position.coords.longitude;
-            const speedKnots = position.coords.speed * 1.94384; // m/s → knots
-            //console.log(`Latitude: ${newLat.toFixed(6)}, Longitude: ${newLon.toFixed(6)}`);
-            console.log(`COG: ${calculateCOG(previousLat, previousLon, newLat, newLon)}°`);
-            console.log("magnetic heading "+ finalAbsoluteHeading);
-            console.log(`Speed: ${speedKnots?.toFixed(1) || "--"} knots`);
-            
-
+            const sog = position.coords.speed * 1.94384; // m/s → knots
+            const cog = calculateCOG(previousLat, previousLon, newLat, newLon);
+            prevFilteredSog=filteredSog;
             previousLat = newLat;
             previousLon = newLon;
+            filteredSog=alphaSog*sog + (1-alphaSog)*prevFilteredSog;
+
+            console.log("sog "+sog);
+            console.log("filteredSog "+filteredSog);
+            console.log("cog "+ cog);
+            console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
+
         },
         error => {
             // PROPER ERROR HANDLING
