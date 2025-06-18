@@ -412,48 +412,35 @@ function calculateCOG(lat1, lon1, lat2, lon2) {
     return Math.round((Math.atan2(x, y) * 180 / Math.PI + 360) % 360);
 }
 
-if (navigator.geolocation) {
-    watchId = navigator.geolocation.watchPosition(
-        position => {
-            const newLat = position.coords.latitude;
-            const newLon = position.coords.longitude;
-            const speedKnots = position.coords.speed * 1.94384; // m/s → knots
-            //console.log(`Latitude: ${newLat.toFixed(6)}, Longitude: ${newLon.toFixed(6)}`);
-            console.log(`COG: ${calculateCOG(previousLat, previousLon, newLat, newLon)}°`);
-            console.log("magnetic heading "+ finalAbsoluteHeading);
-            console.log(`Speed: ${speedKnots?.toFixed(1) || "--"} knots`);
-            
+function updatePosition() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            position => {
+                const newLat = position.coords.latitude;
+                const newLon = position.coords.longitude;
+                const speedKnots = position.coords.speed * 1.94384; // m/s → knots
+                console.log(`Latitude: ${newLat.toFixed(6)}, Longitude: ${newLon.toFixed(6)}`);
+                console.log(`COG: ${calculateCOG(previousLat, previousLon, newLat, newLon)}°`);
+                console.log(`Speed: ${speedKnots?.toFixed(1) || "--"} knots`);
 
-            previousLat = newLat;
-            previousLon = newLon;
-        },
-        error => {
-            // PROPER ERROR HANDLING
-            let errorMsg;
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    errorMsg = "GPS blocked. Allow location access in browser settings.";
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    errorMsg = "GPS signal lost. Are you indoors?";
-                    break;
-                case error.TIMEOUT:
-                    errorMsg = "GPS timed out. Try moving to an open area.";
-                    break;
-                default:
-                    errorMsg = "GPS Error: " + error.message;
+                previousLat = newLat;
+                previousLon = newLon;
+            },
+            error => {
+                // Gérer les erreurs ici
+                console.error("Error obtaining position:", error.message);
+            },
+            { 
+                enableHighAccuracy: true,
+                maximumAge: 0,
+                timeout: 5000 
             }
-            console.error(errorMsg);
-        },
-        { 
-            enableHighAccuracy: true,
-            maximumAge: 0,
-            timeout: 10000 
-        }
-    );
-} else {
-    console.error("Your browser doesn't support GPS");
+        );
+    } else {
+        console.error("Votre navigateur ne prend pas en charge la géolocalisation");
+    }
 }
+setInterval(updatePosition, 5000); // 5000 ms = 5 secondes
 
 // To stop tracking later:
 // navigator.geolocation.clearWatch(watchId);
