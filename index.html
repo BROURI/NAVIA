@@ -344,16 +344,7 @@ if (window.DeviceOrientationEvent) {
         finalRelativeAbsoluteDiff=relativeAbsoluteDiff;
         //console.log("finalRelativeAbsoluteDiff "+finalRelativeAbsoluteDiff);
 
-        
-        if(computeVisibilityCorrection==true){
-            applyRelativeAbsoluteCorrection();
-            computeVisibilityCorrection=false;
-         }
-         if(previousVisibilityState=="hidden"){
-            computeVisibilityCorrection=true;
-         }
-         previousVisibilityState=document.visibilityState;
-        
+    
     }, false);
 
      window.addEventListener('deviceorientationabsolute', function(event) {
