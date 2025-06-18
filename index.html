@@ -393,6 +393,7 @@ window.addEventListener('visibilitychange', () => {
     }
     else if (document.visibilityState === 'visible') {
         previousVisibilityState ="hidden";
+        applyRelativeAbsoluteCorrection();
     }
 });
 
