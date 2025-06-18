@@ -381,6 +381,10 @@ if (window.DeviceOrientationEvent) {
 function applyRelativeAbsoluteCorrection(){
     relativeAbsoluteCorrection += finalRelativeAbsoluteDiff;
 }
+setInterval(() => {
+        applyRelativeAbsoluteCorrection();
+},10000);
+
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         headingBeforeHidden = finalHeading;
@@ -847,9 +851,7 @@ let lastValueTypeSent="";
 
     },1000);
 
- //   setInterval(() => {
- //       headingContainer.innerHTML = correctedHeading;
- //   },500);
+
     
     /// heading sharing and autotune
 
