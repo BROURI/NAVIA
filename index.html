@@ -364,7 +364,7 @@ if (window.DeviceOrientationEvent) {
 }
 
 function applyRelativeAbsoluteCorrection(){
-    relativeAbsoluteCorrection = (relativeAbsoluteCorrection+ finalRelativeAbsoluteDiff)%180;
+    relativeAbsoluteCorrection = (relativeAbsoluteCorrection+ finalRelativeAbsoluteDiff)%360;
 }
 setInterval(() => {
         applyRelativeAbsoluteCorrection();
