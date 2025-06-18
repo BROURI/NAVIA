@@ -367,7 +367,8 @@ function applyRelativeAbsoluteCorrection(){
     relativeAbsoluteCorrection = (relativeAbsoluteCorrection+ finalRelativeAbsoluteDiff)%360;
 }
 function applySmallRelativeAbsoluteCorrection(){
-    relativeAbsoluteCorrection = (relativeAbsoluteCorrection+ finalRelativeAbsoluteDiff /Math.abs(finalRelativeAbsoluteDiff))%360;
+    cont diff=finalRelativeAbsoluteDiff;
+    if(diff !=0)relativeAbsoluteCorrection = (relativeAbsoluteCorrection + diff /Math.abs(diff))%360;
 }
 setInterval(() => {
         applySmallRelativeAbsoluteCorrection();
