@@ -416,7 +416,7 @@ function calculateCOG(lat1, lon1, lat2, lon2) {
 let filteredSog=0.0;
 let alphaSog=0.2;
 let prevFilteredSog=0.0;
-    
+let magneticDeclination = 0.0;
 if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(
         position => {
@@ -434,9 +434,15 @@ if (navigator.geolocation) {
             console.log("cog "+ cog);
             console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
 
+            if(filteredSog>0.5 && cog!="--"){
+                magneticDeclination = cog-finalAbsoluteHeading;
+                if(magneticDeclination>180)magneticDeclination-=360;
+                if(magneticDeclination<-180)magneticDeclination+=360;
+                console.log("magneticDeclination "+ magneticDeclination);
+            }
+
         },
         error => {
-            // PROPER ERROR HANDLING
             let errorMsg;
             switch(error.code) {
                 case error.PERMISSION_DENIED:
