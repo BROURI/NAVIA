@@ -332,21 +332,7 @@ if (window.DeviceOrientationEvent) {
          if(correctedHeading < 0) correctedHeading+=360;
          if(correctedHeading >= 360) correctedHeading-=360;
 
-        /*
-        if(computeVisibilityCorrection==true){
-            computeVisibilityCorrection=false;
-            visibilitychangeCorrection=headingBeforeHidden-correctedHeading;
-         }
-         correctedHeading+=visibilitychangeCorrection;
-         if(correctedHeading < 0) correctedHeading+=360;
-         if(correctedHeading >= 360) correctedHeading-=360;
-
-         //console.log("correctedHeading "+correctedHeading + " document.visibilityState "+ document.visibilityState + " previousVisibilityState "+previousVisibilityState );
-         if(previousVisibilityState=="hidden"){
-            computeVisibilityCorrection=true;
-         }
-         previousVisibilityState=document.visibilityState;
-         */
+  
          finalHeading=correctedHeading;
          headingContainer.innerHTML = finalHeading;
 
@@ -358,6 +344,16 @@ if (window.DeviceOrientationEvent) {
         finalRelativeAbsoluteDiff=relativeAbsoluteDiff;
         //console.log("finalRelativeAbsoluteDiff "+finalRelativeAbsoluteDiff);
 
+        
+        if(computeVisibilityCorrection==true){
+            applyRelativeAbsoluteCorrection();
+            computeVisibilityCorrection=false;
+         }
+         if(previousVisibilityState=="hidden"){
+            computeVisibilityCorrection=true;
+         }
+         previousVisibilityState=document.visibilityState;
+        
     }, false);
 
      window.addEventListener('deviceorientationabsolute', function(event) {
@@ -383,17 +379,15 @@ function applyRelativeAbsoluteCorrection(){
 }
 setInterval(() => {
         applyRelativeAbsoluteCorrection();
-},10000);
+},5000);
 
 window.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
         headingBeforeHidden = finalHeading;
-        //console.log("headingBeforeHidden "+headingBeforeHidden);
-        previousVisibilityState ="visible";
+        previousVisibilityState ="visible";        
     }
     else if (document.visibilityState === 'visible') {
         previousVisibilityState ="hidden";
-        applyRelativeAbsoluteCorrection();
     }
 });
 
