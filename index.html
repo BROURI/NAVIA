@@ -434,7 +434,7 @@ if (navigator.geolocation) {
             console.log("cog "+ cog);
             console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
 
-            if(filteredSog>1.5 && cog!="--"){
+            if(filteredSog>0.5 && cog!="--"){
                 magneticDeclination = cog-finalAbsoluteHeading;
                 if(magneticDeclination>180)magneticDeclination-=360;
                 if(magneticDeclination<-180)magneticDeclination+=360;
