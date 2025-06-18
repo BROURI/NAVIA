@@ -366,8 +366,11 @@ if (window.DeviceOrientationEvent) {
 function applyRelativeAbsoluteCorrection(){
     relativeAbsoluteCorrection = (relativeAbsoluteCorrection+ finalRelativeAbsoluteDiff)%360;
 }
+function applySmallRelativeAbsoluteCorrection(){
+    relativeAbsoluteCorrection = (relativeAbsoluteCorrection+ finalRelativeAbsoluteDiff /Math.abs(finalRelativeAbsoluteDiff))%360;
+}
 setInterval(() => {
-        applyRelativeAbsoluteCorrection();
+        applySmallRelativeAbsoluteCorrection();
 },5000);
 
 window.addEventListener('visibilitychange', () => {
