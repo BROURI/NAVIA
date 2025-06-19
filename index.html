@@ -414,7 +414,8 @@ let prevFilteredSog=0.0;
 let magneticDeclination = 0.0;
 let filteredMagneticDeclination = 0.0;
 let prevFilteredMagneticDeclination = 0.0;
-
+let minSog=1.0;
+    
 if (navigator.geolocation) {
     watchId = navigator.geolocation.watchPosition(
         position => {
@@ -432,7 +433,7 @@ if (navigator.geolocation) {
             //console.log("cog "+ cog);
             //console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
 
-            if(filteredSog>2 && cog!="--"){
+            if(filteredSog > minsog && sog > minSog && cog!="--"){
                 magneticDeclination = cog-finalAbsoluteHeading;
                 if(magneticDeclination>180)magneticDeclination-=360;
                 if(magneticDeclination<-180)magneticDeclination+=360;
