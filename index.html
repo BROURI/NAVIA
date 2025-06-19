@@ -409,7 +409,7 @@ function calculateCOG(lat1, lon1, lat2, lon2) {
 }
     
 let filteredSog=0.0;
-let alphaSog=0.2;
+let alphaSog=0.3;
 let prevFilteredSog=0.0;
 let magneticDeclination = 0.0;
 let filteredMagneticDeclination = 0.0;
@@ -432,7 +432,7 @@ if (navigator.geolocation) {
             //console.log("cog "+ cog);
             //console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
 
-            if(filteredSog>0.2 && cog!="--"){
+            if(filteredSog>2 && cog!="--"){
                 magneticDeclination = cog-finalAbsoluteHeading;
                 if(magneticDeclination>180)magneticDeclination-=360;
                 if(magneticDeclination<-180)magneticDeclination+=360;
