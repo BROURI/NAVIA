@@ -440,7 +440,7 @@ if (navigator.geolocation) {
                 console.log("magneticDeclination "+ magneticDeclination);
                 prevFilteredMagneticDeclination=filteredMagneticDeclination;
                 filteredMagneticDeclination = magneticDeclination * 0.05+ (1-0.05)*prevFilteredMagneticDeclination;
-                console.log("filteredMagneticDeclination "+ filteredMagneticDeclination);
+                console.log("filteredMagneticDeclination "+ filteredMagneticDeclination.toFixed(0));
             }
 
         },
