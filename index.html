@@ -438,7 +438,7 @@ if (navigator.geolocation) {
                 if(magneticDeclination<-180)magneticDeclination+=360;
                 console.log("magneticDeclination "+ magneticDeclination);
                 prevFilteredMagneticDeclination=filteredMagneticDeclination;
-                filteredMagneticDeclination = magneticDeclination * alphaSog + (1-alphaSog)*prevFilteredMagneticDeclination;
+                filteredMagneticDeclination = magneticDeclination * 0.05+ (1-0.05)*prevFilteredMagneticDeclination;
                 console.log("filteredMagneticDeclination "+ filteredMagneticDeclination);
             }
 
