@@ -339,6 +339,7 @@ if (window.DeviceOrientationEvent) {
 
         //console.log("finalHeading "+finalHeading);
         //console.log("finalAbsoluteHeading "+finalAbsoluteHeading);
+        
         relativeAbsoluteDiff=finalAbsoluteHeading-finalHeading;
         if(relativeAbsoluteDiff>180)relativeAbsoluteDiff-=360;
         if(relativeAbsoluteDiff<-180)relativeAbsoluteDiff+=360;
@@ -357,6 +358,8 @@ if (window.DeviceOrientationEvent) {
         correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
         if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
         finalAbsoluteHeading=correctedAbsoluteHeading;
+         finalAbsoluteHeadingContainer.innerHTML="MH "+finalAbsoluteHeading;
+         
     }, false);
     
     
