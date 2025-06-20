@@ -130,7 +130,8 @@ button {
             <div class="card">
                 <h2 onclick="applyRelativeAbsoluteCorrection()">Heading</h2>
                 <p class="reading"><span id="heading">-</span></p>
-                <span id="filteredMagneticDeclinationContainer">-</span><span id="finalAbsoluteHeadingContainer">-</span></p>
+                <span id="filteredMagneticDeclinationContainer">-</span></p>
+                <span id="finalAbsoluteHeadingContainer">-</span></p>
                 <h2>Target Heading</h2>
                 <p class="reading"><span id="targetHeadingContainer">-</span></p>
             </div>
@@ -447,7 +448,7 @@ if (navigator.geolocation) {
                 prevFilteredMagneticDeclination=filteredMagneticDeclination;
                 filteredMagneticDeclination = magneticDeclination * 0.05+ (1-0.05)*prevFilteredMagneticDeclination;
                 console.log("filteredMagneticDeclination "+ filteredMagneticDeclination.toFixed(0));
-                filteredMagneticDeclinationContainer.innerHTML=filteredMagneticDeclination;
+                filteredMagneticDeclinationContainer.innerHTML="MD "+filteredMagneticDeclination.toFixed(0);
             }
 
         },
