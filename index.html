@@ -439,9 +439,11 @@ if (navigator.geolocation) {
                 if(magneticDeclination>180)magneticDeclination-=360;
                 if(magneticDeclination<-180)magneticDeclination+=360;
                 console.log("magneticDeclination "+ magneticDeclination);
+            
                 prevFilteredMagneticDeclination=filteredMagneticDeclination;
                 filteredMagneticDeclination = magneticDeclination * 0.05+ (1-0.05)*prevFilteredMagneticDeclination;
                 console.log("filteredMagneticDeclination "+ filteredMagneticDeclination.toFixed(0));
+                filteredMagneticDeclinationContainer.innerHTML="D "+filteredMagneticDeclination.toFixed(0);
             }
 
         },
