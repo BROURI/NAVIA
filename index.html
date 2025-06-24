@@ -318,9 +318,9 @@ var finalAbsoluteHeading;
 var filteredHeel=0.0;
     
 if (window.DeviceOrientationEvent) {
-
-  const beta = e.beta * (Math.PI / 180); // Conversion en radians
-  const gamma = e.gamma;
+  window.addEventListener('deviceorientation', function(event) {
+  const beta = event.beta * (Math.PI / 180); // Conversion en radians
+  const gamma = event.gamma;
   const correctedGamma = gamma / Math.cos(beta);
 
   console.log("correctedGamma :", parseInt(gammaCorrected));
