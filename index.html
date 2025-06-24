@@ -661,8 +661,8 @@ if (navigator.geolocation) {
 );
 
 function stopTheBoat(){
-        if(ultrasonicServer.connected && autoPilotOn){
-          if (windModeState.textContent === "Off") {
+    if(ultrasonicServer.connected && autoPilotOn){
+           if (windModeState.textContent === "Off") {
                 windModeState.textContent = "On";
                 windModeToggle.classList.add('on');
             }
@@ -673,9 +673,9 @@ function stopTheBoat(){
             if(targetHeading>=360)targetHeading-=360;
             targetHeadingContainer.innerHTML=targetHeading;
             sendCommand("targetHeading,"+targetHeading);
-          }
-        }
+    }
 }
+
     
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
