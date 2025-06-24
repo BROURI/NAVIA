@@ -670,7 +670,8 @@ function stopTheBoat(){
             }
             targetWindAngle=0;
             targetWindAngleContainer.innerHTML=targetWindAngle;
-            targetHeading+=filteredWindAngle;
+        
+            targetHeading+=parseInt(filteredWindAngle);
             if(targetHeading<0)targetHeading+=360;
             if(targetHeading>=360)targetHeading-=360;
             targetHeadingContainer.innerHTML=targetHeading;
