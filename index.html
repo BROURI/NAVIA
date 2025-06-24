@@ -660,7 +660,23 @@ if (navigator.geolocation) {
 
 );
 
-
+function stopTheBoat(){
+        if(ultrasonicServer.connected && autoPilotOn){
+          if (windModeState.textContent === "Off") {
+                windModeState.textContent = "On";
+                windModeToggle.classList.add('on');
+            }
+            targetWindAngle=0;
+            targetWindAngleContainer.innerHTML=targetWindAngle;
+            targetHeading+=filteredWindAngle;
+            if(targetHeading<0)targetHeading+=360;
+            if(targetHeading>=360)targetHeading-=360;
+            targetHeadingContainer.innerHTML=targetHeading;
+            sendCommand("targetHeading,"+targetHeading);
+          }
+        }
+}
+    
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
             targetHeading = finalHeading;
@@ -964,7 +980,7 @@ setInterval(() => {
               windCorrection=1;
               sendCommand("plus1");
               targetHeading+=1;
-              if(targetHeading>360)targetHeading-=360;
+              if(targetHeading>=360)targetHeading-=360;
               targetHeadingContainer.innerHTML=targetHeading;
           }
         }
