@@ -323,7 +323,7 @@ if (window.DeviceOrientationEvent) {
   const gamma = event.gamma;
   const correctedGamma = gamma / Math.cos(beta);
 
-  console.log("correctedGamma :", parseInt(gammaCorrected));
+  console.log("correctedGamma :", parseInt(correctedGamma));
         pitch = event.beta;
     console.log("pitch beta "+ pitch);
         heel= Math.round(event.gamma);
