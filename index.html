@@ -320,25 +320,10 @@ var filteredHeel=0.0;
 if (window.DeviceOrientationEvent) {
   window.addEventListener('deviceorientation', function(event) {
 
-
-  // Conversion en radians
-  const alpha = event.alpha * (Math.PI / 180);
-  const beta = event.beta * (Math.PI / 180);
-  const gamma = event.gamma * (Math.PI / 180);
-  
-  // Nouveau gamma calculé différemment
-  const newGamma = Math.atan2(
-    Math.sin(gamma) * Math.cos(beta),
-    Math.cos(gamma)
-  ) * (180 / Math.PI);
-  
-  console.log("Nouveau gamma transformé:", newGamma);
-
-
-        pitch = event.beta;
-        console.log("pitch beta "+ pitch);
-        heel= Math.round(event.gamma);
-        console.log("heel gamma "+heel);
+        const beta = Math.round(event.beta);
+        if(beta>90)heel =180-beta;
+        if(beta<-90)heel =-180-beta;
+        console.log("heel "+ heel);
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
         if(heading == 360)heading=0; 
