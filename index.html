@@ -319,9 +319,9 @@ var filteredHeel=0.0;
     
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
-        heel = event.beta;
+        pitch = event.beta;
+        heel= Math.round(event.gamma);
         filteredHeel = filteredHeel * 0.99 + heel *0.01;
-        pitch = Math.round(event.gamma);
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
         if(heading == 360)heading=0; 
