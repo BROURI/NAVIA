@@ -299,7 +299,7 @@ var relativeAbsoluteCorrection=0;
 var heading;
 var absoluteHeading;
 var pitch;
-var heel;
+var heel=0;
 var cog;
 var headingCorrection=0;
 var absoluteHeadingCorrection=0;
@@ -322,7 +322,8 @@ if (window.DeviceOrientationEvent) {
 
         const beta = Math.round(event.beta);
         if(beta>90)heel =180-beta;
-        if(beta<-90)heel =-180-beta;
+        else if(beta<-90)heel =-180-beta;
+        else heel = beta;
         console.log("heel "+ heel);
         filteredHeel =filteredHeel*0.99 + heel* 0.01;
         console.log( "filteredHeel "+filteredHeel);
