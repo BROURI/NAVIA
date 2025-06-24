@@ -320,7 +320,7 @@ var filteredHeel=0.0;
 if (window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', function(event) {
         heel = event.beta;
-        filteredHeel = filteredHeel * 0.9 + heel *0.1;
+        filteredHeel = filteredHeel * 0.99 + heel *0.01;
         pitch = Math.round(event.gamma);
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
@@ -951,7 +951,7 @@ setInterval(() => {
         }
         //console.log("peakPeriod "+ peakPeriod);
         //console.log("kp "+ kp);
-        console.log("pitch "+ pitch);
+        //console.log("pitch "+ pitch);
         console.log("filteredHeel "+ Math.round(filteredHeel));
         //console.log("heading "+ heading);
         //console.log("correctedHeading "+ correctedHeading);
