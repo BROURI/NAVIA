@@ -173,8 +173,6 @@ button {
                 <label for = "autotune"<span>Autotune</span></label>
                 <input type="checkbox" id="autotune" checked>
                 <br><br>
-                <span onclick="stopTheBoat()">Stop the boat </span>
-                <br><br>
                 <label for ="motorReverse" <span>Motor Reverse</span></label>
                 <input type="checkbox" id="motorReverse">
                 <br><br>
@@ -199,10 +197,11 @@ button {
                 <input type="text" id="maxWindAngle" name="maxWindAngle" min="-180" max="180" required>
                 <br><br>
                 <button type="submit" class="toggleButton" id="windAngleAlertToggle"><span id="windAngleAlertState">Disabled</span></button>
-
             </div>
             
-
+            <div class="card">
+                <button type="submit" class="toggleButton" <span onclick="stopTheBoat()">Stop the boat</span></button>
+            </div>
 
         </div>
     </div>
