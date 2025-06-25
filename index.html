@@ -149,11 +149,21 @@ button {
                 
             </div>
             <div class="card">
-                <h2 onclick="applyRelativeAbsoluteCorrection()">Heading</h2>
-                <p class="reading"><span id="heading">-</span></p>
-    
-                <h2>Target</h2>
-                <p class="reading"><span id="targetHeadingContainer">-</span></p>
+
+<!-- Heading + Target Heading -->
+<div class="dual-display-container">
+    <div>
+        <h2 onclick="applyRelativeAbsoluteCorrection()">Heading</h2>
+        <p class="reading"><span id="heading">-</span></p>
+        <span id="filteredMagneticDeclinationContainer">-</span>
+        <span id="finalAbsoluteHeadingContainer">-</span>
+    </div>
+    <div>
+        <h2>Target Heading</h2>
+        <p class="reading"><span id="targetHeadingContainer">-</span></p>
+    </div>
+</div>
+                
                 <span id="filteredMagneticDeclinationContainer">-</span></p>
                 <span id="finalAbsoluteHeadingContainer">-</span></p>
             </div>
