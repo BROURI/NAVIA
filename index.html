@@ -130,10 +130,17 @@ button {
                 <br>
                 <input id = "connectToSensorCheckBox" type="checkbox" onclick="connectToSensor()">
                 
-                <h2>Wind Speed</h2>
-                <p class="reading"><span id="windSpeedContainer">-</span></p>
-                <h2>Max Wind Speed</h2>
-                <p class="reading"><span id="maxWindSpeed">-</span></p>
+                <!-- Wind Speed + Max Wind Speed -->
+<div class="dual-display-container">
+    <div>
+        <h2>Wind Speed</h2>
+        <p class="reading"><span id="windSpeedContainer">-</span></p>
+    </div>
+    <div>
+        <h2>Max Wind Speed</h2>
+        <p class="reading"><span id="maxWindSpeed">-</span></p>
+    </div>
+</div>
                 
 <div class="dual-display-container">
     <div>
