@@ -97,6 +97,17 @@ button {
 .toggleButton.on {
     background-color: #4CAF50; /* Couleur quand activé */
 }
+.dual-display-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dual-display-container > div {
+    flex: 1;
+    margin: 0 10px;
+}
 </style>
     <meta charset="UTF-8">
 </head>
@@ -123,10 +134,24 @@ button {
                 <p class="reading"><span id="windSpeedContainer">-</span></p>
                 <h2>Max Wind Speed</h2>
                 <p class="reading"><span id="maxWindSpeed">-</span></p>
+                <!--
                 <h2>Wind Angle</h2>
                 <p class="reading"><span id="windAngle">-</span></p>
                 <h2>Target Wind Angle</h2>
                 <p class="reading"><span id="targetWindAngleContainer">-</span></p>
+                -->
+                <!-- Wind Angle + Target Wind Angle -->
+<div class="dual-display-container">
+    <div>
+        <h2>Wind Angle</h2>
+        <p class="reading"><span id="windAngle">-</span></p>
+    </div>
+    <div>
+        <h2>Target Wind Angle</h2>
+        <p class="reading"><span id="targetWindAngleContainer">-</span></p>
+    </div>
+</div>
+
                 
             </div>
             <div class="card">
