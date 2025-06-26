@@ -119,7 +119,7 @@ button {
         <div class="card-grid">
             <div class="card">
                 <p>
-                    <button id="connectBleButton" class="connectButton"> Connect   </button>
+                    <button id="connectBleButton" class="connectButton"> Connect </button>
                     <button id="disconnectBleButton" class="disconnectButton"> Disconnect</button>
                 </p>
                 <p class="gray-label"><strong><span style="color: #F44336;" id="bleState">Disconnected</span></strong></p>
@@ -128,59 +128,44 @@ button {
         <div class="card-grid">
             <div class="card">
                 <br>
-                <input id = "connectToSensorCheckBox" type="checkbox" onclick="connectToSensor()">
-                
-                <!-- Wind Speed + Max Wind Speed -->
-<div class="dual-display-container">
-    <div>
-        <h2>AWS</h2>
-        <p class="reading"><span id="windSpeedContainer">-</span></p>
-    </div>
-    <div>
-        <h2>Max</h2>
-        <p class="reading"><span id="maxWindSpeed">-</span></p>
-    </div>
-</div>
-                
-<div class="dual-display-container">
-    <div>
-        <h2>AWA</h2>
-        <p class="reading"><span id="windAngle">-</span></p>
-    </div>
-    <div>
-        <h2>Target</h2>
-        <p class="reading"><span id="targetWindAngleContainer">-</span></p>
-    </div>
-</div>
-
-                
+                <input id="connectToSensorCheckBox" type="checkbox" onclick="connectToSensor()">
+                <div class="dual-display-container">
+                    <div>
+                        <h2>AWS</h2>
+                        <p class="reading"><span id="windSpeedContainer">-</span></p>
+                    </div>
+                    <div>
+                        <h2>Max</h2>
+                        <p class="reading"><span id="maxWindSpeed">-</span></p>
+                    </div>
+                </div>
+                <div class="dual-display-container">
+                    <div>
+                        <h2>AWA</h2>
+                        <p class="reading"><span id="windAngle">-</span></p>
+                    </div>
+                    <div>
+                        <h2>Target</h2>
+                        <p class="reading"><span id="targetWindAngleContainer">-</span></p>
+                    </div>
+                </div>
             </div>
             <div class="card">
-
-<!-- Heading + Target Heading -->
-<div class="dual-display-container">
-    <div>
-        <h2 onclick="applyRelativeAbsoluteCorrection()">Heading</h2>
-        <p class="reading"><span id="heading">-</span></p>
-    </div>
-    <div>
-        <h2>Target</h2>
-        <p class="reading"><span id="targetHeadingContainer">-</span></p>
-    </div>
-    
-</div>
-                <p <span id="filteredMagneticDeclinationContainer">-</span></p>
-   <p <span id="finalAbsoluteHeadingContainer">-</span></p>
-                
+                <div class="dual-display-container">
+                    <div>
+                        <h2 onclick="applyRelativeAbsoluteCorrection()">Heading</h2>
+                        <p class="reading"><span id="heading">-</span></p>
+                    </div>
+                    <div>
+                        <h2>Target</h2>
+                        <p class="reading"><span id="targetHeadingContainer">-</span></p>
+                    </div>
+                </div>
+                <p><span id="filteredMagneticDeclinationContainer">-</span></p>
+                <p><span id="finalAbsoluteHeadingContainer">-</span></p>
             </div>
-            <div class="card" style="display: none;">
-                <h2>COG</h2>
-            <p class="reading"><span id="cog">-</span></p>
-            </div>            
             <div class="card">
-                
                 <h2>Pilot Control</h2>
-               
                 <button id="minus1Button" class="pilotButton">-1</button>
                 <button id="plus1Button" class="pilotButton">+1</button>
                 <br><br>
@@ -197,25 +182,24 @@ button {
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
                 <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
                 <br><br>
-                <label for="pSlider">P Gain: <span id="pGain">7</span> </label>
-                <input type="range" id="pSlider"  oninput="pGain.textContent=this.value" min="0" max="10" value="7" step="0.1">
+                <label for="pSlider">P Gain: <span id="pGain">7</span></label>
+                <input type="range" id="pSlider" oninput="pGain.textContent=this.value" min="0" max="10" value="7" step="0.1">
                 <br><br>
                 <label for="dSlider">D Gain: <span id="dGain">500</span></label>
-                <input type="range" id="dSlider"  oninput="dGain.textContent=this.value" min="0" max="800" value="500" step="1">
+                <input type="range" id="dSlider" oninput="dGain.textContent=this.value" min="0" max="800" value="500" step="1">
                 <br><br>
                 <label for="reactivitySlider">Reactivity: <span id="reactivity">0.5</span></label>
-                <input type="range" id="reactivitySlider"  oninput="reactivity.textContent=this.value" min="0.05" max="1" value="0.5" step="0.05">
+                <input type="range" id="reactivitySlider" oninput="reactivity.textContent=this.value" min="0.05" max="1" value="0.5" step="0.05">
                 <br><br>
                 <label for="motorSpeed">Motor Speed: <span id="motorSpeed">200</span></label>
-                <input type="range" id="motorSpeedSlider"  oninput="motorSpeed.textContent=this.value" min="50" max="255" value="200" step="1">
+                <input type="range" id="motorSpeedSlider" oninput="motorSpeed.textContent=this.value" min="50" max="255" value="200" step="1">
                 <br><br>
-                <label for = "autotune"<span>Autotune</span></label>
+                <label for="autotune"><span>Autotune</span></label>
                 <input type="checkbox" id="autotune" checked>
                 <br><br>
-                <label for ="motorReverse" <span>Motor Reverse</span></label>
+                <label for="motorReverse"><span>Motor Reverse</span></label>
                 <input type="checkbox" id="motorReverse">
                 <br><br>
-                
             </div>
             <div class="card">
                 <h2>Heading alert</h2>
@@ -231,23 +215,21 @@ button {
                 <h2>Wind angle alert</h2>
                 <label for="minWindAngle">Min angle</label>
                 <input type="text" id="minWindAngle" name="minWindAngle" min="-180" max="180" required>
-               
                 <label for="maxWindAngle">Max angle</label>
                 <input type="text" id="maxWindAngle" name="maxWindAngle" min="-180" max="180" required>
                 <br><br>
                 <button type="submit" class="toggleButton" id="windAngleAlertToggle"><span id="windAngleAlertState">Disabled</span></button>
             </div>
-            
             <div class="card">
-                <button type="submit" style="background-color: orange;" class="toggleButton" <span onclick="stopTheBoat()">Stop the boat</span></button>
+                <button type="submit" style="background-color: orange;" class="toggleButton" onclick="stopTheBoat()">Stop the boat</button>
             </div>
-
         </div>
     </div>
     <div class="footer">
         <p><a>Created by Tahar BROURI</a></p>
     </div>
 </body>
+
 <script>
 /// service worker
 if ('serviceWorker' in navigator) {
