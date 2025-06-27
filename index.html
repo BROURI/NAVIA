@@ -145,7 +145,7 @@ button {
                         <p class="reading"><span id="windAngle">-</span></p>
                     </div>
                     <div>
-                        <h2><span onclick="targetWindAngle--;">- </span>Target<span onclick="targetWindAngle++;"> +</span></h2>
+                        <h2><span onclick="targetWindAngle--;targetWindAngleContainer.innerHTML=targetWindAngle;">- </span>Target<span onclick="targetWindAngle++;targetWindAngleContainer.innerHTML=targetWindAngle;"> +</span></h2>
                         <p class="reading"><span id="targetWindAngleContainer">-</span></p>
                     </div>
                 </div>
