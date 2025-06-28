@@ -1010,14 +1010,41 @@ setInterval(() => {
     }
     },50);
 
+
+    function weightedAverageWindAngles(angle1, weight1, angle2, weight2) {
+    // Conversion des angles en radians
+    const rad1 = angle1 * Math.PI / 180;
+    const rad2 = angle2 * Math.PI / 180;
+    
+    // Calcul des composantes x et y pondérées
+    const x1 = Math.cos(rad1) * weight1;
+    const y1 = Math.sin(rad1) * weight1;
+    const x2 = Math.cos(rad2) * weight2;
+    const y2 = Math.sin(rad2) * weight2;
+    
+    // Somme des composantes pondérées
+    const sumX = x1 + x2;
+    const sumY = y1 + y2;
+    
+    // Calcul de l'angle moyen pondéré en radians
+    const avgRad = Math.atan2(sumY, sumX);
+    
+    // Conversion en degrés et normalisation entre -180 et 180
+    let avgDeg = avgRad * 180 / Math.PI;
+    avgDeg = (avgDeg + 180) % 360 - 180;
+    
+    return avgDeg;
+}
+
     // windmode loop
     let windError=0;
     let windCorrection =0;
     let filteredWindAngle=0.0;
     setInterval(() => {
-        if(!isNaN(windAngle)&& windSpeed >=1)filteredWindAngle = 0.4 * windAngle + 0.6 * filteredWindAngle;
-        //console.log("filteredWindAngle "+ filteredWindAngle);
-        //console.log("windAngle "+ windAngle);
+        if(!isNaN(windAngle)&& windSpeed >=1)
+            filteredWindAngle = weightedAverageWindAngles(windAngle, 0.4, filteredWindAngle, 0.6);
+        console.log("filteredWindAngle "+ filteredWindAngle);
+
 
     if(autoPilotOn && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
 
