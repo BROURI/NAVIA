@@ -808,6 +808,24 @@ autoPilotToggle.addEventListener('click', async () => {
             targetHeading=parseInt(value.replace("targetHeading",""));
             targetHeadingContainer.innerHTML=targetHeading;
         }
+        else if(value == "autoPilotOn") {
+            autoPilotState.textContent = "Auto";
+            autoPilotToggle.classList.add('on');
+            autoPilotOn = true;
+        }
+        else if(value == "autoPilotOff") {
+            autoPilotState.textContent = "Standby";
+            autoPilotToggle.classList.remove('on');
+            autoPilotOn = false;
+        }
+        else if(value == "windModeOn") {
+            windModeState.textContent = "On";
+            windModeToggle.classList.add('on');
+        }
+        else if(value == "windModeOff") {
+            windModeState.textContent = "Off";
+            windModeToggle.classList.remove('on');
+        }
     }
 
     function onDisconnected(event) {
