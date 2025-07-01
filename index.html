@@ -1048,11 +1048,8 @@ setInterval(() => {
     setInterval(() => {
         if(!isNaN(windAngle)&& windSpeed >=1)
             filteredWindAngle = weightedAverageWindAngles(windAngle, 0.4, filteredWindAngle, 0.6);
-        console.log("filteredWindAngle "+ filteredWindAngle);
-
-
+            //console.log("filteredWindAngle "+ filteredWindAngle);
     if(autoPilotOn && windModeState.textContent =="On" &&  ultrasonicServer.connected && windSpeed >= 2){
-
           windError=targetWindAngle-filteredWindAngle;
           if (windError > 180) windError -= 360;
           if (windError < -180) windError += 360;
