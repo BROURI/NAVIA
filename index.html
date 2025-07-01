@@ -969,7 +969,7 @@ let lastValueTypeSent="";
     }
     
     setInterval(() => {
-        if(autoPilotOn){
+        if(autoPilotOn && headingSource.checked){
             writeOnCharacteristic(finalHeading,"heading");
         }
     },50);
