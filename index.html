@@ -782,26 +782,24 @@ autoPilotToggle.addEventListener('click', async () => {
     .then(service => {
         bleServiceFound = service;
         console.log("Service discovered:", service.uuid);
-        return bleServiceFound.getCharacteristic(commandCharacteristic); 
+        return bleServiceFound.getCharacteristic(sensorCharacteristic); 
     })
     .then(characteristic => {
-        console.log("Characteristic discovered:", characteristic.uuid);
-        // S'abonner aux notifications
-        return characteristic.startNotifications().then(() => {
-            console.log("Notifications started for characteristic:", characteristic.uuid);
-            // Ajouter un gestionnaire d'événements pour les notifications
-            characteristic.addEventListener("characteristicvaluechanged", event => {
-                 const characteristic = event.target; 
-                const value = characteristic.value; 
-                const decoder = new TextDecoder('utf-8');
-                const decodedValue = decoder.decode(value);
-                console.log('Notification received:', decodedValue);
-        });
-        });
-    })
-    .catch(error => {
-        console.log('Error: ', error);
-    });
+            console.log("Characteristic discovered:", characteristic.uuid);
+            sensorCharacteristicFound = characteristic;
+            characteristic.addEventListener('characteristicvaluechanged', handleCharacteristicChange);
+            characteristic.startNotifications();
+            console.log("Notifications Started.");
+            return characteristic.readValue();
+        })
+        .then(value => {
+            console.log("Read value: ", value);
+            const decodedValue = new TextDecoder().decode(value);
+            console.log("Decoded value: ", decodedValue);
+        })
+        .catch(error => {
+            console.log('Error: ', error);
+        })
     }
 
 
