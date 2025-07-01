@@ -802,8 +802,11 @@ autoPilotToggle.addEventListener('click', async () => {
     }
     
     function handleCharacteristicChange(event){
-        const newValueReceived = new TextDecoder().decode(event.target.value);
-        console.log("Characteristic value changed: ", newValueReceived);
+        const value = new TextDecoder().decode(event.target.value);
+        console.log("Characteristic value changed: ", value);
+        if(value.startsWith("targetHeading"){
+            console.log(parseInt(value.replace("targetHeading","")));
+        }
     }
 
     function onDisconnected(event) {
