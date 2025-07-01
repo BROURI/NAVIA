@@ -183,6 +183,12 @@ button {
                 <br>
                 <button type="submit" class="toggleButton" id="autoPilotToggle">Auto Pilot <span id="autoPilotState">Standby</span></button>
                 <br>
+                <label for="headingSource"><span>Heading Source</span></label>
+                <input id="headingSource" type="checkbox" checked>
+                <br>
+                <label for="autotune"><span>Autotune</span></label>
+                <input type="checkbox" id="autotune" checked>
+                <br>
                 <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
                 <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
                 <br>
@@ -197,9 +203,6 @@ button {
                 <br>
                 <label for="motorSpeed">Motor Speed: <span id="motorSpeed">200</span></label>
                 <input type="range" id="motorSpeedSlider" oninput="motorSpeed.textContent=this.value" min="50" max="255" value="200" step="1">
-                <br>
-                <label for="autotune"><span>Autotune</span></label>
-                <input type="checkbox" id="autotune" checked>
                 <br>
                 <label for="motorReverse"><span>Motor Reverse</span></label>
                 <input type="checkbox" id="motorReverse">
