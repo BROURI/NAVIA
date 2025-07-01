@@ -348,9 +348,9 @@ if (window.DeviceOrientationEvent) {
         if(beta>90)heel =180-beta;
         else if(beta<-90)heel =-180-beta;
         else heel = beta;
-        console.log("heel "+ heel);
+        //console.log("heel "+ heel);
         filteredHeel =filteredHeel*0.99 + heel* 0.01;
-        console.log( "filteredHeel "+filteredHeel);
+        //console.log( "filteredHeel "+filteredHeel);
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
         if(heading == 360)heading=0; 
