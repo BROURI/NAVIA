@@ -805,7 +805,8 @@ autoPilotToggle.addEventListener('click', async () => {
         const value = new TextDecoder().decode(event.target.value);
         console.log("Characteristic value changed: ", value);
         if(value.startsWith("targetHeading")){
-            console.log(parseInt(value.replace("targetHeading","")));
+            targetHeading=parseInt(value.replace("targetHeading",""));
+            targetHeadingContainer.innerHTML=targetHeading;
         }
     }
 
