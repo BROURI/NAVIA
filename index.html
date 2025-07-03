@@ -815,6 +815,12 @@ autoPilotToggle.addEventListener('click', async () => {
             autoPilotState.textContent = "Auto";
             autoPilotToggle.classList.add('on');
             autoPilotOn = true;
+            if (headingSource.checked){
+                targetHeading = finalHeading;
+                await sendCommand("targetHeading,"+targetHeading);
+                targetHeadingContainer.innerHTML = targetHeading;
+                valueSentPilot.innerHTML  = targetHeading;
+            }
         }
         else if(value == "autoPilotOff") {
             autoPilotState.textContent = "Standby";
