@@ -736,16 +736,16 @@ function stopTheBoat(){
     
 autoPilotToggle.addEventListener('click', async () => {
     if(autoPilotState.textContent == "Standby") {
-            targetHeading = finalHeading;
-            await sendCommand(targetHeading);
+            if (headingSource.checked){
+                targetHeading = finalHeading;
+                await sendCommand(targetHeading);
+                targetHeadingContainer.innerHTML = targetHeading;
+                valueSentPilot.innerHTML  = targetHeading;
+            }
             await sendCommand("autoPilotOn");
-            targetHeadingContainer.innerHTML = targetHeading;
-            valueSentPilot.innerHTML  = targetHeading;
-    
     } else {
             await sendCommand("autoPilotOff");
             targetHeadingContainer.innerHTML = "";
-
     }
 });
 
