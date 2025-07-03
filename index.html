@@ -739,6 +739,7 @@ autoPilotToggle.addEventListener('click', async () => {
             if (headingSource.checked){
                 targetHeading = finalHeading;
                 await sendCommand(targetHeading);
+                await sendCommand("targetHeading,"+targetHeading);
                 targetHeadingContainer.innerHTML = targetHeading;
                 valueSentPilot.innerHTML  = targetHeading;
             }
