@@ -5,7 +5,7 @@
     <link rel="icon" href="/NAVIA/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-html {
+html {na
     font-family: Arial, Helvetica, sans-serif;
     display: inline-block;
     text-align: center;
@@ -813,14 +813,16 @@ autoPilotToggle.addEventListener('click', async () => {
             targetHeadingContainer.innerHTML=targetHeading;
         }
         else if(value == "autoPilotOn") {
-            autoPilotState.textContent = "Auto";
-            autoPilotToggle.classList.add('on');
-            autoPilotOn = true;
-            if (headingSource.checked){
-                targetHeading = finalHeading;
-                await sendCommand("targetHeading,"+targetHeading);
-                targetHeadingContainer.innerHTML = targetHeading;
-                valueSentPilot.innerHTML  = targetHeading;
+            if(!autoPilotOn){
+                autoPilotState.textContent = "Auto";
+                autoPilotToggle.classList.add('on');
+                autoPilotOn = true;
+                if (headingSource.checked){
+                    targetHeading = finalHeading;
+                    await sendCommand("targetHeading,"+targetHeading);
+                    targetHeadingContainer.innerHTML = targetHeading;
+                    valueSentPilot.innerHTML  = targetHeading;
+                }
             }
         }
         else if(value == "autoPilotOff") {
