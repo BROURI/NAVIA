@@ -695,7 +695,7 @@ if (navigator.geolocation) {
 
 );
 
-function stopTheBoat(){
+async function stopTheBoat(){
     if(ultrasonicServer != null && ultrasonicServer.connected && autoPilotOn){
            if (windModeState.textContent === "Off") {
                 windModeState.textContent = "On";
@@ -708,24 +708,24 @@ function stopTheBoat(){
             if(targetHeading<0)targetHeading+=360;
             if(targetHeading>=360)targetHeading-=360;
             targetHeadingContainer.innerHTML=targetHeading;
-            sendCommand("targetHeading,"+targetHeading);
+            await sendCommand("targetHeading,"+targetHeading);
     }
     else if (autoPilotOn){
         if(filteredHeel>5){
-            sendCommand("minus90");
+            await sendCommand("minus90");
             targetHeading-=90;
             if(targetHeading<0)targetHeading+=360;
             targetHeadingContainer.innerHTML=targetHeading;
         }
         else if(filteredHeel<-5){
-            sendCommand("plus90");
+            await sendCommand("plus90");
             targetHeading+=90;
             if(targetHeading>=360)targetHeading-=360;
             targetHeadingContainer.innerHTML=targetHeading;
         }
         else{
-            sendCommand("plus90");
-            sendCommand("plus90");
+            await sendCommand("plus90");
+            await sendCommand("plus90");
             targetHeading+=180;
             if(targetHeading>=360)targetHeading-=360;
             targetHeadingContainer.innerHTML=targetHeading;
