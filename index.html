@@ -1004,7 +1004,7 @@ let lastValueTypeSent="";
     var kpMin=5;
     
 setInterval(() => {
-    if(true){
+    if(headingSource.checked){
         error = correctedHeading - targetHeading;
         if(error>180) error-=360;
         else if(error<-180) error +=360;
