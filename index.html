@@ -346,8 +346,8 @@ var filteredHeel=0.0;
     
 if (window.DeviceOrientationEvent) {
   window.addEventListener('deviceorientation', function(event) {
-
-        const beta = Math.round(event.beta);
+        if(headingSource.checked){
+            const beta = Math.round(event.beta);
         if(beta>90)heel =180-beta;
         else if(beta<-90)heel =-180-beta;
         else heel = beta;
@@ -382,24 +382,26 @@ if (window.DeviceOrientationEvent) {
         if(relativeAbsoluteDiff<-180)relativeAbsoluteDiff+=360;
         finalRelativeAbsoluteDiff=relativeAbsoluteDiff;
         //console.log("finalRelativeAbsoluteDiff "+finalRelativeAbsoluteDiff);
+        }
+      
     }, false);
 
      window.addEventListener('deviceorientationabsolute', function(event) {
-        previousAbsoluteHeading=absoluteHeading;
-        absoluteHeading = 360 - Math.round(event.alpha); 
-        if(absoluteHeading == 360)absoluteHeading=0; 
-        absoluteHeadingDiff=previousAbsoluteHeading-absoluteHeading;
-        if(absoluteHeadingDiff>180)absoluteHeadingDiff-=360;
-        if(absoluteHeadingDiff<-180)absoluteHeadingDiff+=360;
-        if(Math.abs(absoluteHeadingDiff) > 150) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
-        correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
-        if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
-        finalAbsoluteHeading=correctedAbsoluteHeading;
-         finalAbsoluteHeadingContainer.innerHTML="MH "+finalAbsoluteHeading;
-         
+
+        if(headingSource.checked){
+            previousAbsoluteHeading=absoluteHeading;
+            absoluteHeading = 360 - Math.round(event.alpha); 
+            if(absoluteHeading == 360)absoluteHeading=0; 
+            absoluteHeadingDiff=previousAbsoluteHeading-absoluteHeading;
+            if(absoluteHeadingDiff>180)absoluteHeadingDiff-=360;
+            if(absoluteHeadingDiff<-180)absoluteHeadingDiff+=360;
+            if(Math.abs(absoluteHeadingDiff) > 150) absoluteHeadingCorrection = (absoluteHeadingCorrection+180)%360;
+            correctedAbsoluteHeading=absoluteHeading+absoluteHeadingCorrection;
+            if(correctedAbsoluteHeading >= 360) correctedAbsoluteHeading-=360;
+            finalAbsoluteHeading=correctedAbsoluteHeading;
+             finalAbsoluteHeadingContainer.innerHTML="MH "+finalAbsoluteHeading;
+        }
     }, false);
-    
-    
 } else {
     console.log("L'API DeviceOrientationEvent n'est pas supportée sur ce navigateur.");
 }
