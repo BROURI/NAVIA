@@ -192,8 +192,8 @@ button {
                 <label for="emergencyStop"><span>Emergency Stop</span></label>
                 <input id="emergencyStop" type="checkbox">
                 <br>
-                <p class="gray-label">Last value sent: <span id="valueSentPilot"></span></p>
-                <p class="gray-label">Last value sent: <span id="valueSentHeading"></span></p>
+                <p class="gray-label" style="display: none;">Last value sent: <span id="valueSentPilot"></span></p>
+                <p class="gray-label" style="display: none;">Last value sent: <span id="valueSentHeading"></span></p>
                 <br>
                 <label for="pSlider">P Gain: <span id="pGain">7</span></label>
                 <input type="range" id="pSlider" oninput="pGain.textContent=this.value" min="0" max="10" value="7" step="0.1">
