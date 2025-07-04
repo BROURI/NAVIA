@@ -817,6 +817,11 @@ autoPilotToggle.addEventListener('click', async () => {
             targetHeading=parseInt(value.replace("targetHeading",""));
             targetHeadingContainer.innerHTML=targetHeading;
         }
+
+        else if(value == "deviceDisconnected" && emergencyStop.checked && headingSource.checked && autoPilotOn) {
+            stopTheBoat();
+        }
+
         else if(value == "autoPilotOn") {
             if(!autoPilotOn){
                 autoPilotState.textContent = "Auto";
