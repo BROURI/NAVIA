@@ -146,9 +146,9 @@ button {
                     </div>
                     <div>
                         <h2>
-                            <span onclick="targetWindAngle--; targetWindAngleContainer.innerHTML=targetWindAngle;">< </span>
+                            <span onclick="updateTargetWindAngle(-1)"></span>
                             Target
-                            <span onclick="targetWindAngle++; targetWindAngleContainer.innerHTML=targetWindAngle;"> ></span>
+                            <span onclick="updateTargetWindAngle(1)"></span>
                         </h2>
                         <p class="reading"><span id="targetWindAngleContainer">-</span></p>
                     </div>
@@ -272,6 +272,14 @@ if ('serviceWorker' in navigator) {
                 });
         }
     }
+
+     async function updateTargetWindAngle(i){
+         targetWindAngle+=i;
+         if(targetWindAngle>180)targetWindAngle-=360;
+         else if(targetWindAngle<-180)targetWindAngle+=360;
+         targetWindAngleContainer.innerHTML=targetWindAngle;
+         await sendCommand("targetWindAngle"+targetWindAngle);
+     }
      async function connectToSensor() {
             if(connectToSensorCheckBox.checked){
                 try {
@@ -813,9 +821,15 @@ autoPilotToggle.addEventListener('click', async () => {
     async function handleCharacteristicChange(event){
         const value = new TextDecoder().decode(event.target.value);
         console.log("Characteristic value changed: ", value);
+        
         if(value.startsWith("targetHeading")){
             targetHeading=parseInt(value.replace("targetHeading",""));
             targetHeadingContainer.innerHTML=targetHeading;
+        }
+
+        if(value.startsWith("targetWindAngle")){
+            targetWindAngle=parseInt(value.replace("targetWindAngle",""));
+            targetWindAngleContainer.innerHTML=targetWindAngle;
         }
 
         else if(value == "deviceDisconnected" && emergencyStop.checked && headingSource.checked && autoPilotOn) {
