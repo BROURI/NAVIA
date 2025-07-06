@@ -1,7 +1,7 @@
 {
   "name": "NAVIA",
   "short_name": "NAVIA",
-  "start_url": "/NAVIA/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3367D6"
