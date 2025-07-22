@@ -164,6 +164,7 @@ button {
                         <h2>Target</h2>
                         <p class="reading"><span id="targetHeadingContainer">-</span></p>
                         <p><span id="filteredMagneticDeclinationContainer">-</span></p>
+                        <p><span id="vmgContainer">-</span></p>
                     </div>
                 </div>
             </div>
@@ -487,6 +488,7 @@ if (navigator.geolocation) {
             console.log("sog "+sog);
             console.log("filteredSog "+filteredSog);
             VMG = filteredSog * Math.cos(filteredWindAngle * (Math.PI / 180));
+            vmgContainer.innerHTML="VMG "+VMG;
             console.log("VMG  "+VMG);
             //console.log("cog "+ cog);
             //console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
