@@ -487,7 +487,7 @@ if (navigator.geolocation) {
 
             console.log("sog "+sog);
             console.log("filteredSog "+filteredSog);
-            VMG = filteredSog * Math.cos(filteredWindAngle * (Math.PI / 180));
+            VMG = (filteredSog * Math.cos(filteredWindAngle * (Math.PI / 180))).toFixed(1);
             vmgContainer.innerHTML="VMG "+VMG;
             console.log("VMG  "+VMG);
             //console.log("cog "+ cog);
