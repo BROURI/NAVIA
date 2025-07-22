@@ -144,6 +144,7 @@ button {
                     <div>
                         <h2>AWA</h2>
                         <p class="reading"><span id="windAngle">-</span></p>
+                        <p><span id="vmgContainer">-</span></p>
                     </div>
                     <div>
                         <h2>
@@ -164,7 +165,6 @@ button {
                         <h2>Target</h2>
                         <p class="reading"><span id="targetHeadingContainer">-</span></p>
                         <p><span id="filteredMagneticDeclinationContainer">-</span></p>
-                        <p><span id="vmgContainer">-</span></p>
                     </div>
                 </div>
             </div>
@@ -485,11 +485,11 @@ if (navigator.geolocation) {
             previousLon = newLon;
             filteredSog=alphaSog*sog + (1-alphaSog)*prevFilteredSog;
 
-            console.log("sog "+sog);
+            //console.log("sog "+sog);
             console.log("filteredSog "+filteredSog);
-            VMG = (filteredSog * Math.cos(filteredWindAngle * (Math.PI / 180))).toFixed(1);
-            vmgContainer.innerHTML="VMG "+VMG;
+            VMG = filteredSog * Math.cos(filteredWindAngle * (Math.PI / 180));
             console.log("VMG  "+VMG);
+            vmgContainer.innerHTML="VMG "+VMG.toFixed(1);
             //console.log("cog "+ cog);
             //console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
             
