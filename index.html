@@ -144,13 +144,14 @@ button {
                     <div>
                         <h2>AWA</h2>
                         <p class="reading"><span id="windAngle">-</span></p>
-                        <p><span id="vmgContainer">-</span></p>
+                        <p><span id="filteredSogContainer">-</span></p>
                     </div>
                     <div>
                         <h2>
                             <span onclick="updateTargetWindAngle(-1)"><</span>Target<span onclick="updateTargetWindAngle(1)">></span>
                         </h2>
                         <p class="reading"><span id="targetWindAngleContainer">-</span></p>
+                        <p><span id="vmgContainer">-</span></p>
                     </div>
                 </div>
             </div>
@@ -490,6 +491,8 @@ if (navigator.geolocation) {
             VMG = Math.abs(filteredSog * Math.cos(filteredWindAngle * (Math.PI / 180)));
             console.log("VMG  "+VMG);
             vmgContainer.innerHTML="VMG "+VMG.toFixed(1);
+            filteredSogContainer.innerHTML="SOG "+filteredSog.toFixed(1);
+
             //console.log("cog "+ cog);
             //console.log("finalAbsoluteHeading "+ finalAbsoluteHeading);
             
