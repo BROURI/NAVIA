@@ -376,7 +376,6 @@ if (window.DeviceOrientationEvent) {
         //console.log("headingDiff "+headingDiff);
          if(Math.abs(headingDiff)>150){
              headingCorrection = (headingCorrection+180)%360;
-            console.log("headingDiff>150");
          }
          correctedHeading=heading+headingCorrection;
          if(correctedHeading >= 360) correctedHeading-=360;
@@ -1244,5 +1243,6 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
