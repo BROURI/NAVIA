@@ -1119,14 +1119,14 @@ setInterval(() => {
           if (windError > 180) windError -= 360;
           if (windError < -180) windError += 360;
           console.log("windError "+ windError);
-          if(windError>10){
+          if(windError>5){
             windCorrection=-1;
             sendCommand("minus1");
             targetHeading-=1;
             if(targetHeading<0)targetHeading+=360;
             targetHeadingContainer.innerHTML=targetHeading;
           }
-          else if(windError<-10){
+          else if(windError<-5){
               windCorrection=1;
               sendCommand("plus1");
               targetHeading+=1;
@@ -1243,6 +1243,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
