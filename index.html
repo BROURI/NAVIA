@@ -61,6 +61,19 @@ button {
     cursor: pointer;
     border-radius: 4px;
 }
+
+.button-row {
+    display: flex;
+    justify-content: center; /* Center buttons in each row */
+    margin: 10px 0; /* Vertical space between rows */
+}
+
+.pilotButton {
+    flex: 1; /* Allow buttons to take equal width in the row */
+    margin: 0 5px; /* Space between buttons */
+    font-size: 2.0rem; /* Slightly smaller size for better fit */
+}
+
 .onButton{
     background-color: #1b8a94;
     font-size: 3.0rem;
@@ -171,8 +184,10 @@ button {
             </div>
             <div class="card">
                 <h2>Pilot Control</h2>
-                <button id="minus1Button" class="pilotButton">-1</button>
-                <button id="plus1Button" class="pilotButton">+1</button>
+                <div class="button-row">
+                    <button id="minus1Button" class="pilotButton">-1</button>
+                    <button id="plus1Button" class="pilotButton">+1</button>
+                </div>
                 <br>
                 <button id="minus10Button" class="pilotButton">-10</button>
                 <button id="plus10Button" class="pilotButton">+10</button>
@@ -1246,6 +1261,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
