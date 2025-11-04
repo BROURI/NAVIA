@@ -1211,15 +1211,8 @@ setInterval(() => {
             myMinHeading=minHeading;
             myMaxHeading=maxHeading;
             myHeading = finalHeading;
-            if(minHeading >maxHeading){
-                myMinHeading = minHeading-360;
-                 if(myHeading>180){
-                    myHeading = heading-360;
-                }
-            }
-            if(myHeading > myMaxHeading || myHeading < myMinHeading){
-                headingAlertAudio.play();
-            }
+            if(minHeading < maxHeading) return (myHeading > myHeading && myHeading < maxHeading);
+            return (myHeading > minHeading || myHeading < maxHeading);
         }
     }, 2000); 
 
@@ -1272,6 +1265,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
