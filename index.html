@@ -1211,8 +1211,8 @@ setInterval(() => {
             myMinHeading=minHeading;
             myMaxHeading=maxHeading;
             myHeading = finalHeading;
-            if(minHeading < maxHeading && myHeading > minHeading && myHeading < maxHeading)headingAlertAudio.play();
-            else (myHeading > minHeading || myHeading < maxHeading)headingAlertAudio.play();
+            if(!(minHeading < maxHeading && myHeading > minHeading && myHeading < maxHeading)
+            ||(myHeading > minHeading || myHeading < maxHeading))headingAlertAudio.play();
         }
     }, 2000); 
 
@@ -1265,6 +1265,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
