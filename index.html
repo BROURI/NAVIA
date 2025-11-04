@@ -90,14 +90,14 @@ button {
     background-color: #4CAF50;
     flex: 1; /* Allow buttons to take equal width in the row */
     margin: 0 5px; /* Space between buttons */
-    font-size: 2.0rem; /* Slightly smaller size for better fit */
+    font-size: 1.0rem; /* Slightly smaller size for better fit */
 }
 
 .disconnectButton{
     background-color: #F44336;
     flex: 1; /* Allow buttons to take equal width in the row */
     margin: 0 5px; /* Space between buttons */
-    font-size: 2.0rem; /* Slightly smaller size for better fit */
+    font-size: 1.0rem; /* Slightly smaller size for better fit */
 }
 .alertButton{
     background-color: #1b8a94;
@@ -141,8 +141,8 @@ button {
         <div class="card-grid">
             <div class="card">
                 <div class="button-row">
-                    <button id="connectBleButton" class="pilotButton">Connect</button>
-                    <button id="disconnectBleButton" class="pilotButton">Disconnect</button>
+                    <button id="connectBleButton" class="connectButton">Connect</button>
+                    <button id="disconnectBleButton" class="disconnectButton">Disconnect</button>
                 </div>
                 <p class="gray-label"><strong><span style="color: #F44336;" id="bleState">Disconnected</span></strong></p>
             </div>
@@ -1272,6 +1272,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
