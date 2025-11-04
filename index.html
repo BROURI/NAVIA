@@ -1210,7 +1210,7 @@ setInterval(() => {
             maxHeading = maxHeadingContainer.value;
             myMinHeading=minHeading;
             myMaxHeading=maxHeading;
-            myHeading = correctedHeading;
+            myHeading = finalHeading;
             if(minHeading >maxHeading){
                 myMinHeading = minHeading-360;
                  if(myHeading>180){
@@ -1272,6 +1272,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
