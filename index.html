@@ -406,7 +406,7 @@ if (window.DeviceOrientationEvent) {
         else heel = beta;
         //console.log("heel "+ heel);
         filteredHeel =filteredHeel*0.99 + heel* 0.01;
-        filteredHeelContainer.innerHTML =filteredHeel;
+        filteredHeelContainer.innerHTML =filteredHeel.toFixed(0);
         heelContainer.innerHTML=heel;
         //console.log( "filteredHeel "+filteredHeel);
         previousHeading=heading;
@@ -1283,6 +1283,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
