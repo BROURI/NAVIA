@@ -189,6 +189,18 @@ button {
                 </div>
             </div>
             <div class="card">
+                <div class="dual-display-container">
+                    <div>
+                        <h2>Heel</h2>
+                        <p class="reading"><span id="heelContainer">-</span></p>
+                    </div>
+                    <div>
+                        <h2>Filtered Heel</h2>
+                        <p class="reading"><span id="filteredHeelContainer">-</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
                 <h2>Pilot Control</h2>
                 <div class="button-row">
                     <button id="minus1Button" class="pilotButton">-1</button>
@@ -394,6 +406,8 @@ if (window.DeviceOrientationEvent) {
         else heel = beta;
         //console.log("heel "+ heel);
         filteredHeel =filteredHeel*0.99 + heel* 0.01;
+        filteredHeelContainer.innerHTML =filteredHeel;
+        heelContainer.innerHTML=heel;
         //console.log( "filteredHeel "+filteredHeel);
         previousHeading=heading;
         heading = 360 - Math.round(event.alpha); 
@@ -1269,6 +1283,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
