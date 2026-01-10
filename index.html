@@ -1200,7 +1200,7 @@ setInterval(() => {
                 pGain.textContent=kp;
                 pSlider.value = kp;
             }
-            if(kpPrev!=kp)sendCommand("pGain,"+pSlider.value);
+            if(kpPrev!=kp)sendCommand("pGain"+pSlider.value);
             kpPrev=kp;
         }
         
@@ -1283,6 +1283,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
