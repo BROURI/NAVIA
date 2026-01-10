@@ -717,10 +717,10 @@ if (navigator.geolocation) {
         targetHeadingContainer.innerHTML=targetHeading;
         sendCommand("plus90");
     });
-    dSlider.addEventListener('change', () => sendCommand("dGain,"+dSlider.value));
-    pSlider.addEventListener('change', () => sendCommand("pGain,"+pSlider.value));
-    reactivitySlider.addEventListener('change', () => sendCommand("reactivity,"+reactivitySlider.value));
-    motorSpeedSlider.addEventListener('change', () => sendCommand("motorSpeed,"+motorSpeedSlider.value));
+    dSlider.addEventListener('change', () => sendCommand("dGain"+dSlider.value));
+    pSlider.addEventListener('change', () => sendCommand("pGain"+pSlider.value));
+    reactivitySlider.addEventListener('change', () => sendCommand("reactivity"+reactivitySlider.value));
+    motorSpeedSlider.addEventListener('change', () => sendCommand("motorSpeed"+motorSpeedSlider.value));
 
     motorReverse.addEventListener('change', () => sendCommand("motorReverse"));
     autotune.addEventListener('change', () => {
@@ -1283,6 +1283,7 @@ window.addEventListener('click', preventSleep);
 </script>
 
 </html>
+
 
 
 
